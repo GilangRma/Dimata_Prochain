@@ -13,11 +13,9 @@ public interface RecordAdapter<R> {
 	 * 
 	 * @return Record object to be used as new record.
 	 */
-	R convertNewRecord();
 	/**
 	 * Convert to record
 	 * 
 	 * @return Record.
 	 */
-	R convertToRecord();
 }

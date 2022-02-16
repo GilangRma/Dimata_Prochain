@@ -73,10 +73,6 @@ public class Cash_Closing implements UpdateAvailable<Cash_Closing>, Persistable<
             return result;
         }
 
-        public static Builder createNewRecord(String cASH_CASHIER_ID2, String pAYMENT_TYPE2, String aMOUNT_RP2,
-                String aMOUNT_USD2) {
-            return null;
-        }
     }
 
     @Id
@@ -103,9 +99,6 @@ public class Cash_Closing implements UpdateAvailable<Cash_Closing>, Persistable<
         return result;
     }
 
-    public static String changeItOrNot(String payment_TYPE2, String payment_TYPE3) {
-        return null;
-    }
 
    @Override
    public boolean isNew() {

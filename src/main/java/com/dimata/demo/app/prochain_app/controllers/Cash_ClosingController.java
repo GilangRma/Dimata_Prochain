@@ -1,7 +1,7 @@
 package com.dimata.demo.app.prochain_app.controllers;
 
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
-import com.dimata.demo.app.prochain_app.forms.Cahs_ClosingForm;
+import com.dimata.demo.app.prochain_app.forms.Cash_ClosingForm;
 import com.dimata.demo.app.prochain_app.models.table.Cash_Closing;
 import com.dimata.demo.app.prochain_app.services.api.Cash_ClosingApi;
 
@@ -28,7 +28,7 @@ public class Cash_ClosingController {
     private static final String BASE_URL = "/maintainer/v1";
 
     @PostMapping(path = BASE_URL + "/cash_closing", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<Cash_Closing> maintainerAddCashClosing(@RequestBody Cahs_ClosingForm form) {
+    public Mono<Cash_Closing> maintainerAddCashClosing(@RequestBody Cash_ClosingForm form) {
        
         return cash_ClosingApi.createCash_Closing(form);
     }
@@ -46,7 +46,7 @@ public class Cash_ClosingController {
     }
 
     @PutMapping(path = BASE_URL + "/cash_closing/{CASH_CLOSING_ID}")
-    public Mono<Cash_Closing> maintainerUpdateCashClosing(@PathVariable("CASH_CLOSING_ID") long CASH_CLOSING_ID, @RequestBody Cahs_ClosingForm form) {
+    public Mono<Cash_Closing> maintainerUpdateCashClosing(@PathVariable("CASH_CLOSING_ID") long CASH_CLOSING_ID, @RequestBody Cash_ClosingForm form) {
         return cash_ClosingApi.updateCash_Closing(CASH_CLOSING_ID, form);
     }
 

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Cahs_ClosingForm implements RecordAdapter<Cahs_ClosingForm> {
+public class Cash_ClosingForm implements RecordAdapter<Cash_ClosingForm> {
 
         private long id;
         private String CASH_CASHIER_ID;
