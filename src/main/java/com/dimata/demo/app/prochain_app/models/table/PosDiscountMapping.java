@@ -50,7 +50,7 @@ public class PosDiscountMapping implements UpdateAvailable <PosDiscountMapping>,
         private String discountPct;
         private String discountValue;
         private Timestamp updateDate;
-       
+
 
 
         @Setter(AccessLevel.PRIVATE)

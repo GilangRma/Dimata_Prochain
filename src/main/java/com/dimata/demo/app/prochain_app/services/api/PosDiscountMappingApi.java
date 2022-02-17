@@ -17,14 +17,14 @@ import reactor.core.publisher.Mono;
 @Service
 public class PosDiscountMappingApi {
     @Autowired
-    private PosDiscountMappingCrude posDiscountMappingCrude;
+    private  PosDiscountMappingCrude posDiscountMappingCrude;
     @Autowired
 	private R2dbcEntityTemplate template;
 
     public Mono<PosDiscountMapping> createPosDiscountMapping(PosDiscountMappingForm form) {
         return Mono.just(form)
         .flatMap(f -> {
-            PosDiscountMappingCrude.Option option = posDiscountMappingCrude.initOption(f.convertNewRecord());
+            PosDiscountMappingCrude.Option option = PosDiscountMappingCrude.initOption(f.convertNewRecord());
             return Mono.just(option);
         })
         .flatMap(posDiscountMappingCrude::create);
@@ -57,7 +57,7 @@ public class PosDiscountMappingApi {
                 return z.getT2();
             })
             .flatMap(d -> {
-                PosDiscountMappingCrude.Option option = posDiscountMappingCrude.initOption(d.convertNewRecord());
+                PosDiscountMappingCrude.Option option = PosDiscountMappingCrude.initOption(d.convertNewRecord());
                 return Mono.just(option);
             })
             .flatMap(posDiscountMappingCrude::updateRecord);
