@@ -30,7 +30,7 @@ public class PosDiscountMappingApi {
         .flatMap(posDiscountMappingCrude::create);
     }
 
-    public Flux<PosDiscountMapping> getAllPosCatagory(CommonParam param) {
+    public Flux<PosDiscountMapping> getAllPosDiscountMapping(CommonParam param) {
         var sql = SelectQBuilder.builderWithCommonParam(PosDiscountMapping.TABLE_NAME, param)
             .build();
         return template.getDatabaseClient()
@@ -39,7 +39,7 @@ public class PosDiscountMappingApi {
             .all();
     }
 
-    public Mono<PosDiscountMapping> getPosCatagory(Long id) {
+    public Mono<PosDiscountMapping> getPosDiscountMapping(Long id) {
         var sql = SelectQBuilder.emptyBuilder(PosDiscountMapping.TABLE_NAME)
             .addWhere(WhereQuery.when(PosDiscountMapping.ID_COL).is(id))
             .build();
@@ -50,7 +50,7 @@ public class PosDiscountMappingApi {
             .one();
     }
 
-    public Mono<PosDiscountMapping> updatePosCatagory(Long id, PosDiscountMappingForm form) {
+    public Mono<PosDiscountMapping> updatePosDiscountMapping(Long id, PosDiscountMappingForm form) {
         return Mono.zip(Mono.just(id), Mono.just(form))
             .map(z -> {
                 z.getT2().setId(z.getT1());

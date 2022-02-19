@@ -28,22 +28,22 @@ public class PosDiscountMappingcontrollers {
     private static final String BASE_URL = "/maintainer/v1";
 
     @PostMapping(path = BASE_URL + "/pos_discount_mapping", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<PosDiscountMapping> maintainerAddPosCatagory(@RequestBody PosDiscountMappingForm form) {
+    public Mono<PosDiscountMapping> maintainerAddPosDiscountMapping(@RequestBody PosDiscountMappingForm form) {
         return posDiscountMappingApi.createPosDiscountMapping(form);
     }
 
     @GetMapping(path = BASE_URL + "/pos_discount_mapping")
-    public Flux<PosDiscountMapping> maintainerGetAllPosCatagory(CommonParam param) {
-        return posDiscountMappingApi.getAllPosCatagory(param);
+    public Flux<PosDiscountMapping> maintainerGetAllPosDiscountMapping(CommonParam param) {
+        return posDiscountMappingApi.getAllPosDiscountMapping(param);
     }
 
     @GetMapping(path = BASE_URL + "/pos_discount_mapping/{DISCOUNT_TYPE_ID}")
-    public Mono<PosDiscountMapping> maintainerGetPosCatagory(@PathVariable("DISCOUNT_TYPE_ID") Long DISCOUNT_TYPE_ID) {
-        return posDiscountMappingApi.getPosCatagory(DISCOUNT_TYPE_ID);
+    public Mono<PosDiscountMapping> maintainerGetPosDiscountMapping(@PathVariable("DISCOUNT_TYPE_ID") Long DISCOUNT_TYPE_ID) {
+        return posDiscountMappingApi.getPosDiscountMapping(DISCOUNT_TYPE_ID);
     }
 
     @PutMapping(path = BASE_URL + "/pos_discount_mapping/{DISCOUNT_TYPE_ID}")
-    public Mono<PosDiscountMapping> maintainerUpdatePosCatagory(@PathVariable("DISCOUNT_TYPE_ID") long DISCOUNT_TYPE_ID, @RequestBody PosDiscountMappingForm form) {
-        return posDiscountMappingApi.updatePosCatagory(DISCOUNT_TYPE_ID, form);
+    public Mono<PosDiscountMapping> maintainerUpdatePosDiscountMapping(@PathVariable("DISCOUNT_TYPE_ID") long DISCOUNT_TYPE_ID, @RequestBody PosDiscountMappingForm form) {
+        return posDiscountMappingApi.updatePosDiscountMapping(DISCOUNT_TYPE_ID, form);
     }
 }

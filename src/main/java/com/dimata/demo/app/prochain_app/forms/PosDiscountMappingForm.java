@@ -24,6 +24,7 @@ public class PosDiscountMappingForm implements RecordAdapter<PosDiscountMapping>
         return PosDiscountMapping.Builder.createNewRecord(discountPct, discountValue)
         .materialId(materialId)
         .currencyTypeId(currencyTypeId)
+        .updateDate(updateDate)
         .id(id)
         .build();
 
@@ -36,6 +37,7 @@ public class PosDiscountMappingForm implements RecordAdapter<PosDiscountMapping>
         .currencyTypeId(currencyTypeId)
         .discountPct(discountPct)
         .discountValue(discountValue)
+        .updateDate(updateDate)
         .id(id)
         .build();
     }

@@ -30,16 +30,18 @@ import lombok.experimental.Accessors;
 @Table
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
-public class PosDiscountMapping implements UpdateAvailable <PosDiscountMapping>, Persistable <Long> {
-    public static final String TABLE_NAME = "pos_discount_mapping ";
-    public static final String ID_COL = "DISCOUNT_TYPE_ID";
-    public static final String MATERIAL_ID_COL = "MATERIAL_ID";
-    public static final String CURRENCY_TYPE_ID_COL = "CURRENCY_TYPE_ID";
-    public static final String DISCOUNT_PCT_COL ="DISCOUNT_PCT";
-    public static final String DISCOUNT_VALUE_COL = "DISCOUNT_VALUE";
-    public static final String UPDATE_DATE_COL = "UPDATE_DATE";
+public class PosDiscountQtyMapping implements UpdateAvailable<PosDiscountQtyMapping>, Persistable<Long> {
     
+    public static final String TABLE_NAME = "pos_discount_qty_mapping ";
+    public static final String ID_COL = "DISCOUNT_TYPE_ID";
+    public static final String CURRENCY_TYPE_ID_COL = "CURRENCY_TYPE_ID";
+    public static final String LOCATION_ID_COL = "LOCATION_ID";
+    public static final String MATERIAL_ID_COL = "MATERIAL_ID";
+    public static final String START_QTY_COL ="START_QTY";
+    public static final String TO_QTY_COL = "TO_QTY";
+    public static final String DISCOUNT_VALUE_COL = "DISCOUNT_VALUE";
+    public static final String DISCOUNT_TYPE_COL = "DISCOUNT_TYPE";
+    public static final String UPDATE_DATE_COL = "UPDATE_DATE";
     
 
     @Accessors(fluent = true)
@@ -47,32 +49,36 @@ public class PosDiscountMapping implements UpdateAvailable <PosDiscountMapping>,
     public static class Builder {
 
         private Long  id;
-        private Long materialId;
         private Long currencyTypeId;
-        private String discountPct;
+        private Long locationId;
+        private Long materialId;
+        private String startQty;
+        private String toQty;
         private String discountValue;
-        private Timestamp updateDate;
-
-
+        private String discountType;
+        private Timestamp updateDate; 
 
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
-        public static Builder createNewRecord(String discountPct, String discountValue) {
+        public static Builder createNewRecord(String discountvalue, String discountType) {
             return new Builder().newRecord(true)
-                .discountPct(Objects.requireNonNull(discountPct, "discountPct diperlukan"))
-                .discountValue(Objects.requireNonNull(discountValue, "discountValue diperlukan"));
+                .discountValue(Objects.requireNonNull(discountvalue, "discountvalue diperlukan"))
+                .discountType(Objects.requireNonNull(discountType, "discountType diperlukan"));
                 
                 
         }
 
-        public static Builder updateBuilder(PosDiscountMapping oldRecord, PosDiscountMapping newRecord) {
+        public static Builder updateBuilder(PosDiscountQtyMapping oldRecord, PosDiscountQtyMapping  newRecord) {
             return new Builder()
                 .id(oldRecord.getId())
-                .materialId(changeItOrNot(newRecord.getMaterialId(), oldRecord.getMaterialId()))
                 .currencyTypeId(changeItOrNot(newRecord.getCurrencyTypeId(), oldRecord.getCurrencyTypeId()))
-                .discountPct(changeItOrNot(newRecord.getDiscountPct(), oldRecord.getDiscountPct()))
+                .locationId(changeItOrNot(newRecord.getLocationId(), oldRecord.getLocationId()))
+                .materialId(changeItOrNot(newRecord.getMaterialId(), oldRecord.getMaterialId()))
+                .startQty(changeItOrNot(newRecord.getStartQty(), oldRecord.getStartQty()))
+                .toQty(changeItOrNot(newRecord.getToQty(), oldRecord.getToQty()))
                 .discountValue(changeItOrNot(newRecord.getDiscountValue(), oldRecord.getDiscountValue()))
+                .discountType(changeItOrNot(newRecord.getDiscountType(), oldRecord.getDiscountType()))
                 .updateDate(changeItOrNot(newRecord.getUpdateDate(), oldRecord.getUpdateDate()));
         }
 
@@ -80,13 +86,16 @@ public class PosDiscountMapping implements UpdateAvailable <PosDiscountMapping>,
             return new Builder();
         }
 
-        public PosDiscountMapping  build() {
-            PosDiscountMapping  result = new PosDiscountMapping ();
+        public PosDiscountQtyMapping  build() {
+            PosDiscountQtyMapping  result = new PosDiscountQtyMapping();
             result.setId(id);
-            result.setMaterialId(materialId);
             result.setCurrencyTypeId(currencyTypeId);
-            result.setDiscountPct(discountPct);
+            result.setLocationId(locationId);
+            result.setMaterialId(materialId);
+            result.setStartQty(startQty);
+            result.setToQty(toQty);
             result.setDiscountValue(discountValue);
+            result.setDiscountType(discountType);
             result.setUpdateDate(updateDate);
             return result;
         }
@@ -95,10 +104,13 @@ public class PosDiscountMapping implements UpdateAvailable <PosDiscountMapping>,
     @Id
     @Column(ID_COL)
     private Long  id;
-    private Long materialId;
     private Long currencyTypeId;
-    private String discountPct;
+    private Long locationId;
+    private Long materialId;
+    private String startQty;
+    private String toQty;
     private String discountValue;
+    private String discountType;
     @JsonSerialize(converter = DateSerialize.class)
     private Timestamp updateDate;
     @Transient
@@ -107,14 +119,17 @@ public class PosDiscountMapping implements UpdateAvailable <PosDiscountMapping>,
 
     
 
-    public static PosDiscountMapping  fromRow(Row row) {
-        var result = new PosDiscountMapping ();
+    public static PosDiscountQtyMapping  fromRow(Row row) {
+        var result = new PosDiscountQtyMapping();
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
-        result.setDiscountPct(ManipulateUtil.parseRow(row, DISCOUNT_PCT_COL, String.class));
-        result.setDiscountValue(ManipulateUtil.parseRow(row, DISCOUNT_VALUE_COL, String.class));
-        result.setUpdateDate(ManipulateUtil.parseRow(row, UPDATE_DATE_COL, Timestamp.class));
-        result.setMaterialId(ManipulateUtil.parseRow(row, MATERIAL_ID_COL, Long.class));
         result.setCurrencyTypeId(ManipulateUtil.parseRow(row, CURRENCY_TYPE_ID_COL, Long.class));
+        result.setCurrencyTypeId(ManipulateUtil.parseRow(row, LOCATION_ID_COL, Long.class));
+        result.setMaterialId(ManipulateUtil.parseRow(row, MATERIAL_ID_COL, Long.class));
+        result.setStartQty(ManipulateUtil.parseRow(row, START_QTY_COL, String.class));
+        result.setToQty(ManipulateUtil.parseRow(row, TO_QTY_COL, String.class));
+        result.setDiscountValue(ManipulateUtil.parseRow(row, DISCOUNT_VALUE_COL, String.class));
+        result.setDiscountType(ManipulateUtil.parseRow(row, DISCOUNT_TYPE_COL, String.class));
+        result.setUpdateDate(ManipulateUtil.parseRow(row, UPDATE_DATE_COL, Timestamp.class));
         
         
         return result;
@@ -133,7 +148,7 @@ public class PosDiscountMapping implements UpdateAvailable <PosDiscountMapping>,
     }
 
     @Override
-    public PosDiscountMapping update(PosDiscountMapping  newData) {
+    public PosDiscountQtyMapping  update(PosDiscountQtyMapping  newData) {
         return Builder.updateBuilder(this, newData).build();
     }
 }

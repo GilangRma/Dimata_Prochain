@@ -64,8 +64,8 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
         public static Builder createNewRecord(String name, String code, String category) {
             return new Builder().newRecord(true)
                 .name(Objects.requireNonNull(name, "nama diperlukan"))
-                .category(Objects.requireNonNull(category, "nama diperlukan"))
-                .code(Objects.requireNonNull(code, "nama diperlukan"));
+                .category(Objects.requireNonNull(category, "category diperlukan"))
+                .code(Objects.requireNonNull(code, "code diperlukan"));
                 
                 
         }
