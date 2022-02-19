@@ -1,8 +1,8 @@
 package com.dimata.demo.app.prochain_app.services.dbHandler;
 
 import com.dimata.demo.app.prochain_app.core.api.DbHandlerBase;
-import com.dimata.demo.app.prochain_app.models.table.Cash_Master;
-import com.dimata.demo.app.prochain_app.services.repo.Cash_MasterRepo;
+import com.dimata.demo.app.prochain_app.models.table.Cash_ReturnPayment;
+import com.dimata.demo.app.prochain_app.services.repo.Cash_ReturnPaymentRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
@@ -14,18 +14,18 @@ import reactor.core.publisher.Mono;
 
 @Component
 @EqualsAndHashCode(callSuper = true)
-public class Cash_MasterDbHandler extends DbHandlerBase<Cash_Master, Long>{
-    
+public class Cash_ReturnPaymentDbHandler extends DbHandlerBase<Cash_ReturnPayment, Long> {
+
     @Autowired
-    private Cash_MasterRepo repo;
+    private Cash_ReturnPaymentRepo repo;
 
     @Override
-    protected R2dbcRepository<Cash_Master, Long> getRepository() {
+    protected R2dbcRepository<Cash_ReturnPayment, Long> getRepository() {
         return repo;
     }
 
     @Override
-    protected Mono<Cash_Master> setGenerateId(Cash_Master record) {
+    protected Mono<Cash_ReturnPayment> setGenerateId(Cash_ReturnPayment record) {
         return Mono.just(record)
             .map(z -> {
                 long id = getGenerateUtil().generateOID();
@@ -35,7 +35,7 @@ public class Cash_MasterDbHandler extends DbHandlerBase<Cash_Master, Long>{
     }
 
     @Override
-    protected Flux<Cash_Master> setGenerateIdBatch(Flux<Cash_Master> records) {
+    protected Flux<Cash_ReturnPayment> setGenerateIdBatch(Flux<Cash_ReturnPayment> records) {
         return records
             .map(rec -> {
                 long id = getGenerateUtil().generateOID();
@@ -43,4 +43,5 @@ public class Cash_MasterDbHandler extends DbHandlerBase<Cash_Master, Long>{
                 return rec;
             });
     }
+    
 }

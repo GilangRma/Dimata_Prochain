@@ -1,6 +1,7 @@
 package com.dimata.demo.app.prochain_app.models.table;
 
-import java.beans.Transient;
+import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
+
 
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -41,7 +43,7 @@ public class Cash_Closing implements UpdateAvailable<Cash_Closing>, Persistable<
     public static class Builder {
 
         private long id;
-        private String CASH_CASHIER_ID;
+        private long CASH_CASHIER_ID;
         private String PAYMENT_TYPE;
         private String AMOUNT_RP;
         private String AMOUNT_USD;
@@ -78,21 +80,21 @@ public class Cash_Closing implements UpdateAvailable<Cash_Closing>, Persistable<
     @Id
     @Column(ID_COL)
     private long id;
-    private String CASH_CASHIER_ID;
+    private long CASH_CASHIER_ID;
     private String PAYMENT_TYPE;
     private String AMOUNT_RP;
     private String AMOUNT_USD;
 
     @JsonSerialize(converter = DateSerialize.class)
 
-    @org.springframework.data.annotation.Transient
+    @Transient
     @JsonIgnore
     private Long insertId;
 
     public static Cash_Closing fromRow(Row row) {
         var result = new Cash_Closing();
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
-        result.setCASH_CASHIER_ID(ManipulateUtil.parseRow(row, CASH_CASHIER_ID_COL, String.class));
+        result.setCASH_CASHIER_ID(ManipulateUtil.parseRow(row, CASH_CASHIER_ID_COL, Long.class));
         result.setPAYMENT_TYPE(ManipulateUtil.parseRow(row, PAYMENT_TYPE_COL, String.class));
         result.setAMOUNT_RP(ManipulateUtil.parseRow(row, AMOUNT_RP_COL, String.class));
         result.setAMOUNT_USD(ManipulateUtil.parseRow(row, AMOUNT_USD_COL, String.class));  

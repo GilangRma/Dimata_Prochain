@@ -2,6 +2,7 @@ package com.dimata.demo.app.prochain_app.services.dbHandler;
 
 import com.dimata.demo.app.prochain_app.core.api.DbHandlerBase;
 import com.dimata.demo.app.prochain_app.models.table.Cash_Closing;
+import com.dimata.demo.app.prochain_app.services.repo.Cash_ClosingRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
@@ -16,7 +17,7 @@ import reactor.core.publisher.Mono;
 public class Cash_ClosingDbHandler extends DbHandlerBase<Cash_Closing, Long>{
 
     @Autowired
-    private R2dbcRepository<Cash_Closing, Long> repo;
+    private Cash_ClosingRepo repo;
 
     @Override
     protected R2dbcRepository<Cash_Closing, Long> getRepository() {

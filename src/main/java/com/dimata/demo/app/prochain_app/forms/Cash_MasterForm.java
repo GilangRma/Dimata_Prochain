@@ -12,9 +12,9 @@ public class Cash_MasterForm implements RecordAdapter<Cash_ClosingForm> {
 
     private long id;
         private String CASHIER_NUMBER;
-        private String LOCATION_ID;
-        private String TAX;
-        private String SERVICE;
+        private long LOCATION_ID;
+        private double TAX;
+        private double SERVICE;
         private String PRICE_TYPE;
         private String CABANG;
     @Override

@@ -1,5 +1,8 @@
 package com.dimata.demo.app.prochain_app.models.table;
 
+import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
+
+
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
@@ -9,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -42,9 +46,9 @@ public class Cash_Master implements UpdateAvailable<Cash_Master>, Persistable<Lo
         
         private long id;
         private String CASHIER_NUMBER;
-        private String LOCATION_ID;
-        private String TAX;
-        private String SERVICE;
+        private long LOCATION_ID;
+        private double TAX;
+        private double SERVICE;
         private String PRICE_TYPE;
         private String CABANG;
 
@@ -85,9 +89,9 @@ public class Cash_Master implements UpdateAvailable<Cash_Master>, Persistable<Lo
     @Column(ID_COL)
     private long id;
     private String CASHIER_NUMBER;
-    private String LOCATION_ID;
-    private String TAX;
-    private String SERVICE;
+    private long LOCATION_ID;
+    private double TAX;
+    private double SERVICE;
     private String PRICE_TYPE;
     private String CABANG;
 
@@ -101,9 +105,9 @@ public class Cash_Master implements UpdateAvailable<Cash_Master>, Persistable<Lo
         var result = new Cash_Master();
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
         result.setCASHIER_NUMBER(ManipulateUtil.parseRow(row, CASHIER_NUMBER_COL, String.class));
-        result.setLOCATION_ID(ManipulateUtil.parseRow(row, LOCATION_ID_COL, String.class));
-        result.setTAX(ManipulateUtil.parseRow(row, TAX_COL, String.class));
-        result.setSERVICE(ManipulateUtil.parseRow(row, SERVICE_COL, String.class));  
+        result.setLOCATION_ID(ManipulateUtil.parseRow(row, LOCATION_ID_COL, Long.class));
+        result.setTAX(ManipulateUtil.parseRow(row, TAX_COL, Double.class));
+        result.setSERVICE(ManipulateUtil.parseRow(row, SERVICE_COL, Double.class));  
         result.setPRICE_TYPE(ManipulateUtil.parseRow(row, PRICE_TYPE_COL, String.class));  
         result.setCABANG(ManipulateUtil.parseRow(row, CABANG_COL, String.class));  
         return result;
