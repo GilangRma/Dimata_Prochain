@@ -26,23 +26,23 @@ public class PosUnitController {
 
     private static final String BASE_URL = "/maintainer/v1";
 
-    @PostMapping(path = BASE_URL + "/pos_category", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = BASE_URL + "/pos_unit", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Mono<PosUnit> maintainerAddPosUnit(@RequestBody PosUnitForm form) {
         return posUnitApi.createPosUnit(form);
     }
 
-    @GetMapping(path = BASE_URL + "/pos_category")
+    @GetMapping(path = BASE_URL + "/pos_unit")
     public Flux<PosUnit> maintainerGetAllPosUnit(CommonParam param) {
         return posUnitApi.getAllPosUnit(param);
     }
 
-    @GetMapping(path = BASE_URL + "/pos_category/{CATEGORY_ID}")
-    public Mono<PosUnit> maintainerGetPosUnit(@PathVariable("CATEGORY_ID") Long CATEGORY_ID) {
-        return posUnitApi.getPosUnit(CATEGORY_ID);
+    @GetMapping(path = BASE_URL + "/pos_unit/{UNIT_ID}")
+    public Mono<PosUnit> maintainerGetPosUnit(@PathVariable("UNIT_ID") Long UNIT_ID) {
+        return posUnitApi.getPosUnit(UNIT_ID);
     }
 
-    @PutMapping(path = BASE_URL + "/pos_category/{CATEGORY_ID}")
-    public Mono<PosUnit> maintainerUpdatePosUnit(@PathVariable("CATEGORY_ID") long CATEGORY_ID, @RequestBody PosUnitForm form) {
-        return posUnitApi.updatePosUnit(CATEGORY_ID, form);
+    @PutMapping(path = BASE_URL + "/pos_unit/{UNIT_ID}")
+    public Mono<PosUnit> maintainerUpdatePosUnit(@PathVariable("UNIT_ID") long UNIT_ID, @RequestBody PosUnitForm form) {
+        return posUnitApi.updatePosUnit(UNIT_ID, form);
     }
 }

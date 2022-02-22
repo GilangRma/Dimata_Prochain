@@ -30,7 +30,7 @@ public class PosUnitApi {
         .flatMap(posUnitCrude::create);
     }
 
-    public Flux<PosUnit> getAllPosCatagory(CommonParam param) {
+    public Flux<PosUnit> getAllPosUnit(CommonParam param) {
         var sql = SelectQBuilder.builderWithCommonParam(PosUnit.TABLE_NAME, param)
             .build();
         return template.getDatabaseClient()
@@ -39,7 +39,7 @@ public class PosUnitApi {
             .all();
     }
 
-    public Mono<PosUnit> getPosCatagory(Long id) {
+    public Mono<PosUnit> getPosUnit(Long id) {
         var sql = SelectQBuilder.emptyBuilder(PosUnit.TABLE_NAME)
             .addWhere(WhereQuery.when(PosUnit.ID_COL).is(id))
             .build();
@@ -50,7 +50,7 @@ public class PosUnitApi {
             .one();
     }
 
-    public Mono<PosUnit> updatePosCatagory(Long id, PosUnitForm form) {
+    public Mono<PosUnit> updatePosUnit(Long id, PosUnitForm form) {
         return Mono.zip(Mono.just(id), Mono.just(form))
             .map(z -> {
                 z.getT2().setId(z.getT1());
