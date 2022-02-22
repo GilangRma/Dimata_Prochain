@@ -17,6 +17,16 @@ public class Cash_ClosingForm implements RecordAdapter<Cash_ClosingForm> {
         private String AMOUNT_USD;
 
     @Override
+    public Cash_Closing convertNewRecord() {
+        return Cash_Closing.Builder.createNewRecord(PAYMENT_TYPE,AMOUNT_RP,AMOUNT_USD)
+            .PAYMENT_TYPE(PAYMENT_TYPE)
+            .AMOUNT_RP(AMOUNT_RP)
+            .AMOUNT_USD(AMOUNT_USD)
+            .id(id)
+            .build();
+    }
+
+    @Override
     public Cash_Closing convertToRecord() {
         return Cash_Closing.Builder.emptyBuilder()
             .CASH_CASHIER_ID(CASH_CASHIER_ID)
@@ -26,12 +36,6 @@ public class Cash_ClosingForm implements RecordAdapter<Cash_ClosingForm> {
             .build();
     }
 
-    @Override
-    public Cash_Closing convertNewRecord() {
-        return Cash_Closing.Builder.createNewRecord()
-            .id(id)
-            .build();
-
-    }
+    
 
 }

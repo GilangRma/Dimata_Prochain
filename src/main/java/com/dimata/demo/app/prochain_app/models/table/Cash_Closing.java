@@ -2,6 +2,7 @@ package com.dimata.demo.app.prochain_app.models.table;
 
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
 
+import java.util.Objects;
 
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
@@ -51,6 +52,14 @@ public class Cash_Closing implements UpdateAvailable<Cash_Closing>, Persistable<
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
+        public static Builder createNewRecord(String PAYMENT_TYPE, String AMOUNT_RP, String AMOUNT_USD ) {
+            return new Builder().newRecord(true)
+
+                .PAYMENT_TYPE(Objects.requireNonNull(PAYMENT_TYPE, "PAYMENT_TYPE tidak boleh kosong"))
+                .AMOUNT_RP(Objects.requireNonNull(AMOUNT_RP, "AMOUNT_RP tidak boleh kosong"))
+                .AMOUNT_USD(Objects.requireNonNull(AMOUNT_USD, "AMOUNT_USD tidak boleh kosong"));
+        }
+
         public static Builder updateBuilder(Cash_Closing oldRecord, Cash_Closing newRecord) {
             return new Builder()
                 .id(oldRecord.getId())
@@ -85,7 +94,6 @@ public class Cash_Closing implements UpdateAvailable<Cash_Closing>, Persistable<
     private String AMOUNT_RP;
     private String AMOUNT_USD;
 
-    @JsonSerialize(converter = DateSerialize.class)
 
     @Transient
     @JsonIgnore

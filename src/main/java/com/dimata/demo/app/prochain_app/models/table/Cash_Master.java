@@ -115,7 +115,7 @@ public class Cash_Master implements UpdateAvailable<Cash_Master>, Persistable<Lo
 
     @Override
     public boolean isNew() {
-        if (id == null && insertId == null ) {
+        if (id == null && insertId == null) {
             id = new GenerateUtil().generateOID();
             return true;
         } else if (id == null) {
