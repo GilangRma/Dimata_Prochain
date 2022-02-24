@@ -11,27 +11,28 @@ import lombok.NoArgsConstructor;
 public class Cash_MasterForm implements RecordAdapter<Cash_ClosingForm> {
 
     private long id;
-        private String CASHIER_NUMBER;
-        private long LOCATION_ID;
-        private double TAX;
-        private double SERVICE;
-        private String PRICE_TYPE;
-        private String CABANG;
+        private String cashierNumber;
+        private long locationId;
+        private double tax;
+        private double service;
+        private String priceType;
+        private String cabang;
     @Override
     public Cash_Master convertToRecord() {
         return Cash_Master.Builder.emptyBuilder()
-            .CASHIER_NUMBER(CASHIER_NUMBER)
-            .LOCATION_ID(LOCATION_ID)
-            .TAX(TAX)
-            .SERVICE(SERVICE)
-            .PRICE_TYPE(PRICE_TYPE)
-            .CABANG(CABANG)
+            .cashierNumber(cashierNumber)
+            .locationId(locationId)
+            .tax(tax)
+            .service(service)
+            .priceType(priceType)
+            .cabang(cabang)
             .build();
     }
 
     @Override
     public Cash_Master convertNewRecord() {
-        return Cash_Master.Builder.createNewRecord(CASHIER_NUMBER, LOCATION_ID, TAX, SERVICE, PRICE_TYPE, CABANG)
+        return Cash_Master.Builder.createNewRecord(cashierNumber, tax, service, priceType, cabang)
+        .locationId(locationId)
         .id(id)
         .build();
     }

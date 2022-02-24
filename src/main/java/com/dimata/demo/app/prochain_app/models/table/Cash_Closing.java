@@ -10,7 +10,6 @@ import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
 import com.dimata.demo.app.prochain_app.core.util.jackson.DateSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -30,7 +29,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
-public class Cash_Closing implements UpdateAvailable<Cash_Closing>, Persistable<Long>{
+public class Cash_Closing implements UpdateAvailable<Cash_Closing>, Persistable <Long>{
 
     public static final String TABLE_NAME = "cash_closing";
     public static final String ID_COL = "CASH_CLOSING_ID";
@@ -44,29 +43,29 @@ public class Cash_Closing implements UpdateAvailable<Cash_Closing>, Persistable<
     public static class Builder {
 
         private long id;
-        private long CASH_CASHIER_ID;
-        private String PAYMENT_TYPE;
-        private String AMOUNT_RP;
-        private String AMOUNT_USD;
+        private long cashCashierId;
+        private String paymentType;
+        private String amountRP;
+        private String amountUSD;
 
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
-        public static Builder createNewRecord(String PAYMENT_TYPE, String AMOUNT_RP, String AMOUNT_USD ) {
+        public static Builder createNewRecord(String paymentType, String amountRP, String amountUSD ) {
             return new Builder().newRecord(true)
 
-                .PAYMENT_TYPE(Objects.requireNonNull(PAYMENT_TYPE, "PAYMENT_TYPE tidak boleh kosong"))
-                .AMOUNT_RP(Objects.requireNonNull(AMOUNT_RP, "AMOUNT_RP tidak boleh kosong"))
-                .AMOUNT_USD(Objects.requireNonNull(AMOUNT_USD, "AMOUNT_USD tidak boleh kosong"));
+                .paymentType(Objects.requireNonNull(paymentType, "PAYMENT_TYPE tidak boleh kosong"))
+                .amountRP(Objects.requireNonNull(amountRP, "AMOUNT_RP tidak boleh kosong"))
+                .amountUSD(Objects.requireNonNull(amountUSD, "AMOUNT_USD tidak boleh kosong"));
         }
 
         public static Builder updateBuilder(Cash_Closing oldRecord, Cash_Closing newRecord) {
             return new Builder()
                 .id(oldRecord.getId())
-                .CASH_CASHIER_ID(changeItOrNot(newRecord.getCASH_CASHIER_ID(), oldRecord.getCASH_CASHIER_ID()))
-                .PAYMENT_TYPE(changeItOrNot(newRecord.getPAYMENT_TYPE(), oldRecord.getPAYMENT_TYPE()))
-                .AMOUNT_RP(changeItOrNot(newRecord.getAMOUNT_RP(), oldRecord.getAMOUNT_RP()))
-                .AMOUNT_USD(changeItOrNot(newRecord.getAMOUNT_USD(), oldRecord.getAMOUNT_USD()));
+                .cashCashierId(changeItOrNot(newRecord.getCashCashierId(), oldRecord.getCashCashierId()))
+                .paymentType(changeItOrNot(newRecord.getPaymentType(), oldRecord.getPaymentType()))
+                .amountRP(changeItOrNot(newRecord.getAmountRP(), oldRecord.getAmountRP()))
+                .amountUSD(changeItOrNot(newRecord.getAmountUSD(), oldRecord.getAmountUSD()));
         }
 
         public static Builder emptyBuilder() {
@@ -77,10 +76,10 @@ public class Cash_Closing implements UpdateAvailable<Cash_Closing>, Persistable<
             Cash_Closing result = new Cash_Closing();
 
             result.setId(id);
-            result.setCASH_CASHIER_ID(CASH_CASHIER_ID);
-            result.setPAYMENT_TYPE(PAYMENT_TYPE);
-            result.setAMOUNT_RP(AMOUNT_RP);
-            result.setAMOUNT_USD(AMOUNT_USD);
+            result.setCashCashierId(cashCashierId);
+            result.setPaymentType(paymentType);
+            result.setAmountRP(amountRP);
+            result.setAmountUSD(amountUSD);
             return result;
         }
 
@@ -89,10 +88,11 @@ public class Cash_Closing implements UpdateAvailable<Cash_Closing>, Persistable<
     @Id
     @Column(ID_COL)
     private long id;
-    private long CASH_CASHIER_ID;
-    private String PAYMENT_TYPE;
-    private String AMOUNT_RP;
-    private String AMOUNT_USD;
+    private long cashCashierId;
+    private String paymentType;
+    private String amountRP;
+    private String amountUSD;
+
 
 
     @Transient
@@ -102,25 +102,24 @@ public class Cash_Closing implements UpdateAvailable<Cash_Closing>, Persistable<
     public static Cash_Closing fromRow(Row row) {
         var result = new Cash_Closing();
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
-        result.setCASH_CASHIER_ID(ManipulateUtil.parseRow(row, CASH_CASHIER_ID_COL, Long.class));
-        result.setPAYMENT_TYPE(ManipulateUtil.parseRow(row, PAYMENT_TYPE_COL, String.class));
-        result.setAMOUNT_RP(ManipulateUtil.parseRow(row, AMOUNT_RP_COL, String.class));
-        result.setAMOUNT_USD(ManipulateUtil.parseRow(row, AMOUNT_USD_COL, String.class));  
+        result.setCashCashierId(ManipulateUtil.parseRow(row, CASH_CASHIER_ID_COL, Long.class));
+        result.setPaymentType(ManipulateUtil.parseRow(row, PAYMENT_TYPE_COL, String.class));
+        result.setAmountRP(ManipulateUtil.parseRow(row, AMOUNT_RP_COL, String.class));
+        result.setAmountUSD(ManipulateUtil.parseRow(row, AMOUNT_USD_COL, String.class));  
         return result;
     }
 
-
-   @Override
-   public boolean isNew() {
-       if (id == null && insertId == null) {
-           id = new GenerateUtil().generateOID();
-           return true;
-       } else if (id == null) {
-           id = insertId;
-           return true;
-       }
-       return false;
-   }
+    @Override
+    public boolean isNew() {
+        if (id == null && insertId == null) {
+            id = new GenerateUtil().generateOID();
+            return true;
+        } else if (id == null) {
+            id = insertId;
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public Cash_Closing update(Cash_Closing newData) {

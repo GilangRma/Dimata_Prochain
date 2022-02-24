@@ -11,22 +11,23 @@ import lombok.NoArgsConstructor;
 public class Discount_TypeForm implements RecordAdapter<Discount_TypeForm> {
     
     private long id;
-    private String CODE;
-    private String DINDEX;
-    private String NAME;
+    private String code;
+    private String dindex;
+    private String name;
 
     @Override
     public Discount_Type convertToRecord() {
         return Discount_Type.Builder.emptyBuilder()
-            .CODE(CODE)
-            .DINDEX(DINDEX)
-            .NAME(NAME)
+            .code(code)
+            .dindex(dindex)
+            .name(name)
             .build();
     }
 
     @Override
     public Discount_Type convertNewRecord() {
-        return Discount_Type.Builder.createNewRecord()
+        return Discount_Type.Builder.createNewRecord(name, code)
+            .dindex(dindex)
             .id(id)
             .build();
 

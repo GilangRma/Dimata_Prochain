@@ -2,6 +2,7 @@ package com.dimata.demo.app.prochain_app.models.table;
 
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
 
+import java.util.Objects;
 
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
@@ -45,25 +46,35 @@ public class Cash_Master implements UpdateAvailable<Cash_Master>, Persistable<Lo
     public static class Builder {
         
         private long id;
-        private String CASHIER_NUMBER;
-        private long LOCATION_ID;
-        private double TAX;
-        private double SERVICE;
-        private String PRICE_TYPE;
-        private String CABANG;
+        private String cashierNumber;
+        private long locationId;
+        private double tax;
+        private double service;
+        private String priceType;
+        private String cabang;
 
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
+        public static Builder createNewRecord(String cashierNumber, double tax, double service, String priceType, String cabang) {
+            return new Builder().newRecord(true)
+                .cashierNumber(Objects.requireNonNull(cashierNumber, "cashierNumber diperlukan"))
+                .tax(Objects.requireNonNull(tax, "tax diperlukan"))
+                .service(Objects.requireNonNull(service, "service diperlukan"))
+                .priceType(Objects.requireNonNull(priceType, "priceType diperlukan"))
+                .cabang(Objects.requireNonNull(cabang, "cabang diperlukan"));
+                
+        }
+
         public static Builder updateBuilder(Cash_Master oldRecord, Cash_Master newRecord) {
             return new Builder()
             .id(oldRecord.getId())
-            .CASHIER_NUMBER(changeItOrNot(newRecord.getCASHIER_NUMBER(), oldRecord.getCASHIER_NUMBER()))
-            .LOCATION_ID(changeItOrNot(newRecord.getLOCATION_ID(), oldRecord.getLOCATION_ID()))
-            .TAX(changeItOrNot(newRecord.getTAX(), oldRecord.getTAX()))
-            .SERVICE(changeItOrNot(newRecord.getSERVICE(), oldRecord.getSERVICE()))
-            .PRICE_TYPE(changeItOrNot(newRecord.getPRICE_TYPE(), oldRecord.getPRICE_TYPE()))
-            .CABANG(changeItOrNot(newRecord.getCABANG(), oldRecord.getCABANG()));
+            .cashierNumber(changeItOrNot(newRecord.getCashierNumber(), oldRecord.getCashierNumber()))
+            .locationId(changeItOrNot(newRecord.getLocationId(), oldRecord.getLocationId()))
+            .tax(changeItOrNot(newRecord.getTax(), oldRecord.getTax()))
+            .service(changeItOrNot(newRecord.getService(), oldRecord.getService()))
+            .priceType(changeItOrNot(newRecord.getPriceType(), oldRecord.getPriceType()))
+            .cabang(changeItOrNot(newRecord.getCabang(), oldRecord.getCabang()));
         }
 
         public static Builder emptyBuilder() {
@@ -74,12 +85,12 @@ public class Cash_Master implements UpdateAvailable<Cash_Master>, Persistable<Lo
             Cash_Master result = new Cash_Master();
 
             result.setId(id);
-            result.setCASHIER_NUMBER(CASHIER_NUMBER);
-            result.setLOCATION_ID(LOCATION_ID);
-            result.setTAX(TAX);
-            result.setSERVICE(SERVICE);
-            result.setPRICE_TYPE(PRICE_TYPE);
-            result.setCABANG(CABANG);
+            result.setCashierNumber(cashierNumber);
+            result.setLocationId(locationId);
+            result.setTax(tax);
+            result.setService(service);
+            result.setPriceType(priceType);
+            result.setCabang(cabang);
             return result;
         }
 
@@ -88,12 +99,12 @@ public class Cash_Master implements UpdateAvailable<Cash_Master>, Persistable<Lo
     @Id
     @Column(ID_COL)
     private long id;
-    private String CASHIER_NUMBER;
-    private long LOCATION_ID;
-    private double TAX;
-    private double SERVICE;
-    private String PRICE_TYPE;
-    private String CABANG;
+    private String cashierNumber;
+    private long locationId;
+    private double tax;
+    private double service;
+    private String priceType;
+    private String cabang;
 
     @JsonSerialize(converter = DateSerialize.class)
 
@@ -104,12 +115,12 @@ public class Cash_Master implements UpdateAvailable<Cash_Master>, Persistable<Lo
     public static Cash_Master fromRow(Row row) {
         var result = new Cash_Master();
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
-        result.setCASHIER_NUMBER(ManipulateUtil.parseRow(row, CASHIER_NUMBER_COL, String.class));
-        result.setLOCATION_ID(ManipulateUtil.parseRow(row, LOCATION_ID_COL, Long.class));
-        result.setTAX(ManipulateUtil.parseRow(row, TAX_COL, Double.class));
-        result.setSERVICE(ManipulateUtil.parseRow(row, SERVICE_COL, Double.class));  
-        result.setPRICE_TYPE(ManipulateUtil.parseRow(row, PRICE_TYPE_COL, String.class));  
-        result.setCABANG(ManipulateUtil.parseRow(row, CABANG_COL, String.class));  
+        result.setCashierNumber(ManipulateUtil.parseRow(row, CASHIER_NUMBER_COL, String.class));
+        result.setLocationId(ManipulateUtil.parseRow(row, LOCATION_ID_COL, Long.class));
+        result.setTax(ManipulateUtil.parseRow(row, TAX_COL, Double.class));
+        result.setService(ManipulateUtil.parseRow(row, SERVICE_COL, Double.class));  
+        result.setPriceType(ManipulateUtil.parseRow(row, PRICE_TYPE_COL, String.class));  
+        result.setCabang(ManipulateUtil.parseRow(row, CABANG_COL, String.class));  
         return result;
     }
 
