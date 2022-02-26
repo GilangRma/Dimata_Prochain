@@ -13,8 +13,12 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
+<<<<<<< Updated upstream:src/main/java/com/dimata/demo/app/prochain_app/services/crude/Discount_TypeCrude.java
 public class Discount_TypeCrude {
 
+=======
+public class PosDiscountMappingCrude {
+>>>>>>> Stashed changes:src/main/java/com/dimata/demo/app/prochain_app/services/crude/PosDiscountMappingCrude.java
     @Autowired
     private Discount_TypeDbHandler discount_TypeDbHandler;
 
