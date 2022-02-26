@@ -7,10 +7,8 @@ import java.util.Objects;
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
-import com.dimata.demo.app.prochain_app.core.util.jackson.DateSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -20,7 +18,6 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import io.r2dbc.spi.Row;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,9 +42,9 @@ public class Cash_Master implements UpdateAvailable<Cash_Master>, Persistable<Lo
     @Setter
     public static class Builder {
         
-        private long id;
+        private Long id;
         private String cashierNumber;
-        private long locationId;
+        private Long locationId;
         private double tax;
         private double service;
         private String priceType;
@@ -62,8 +59,7 @@ public class Cash_Master implements UpdateAvailable<Cash_Master>, Persistable<Lo
                 .tax(Objects.requireNonNull(tax, "tax diperlukan"))
                 .service(Objects.requireNonNull(service, "service diperlukan"))
                 .priceType(Objects.requireNonNull(priceType, "priceType diperlukan"))
-                .cabang(Objects.requireNonNull(cabang, "cabang diperlukan"));
-                
+                .cabang(Objects.requireNonNull(cabang, "cabang diperlukan"));            
         }
 
         public static Builder updateBuilder(Cash_Master oldRecord, Cash_Master newRecord) {
@@ -98,15 +94,14 @@ public class Cash_Master implements UpdateAvailable<Cash_Master>, Persistable<Lo
 
     @Id
     @Column(ID_COL)
-    private long id;
+    private Long id;
     private String cashierNumber;
-    private long locationId;
+    private Long locationId;
     private double tax;
     private double service;
     private String priceType;
     private String cabang;
 
-    @JsonSerialize(converter = DateSerialize.class)
 
     @Transient
     @JsonIgnore
@@ -140,6 +135,4 @@ public class Cash_Master implements UpdateAvailable<Cash_Master>, Persistable<Lo
     public Cash_Master update(Cash_Master newData) {
         return Builder.updateBuilder(this, newData).build();
     }
-
-
 }
