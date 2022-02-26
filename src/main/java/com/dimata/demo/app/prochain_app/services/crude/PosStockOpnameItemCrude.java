@@ -4,6 +4,7 @@ import com.dimata.demo.app.prochain_app.models.table.PosStockOpnameItem;
 import com.dimata.demo.app.prochain_app.services.dbHandler.PosStockOpnameItemDbhandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import lombok.Data;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.AccessLevel;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Component
 public class PosStockOpnameItemCrude {
     @Autowired
     private PosStockOpnameItemDbhandler posStockOpnameItemDbhandler;
