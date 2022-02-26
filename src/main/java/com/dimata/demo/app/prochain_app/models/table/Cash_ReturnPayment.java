@@ -79,7 +79,7 @@ public class Cash_ReturnPayment implements UpdateAvailable<Cash_ReturnPayment>, 
 
     @Id
     @Column(ID_COL)
-    private long id;
+    private Long id;
     private long CURRENCY_ID;
     private long CASH_BILL_MAIN_ID;
     private double RATE;

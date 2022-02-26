@@ -13,12 +13,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
-<<<<<<< Updated upstream:src/main/java/com/dimata/demo/app/prochain_app/services/crude/Cash_ReturnPaymentCrude.java
 public class Cash_ReturnPaymentCrude{
 
-=======
-public class PosStockOpnameItemCrude {
->>>>>>> Stashed changes:src/main/java/com/dimata/demo/app/prochain_app/services/crude/PosStockOpnameItemCrude.java
     @Autowired
     private Cash_ReturnPaymentDbHandler cash_ReturnPaymentDbHandler;
 

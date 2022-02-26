@@ -20,7 +20,6 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import io.r2dbc.spi.Row;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -98,7 +97,7 @@ public class Cash_Master implements UpdateAvailable<Cash_Master>, Persistable<Lo
 
     @Id
     @Column(ID_COL)
-    private long id;
+    private Long id;
     private String cashierNumber;
     private long locationId;
     private double tax;

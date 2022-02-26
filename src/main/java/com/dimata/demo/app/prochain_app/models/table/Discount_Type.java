@@ -79,7 +79,7 @@ public class Discount_Type implements UpdateAvailable<Discount_Type>, Persistabl
 
     @Id
     @Column(ID_COL)
-    private long id;
+    private Long id;
     private String name;
     private String dindex;
     private String code;
