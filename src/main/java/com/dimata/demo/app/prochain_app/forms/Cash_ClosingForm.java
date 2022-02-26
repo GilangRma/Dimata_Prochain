@@ -10,16 +10,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Cash_ClosingForm implements RecordAdapter<Cash_ClosingForm> {
 
-        private Long id;
-        private Long cashCashierId;
-        private String paymentType;
-        private String amountRP;
-        private String amountUSD;
+        private long id;
+        private long CASH_CASHIER_ID;
+        private String PAYMENT_TYPE;
+        private String AMOUNT_RP;
+        private String AMOUNT_USD;
 
     @Override
     public Cash_Closing convertNewRecord() {
-        return Cash_Closing.Builder.createNewRecord(paymentType,amountRP,amountUSD)
-            .cashCashierId(cashCashierId)
+        return Cash_Closing.Builder.createNewRecord(PAYMENT_TYPE,AMOUNT_RP,AMOUNT_USD)
+            .PAYMENT_TYPE(PAYMENT_TYPE)
+            .AMOUNT_RP(AMOUNT_RP)
+            .AMOUNT_USD(AMOUNT_USD)
             .id(id)
             .build();
     }
@@ -27,10 +29,13 @@ public class Cash_ClosingForm implements RecordAdapter<Cash_ClosingForm> {
     @Override
     public Cash_Closing convertToRecord() {
         return Cash_Closing.Builder.emptyBuilder()
-            .cashCashierId(cashCashierId)
-            .paymentType(paymentType)
-            .amountRP(amountRP)
-            .amountUSD(amountUSD)
+            .CASH_CASHIER_ID(CASH_CASHIER_ID)
+            .PAYMENT_TYPE(PAYMENT_TYPE)
+            .AMOUNT_RP(AMOUNT_RP)
+            .AMOUNT_USD(AMOUNT_USD)
             .build();
     }
+
+    
+
 }

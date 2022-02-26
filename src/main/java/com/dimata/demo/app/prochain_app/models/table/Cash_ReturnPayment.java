@@ -39,9 +39,9 @@ public class Cash_ReturnPayment implements UpdateAvailable<Cash_ReturnPayment>, 
     @Setter
     public static class Builder {
 
-        private Long id;
-        private Long CURRENCY_ID;
-        private Long CASH_BILL_MAIN_ID;
+        private long id;
+        private long CURRENCY_ID;
+        private long CASH_BILL_MAIN_ID;
         private double RATE;
         private String PAYMENT_STATUS;
         private double AMOUNT;
@@ -79,9 +79,9 @@ public class Cash_ReturnPayment implements UpdateAvailable<Cash_ReturnPayment>, 
 
     @Id
     @Column(ID_COL)
-    private Long id;
-    private Long CURRENCY_ID;
-    private Long CASH_BILL_MAIN_ID;
+    private long id;
+    private long CURRENCY_ID;
+    private long CASH_BILL_MAIN_ID;
     private double RATE;
     private String PAYMENT_STATUS;
     private double AMOUNT;

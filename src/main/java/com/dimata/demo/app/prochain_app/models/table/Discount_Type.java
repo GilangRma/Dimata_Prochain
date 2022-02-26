@@ -1,6 +1,7 @@
 package com.dimata.demo.app.prochain_app.models.table;
 
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
+
 import java.util.Objects;
 
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
@@ -26,33 +27,35 @@ import lombok.experimental.Accessors;
 @Table
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Discount_Type implements UpdateAvailable <Discount_Type>, Persistable <Long>{
 
-    public static final String TABLE_NAME = "discount_type";
+public class Discount_Type implements UpdateAvailable<Discount_Type>, Persistable <Long>{
+
+    public static final String TABLE_NAME = "discount_type ";
     public static final String ID_COL = "DISCOUNT_TYPE_ID ";
     public static final String NAME_COL = "NAME";
-    public static final String DINDEX_COL = "DINDEX";
+    public static final String DINDEX_COL = "DINDEX ";
     public static final String CODE_COL ="CODE";
-    
+
     @Accessors(fluent = true)
     @Setter
     public static class Builder {
 
-        private Long  id;
-        private String name;
-        private String dindex;
-        private String code;
+    private long id;
+    private String name;
+    private String dindex;
+    private String code;
+    
 
-        @Setter(AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
-        public static Builder createNewRecord(String name, String code) {
+        public static Builder createNewRecord(String code, String name ) {
             return new Builder().newRecord(true)
-                .name(Objects.requireNonNull(name , "Name diperlukan"))
-                .code(Objects.requireNonNull(code , "Code diperlukan"));              
+            .name(Objects.requireNonNull(name, "nama diperlukan"))
+            .code(Objects.requireNonNull(code, "code diperlukan")); 
         }
 
-        public static Builder updateBuilder(Discount_Type oldRecord, Discount_Type newRecord) {
+        public static Builder updateBuilder(Discount_Type oldRecord, Discount_Type  newRecord) {
             return new Builder()
                 .id(oldRecord.getId())
                 .name(changeItOrNot(newRecord.getName(), oldRecord.getName()))
@@ -65,7 +68,7 @@ public class Discount_Type implements UpdateAvailable <Discount_Type>, Persistab
         }
 
         public Discount_Type  build() {
-            Discount_Type  result = new Discount_Type();
+            Discount_Type  result = new Discount_Type ();
             result.setId(id);
             result.setName(name);
             result.setCode(code);
@@ -76,26 +79,22 @@ public class Discount_Type implements UpdateAvailable <Discount_Type>, Persistab
 
     @Id
     @Column(ID_COL)
-    private Long id;
+    private long id;
     private String name;
-    private String code;
     private String dindex;
-    
+    private String code;
     @Transient
     @JsonIgnore
     private Long insertId;
-
-    
 
     public static Discount_Type  fromRow(Row row) {
         var result = new Discount_Type ();
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
         result.setName(ManipulateUtil.parseRow(row, NAME_COL, String.class));
         result.setCode(ManipulateUtil.parseRow(row, CODE_COL, String.class));
-        result.setDindex(ManipulateUtil.parseRow(row, DINDEX_COL, String.class));            
+        result.setDindex(ManipulateUtil.parseRow(row, DINDEX_COL, String.class));
         return result;
     }
-
     @Override
     public boolean isNew() {
         if (id == null && insertId == null) {
@@ -109,7 +108,7 @@ public class Discount_Type implements UpdateAvailable <Discount_Type>, Persistab
     }
 
     @Override
-    public Discount_Type update(Discount_Type  newData) {
+    public Discount_Type  update(Discount_Type  newData) {
         return Builder.updateBuilder(this, newData).build();
     }
 }

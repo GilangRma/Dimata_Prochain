@@ -7,6 +7,7 @@ import java.util.Objects;
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
+import com.dimata.demo.app.prochain_app.core.util.jackson.DateSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -73,6 +74,7 @@ public class Cash_Closing implements UpdateAvailable<Cash_Closing>, Persistable 
 
         public Cash_Closing build() {
             Cash_Closing result = new Cash_Closing();
+
             result.setId(id);
             result.setCashCashierId(cashCashierId);
             result.setPaymentType(paymentType);
@@ -85,11 +87,13 @@ public class Cash_Closing implements UpdateAvailable<Cash_Closing>, Persistable 
 
     @Id
     @Column(ID_COL)
-    private Long id;
-    private Long cashCashierId;
+    private long id;
+    private long cashCashierId;
     private String paymentType;
     private String amountRP;
     private String amountUSD;
+
+
 
     @Transient
     @JsonIgnore

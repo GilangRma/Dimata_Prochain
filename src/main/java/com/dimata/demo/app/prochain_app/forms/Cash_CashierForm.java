@@ -1,7 +1,5 @@
 package com.dimata.demo.app.prochain_app.forms;
 
-import java.time.LocalDateTime;
-
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
 import com.dimata.demo.app.prochain_app.core.util.jackson.TimeDeserialize;
 import com.dimata.demo.app.prochain_app.models.table.Cash_Cashier;
@@ -16,13 +14,13 @@ public class Cash_CashierForm implements RecordAdapter <Cash_Cashier>{
     private Long  id;
     private Long cashMasterId;
     private Long appUserId;
-    private LocalDateTime openDate;
+    private TimeDeserialize openDate;
     private Long spvOpenId; 
     private String spvOpenName;
     private Long spvCloseId;
     private String spvCloseName;
     private Long shiftId;
-    private LocalDateTime closeDate;
+    private TimeDeserialize closeDate;
 
     @Override
     public Cash_Cashier convertNewRecord() {

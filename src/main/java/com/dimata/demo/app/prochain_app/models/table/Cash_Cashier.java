@@ -1,13 +1,12 @@
 package com.dimata.demo.app.prochain_app.models.table;
 
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
-
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
+import com.dimata.demo.app.prochain_app.core.util.jackson.TimeDeserialize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -49,18 +48,18 @@ public class Cash_Cashier implements UpdateAvailable<Cash_Cashier>, Persistable 
         private Long  id;
         private Long cashMasterId;
         private Long appUserId;
-        private LocalDateTime openDate;
+        private TimeDeserialize openDate;
         private Long spvOpenId; 
         private String spvOpenName;
         private Long spvCloseId;
         private String spvCloseName;
         private Long shiftId;
-        private LocalDateTime closeDate;
+        private TimeDeserialize closeDate;
 
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
-        public static Builder createNewRecord(LocalDateTime openDate, Long spvOpenId, String spvOpenName, Long spvCloseId, String spvCloseName,LocalDateTime closeDate) {
+        public static Builder createNewRecord(TimeDeserialize openDate, Long spvOpenId, String spvOpenName, Long spvCloseId, String spvCloseName, TimeDeserialize closeDate) {
             return new Builder().newRecord(true)
                 .openDate(Objects.requireNonNull(openDate, "openDate diperlukan"))
                 .spvOpenId(Objects.requireNonNull(spvOpenId, "spvOpenId diperlukan"))
@@ -109,13 +108,13 @@ public class Cash_Cashier implements UpdateAvailable<Cash_Cashier>, Persistable 
     private Long  id;
     private Long cashMasterId;
     private Long appUserId;
-    private LocalDateTime openDate;
+    private TimeDeserialize openDate;
     private Long spvOpenId; 
     private String spvOpenName;
     private Long spvCloseId;
     private String spvCloseName;
     private Long shiftId;
-    private LocalDateTime closeDate;
+    private TimeDeserialize closeDate;
     @Transient
     @JsonIgnore
     private Long insertId;
@@ -125,13 +124,13 @@ public class Cash_Cashier implements UpdateAvailable<Cash_Cashier>, Persistable 
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
         result.setCashMasterId(ManipulateUtil.parseRow(row, CASH_MASTER_ID_COL, Long.class));
         result.setAppUserId(ManipulateUtil.parseRow(row, APP_USER_ID_COL, Long.class));
-        result.setOpenDate(ManipulateUtil.parseRow(row, OPEN_DATE_COL, LocalDateTime.class));
+        result.setOpenDate(ManipulateUtil.parseRow(row, OPEN_DATE_COL, TimeDeserialize.class));
         result.setSpvOpenId(ManipulateUtil.parseRow(row, SPV_OPEN_ID_COL, Long.class));
         result.setSpvOpenName(ManipulateUtil.parseRow(row, SPV_OPEN_NAME_COL, String.class));
         result.setSpvCloseId(ManipulateUtil.parseRow(row, SPV_CLOSE_ID_COL, Long.class));
         result.setSpvCloseName(ManipulateUtil.parseRow(row, SPV_CLOSE_NAME_COL, String.class));
         result.setShiftId(ManipulateUtil.parseRow(row, SHIFT_ID_COL, Long.class));
-        result.setCloseDate(ManipulateUtil.parseRow(row, CLOSE_DATE_COL, LocalDateTime.class));
+        result.setCloseDate(ManipulateUtil.parseRow(row, CLOSE_DATE_COL, TimeDeserialize.class));
         return result;
     }
 
