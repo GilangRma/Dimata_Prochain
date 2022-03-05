@@ -14,6 +14,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch DimataProchainApplication",
+            "request": "launch",
+            "mainClass": "com.dimata.demo.app.prochain_app.DimataProchainApplication",
+            "projectName": "demo_data_siswa"
+        },
+        {
+            "type": "java",
             "name": "Launch DemoDataUserApplication",
             "request": "launch",
             "mainClass": "com.dimata.demo.user.demo_data_user.DemoDataUserApplication",
