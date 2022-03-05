@@ -8,22 +8,20 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Cash_ClosingForm implements RecordAdapter<Cash_ClosingForm> {
+public class Cash_ClosingForm implements RecordAdapter<Cash_Closing> {
 
-    private long id;
-    private long cashCashierId;
+    private Long id;
+    private Long cashCashierId;
     private String paymentType;
     private String amountRP;
     private String amountUSD;
 
-    @Override
     public Cash_Closing convertNewRecord() {
         return Cash_Closing.Builder.createNewRecord(paymentType,amountRP,amountUSD)
             .id(id)
             .build();
     }
 
-    @Override
     public Cash_Closing convertToRecord() {
         return Cash_Closing.Builder.emptyBuilder()
             .cashCashierId(cashCashierId)

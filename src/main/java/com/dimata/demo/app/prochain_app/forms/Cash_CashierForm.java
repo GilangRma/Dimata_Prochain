@@ -22,7 +22,6 @@ public class Cash_CashierForm implements RecordAdapter <Cash_Cashier>{
     private Long shiftId;
     private TimeDeserialize closeDate;
 
-    @Override
     public Cash_Cashier convertNewRecord() {
         return Cash_Cashier.Builder.createNewRecord(openDate, spvOpenId, spvOpenName, spvCloseId, spvCloseName, closeDate)
             .cashMasterId(cashMasterId)
@@ -32,7 +31,6 @@ public class Cash_CashierForm implements RecordAdapter <Cash_Cashier>{
             .build();
     }
 
-    @Override
     public Cash_Cashier convertToRecord() {
         return Cash_Cashier.Builder.emptyBuilder()
             .cashMasterId(cashMasterId)

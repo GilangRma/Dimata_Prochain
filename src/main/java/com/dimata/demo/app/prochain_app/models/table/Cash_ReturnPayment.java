@@ -2,6 +2,8 @@ package com.dimata.demo.app.prochain_app.models.table;
 
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
 
+import java.util.Objects;
+
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
@@ -40,24 +42,31 @@ public class Cash_ReturnPayment implements UpdateAvailable<Cash_ReturnPayment>, 
     public static class Builder {
 
         private long id;
-        private long CURRENCY_ID;
-        private long CASH_BILL_MAIN_ID;
-        private double RATE;
-        private String PAYMENT_STATUS;
-        private double AMOUNT;
+        private long currencyId;
+        private long cashBillMainId;
+        private double rate;
+        private String paymentStatus;
+        private double amount;
 
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
+
+        public static Builder createNewRecord(double rate, double amount) {
+            return new Builder().newRecord(true)
+                .rate(Objects.requireNonNull(rate, "rate diperlukan"))
+                .amount(Objects.requireNonNull(amount, "amount diperlukan"));
+                
+        }
 
 
         public static Builder updateBuilder(Cash_ReturnPayment oldRecord, Cash_ReturnPayment newRecord) {
             return new Builder()
                 .id(oldRecord.getId())
-                .CURRENCY_ID(changeItOrNot(newRecord.getCURRENCY_ID(), oldRecord.getCURRENCY_ID()))
-                .CASH_BILL_MAIN_ID(changeItOrNot(newRecord.getCASH_BILL_MAIN_ID(), oldRecord.getCASH_BILL_MAIN_ID()))
-                .RATE(changeItOrNot(newRecord.getRATE(), oldRecord.getRATE()))
-                .PAYMENT_STATUS(changeItOrNot(newRecord.getPAYMENT_STATUS(), oldRecord.getPAYMENT_STATUS()))
-                .AMOUNT(changeItOrNot(newRecord.getAMOUNT(), oldRecord.getAMOUNT()));
+                .currencyId(changeItOrNot(newRecord.getCurrencyId(), oldRecord.getCurrencyId()))
+                .cashBillMainId(changeItOrNot(newRecord.getCashBillMainId(), oldRecord.getCashBillMainId()))
+                .rate(changeItOrNot(newRecord.getRate(), oldRecord.getRate()))
+                .paymentStatus(changeItOrNot(newRecord.getPaymentStatus(), oldRecord.getPaymentStatus()))
+                .amount(changeItOrNot(newRecord.getAmount(), oldRecord.getAmount()));
         }
 
         public static Builder emptyBuilder() {
@@ -68,11 +77,11 @@ public class Cash_ReturnPayment implements UpdateAvailable<Cash_ReturnPayment>, 
             Cash_ReturnPayment result = new Cash_ReturnPayment();
 
             result.setId(id);
-            result.setCURRENCY_ID(CURRENCY_ID);
-            result.setCASH_BILL_MAIN_ID(CASH_BILL_MAIN_ID);
-            result.setRATE(RATE);
-            result.setPAYMENT_STATUS(PAYMENT_STATUS);
-            result.setAMOUNT(AMOUNT);
+            result.setCurrencyId(currencyId);
+            result.setCashBillMainId(cashBillMainId);
+            result.setRate(rate);
+            result.setPaymentStatus(paymentStatus);
+            result.setAmount(amount);
             return result;
         }
     }
@@ -80,11 +89,12 @@ public class Cash_ReturnPayment implements UpdateAvailable<Cash_ReturnPayment>, 
     @Id
     @Column(ID_COL)
     private Long id;
-    private long CURRENCY_ID;
-    private long CASH_BILL_MAIN_ID;
-    private double RATE;
-    private String PAYMENT_STATUS;
-    private double AMOUNT;
+    private long currencyId;
+    private long cashBillMainId;
+    private double rate;
+    private String paymentStatus;
+    private double amount;
+
 
     @Transient
     @JsonIgnore
@@ -93,11 +103,11 @@ public class Cash_ReturnPayment implements UpdateAvailable<Cash_ReturnPayment>, 
     public static Cash_ReturnPayment fromRow(Row row) {
         var result = new Cash_ReturnPayment();
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
-        result.setCURRENCY_ID(ManipulateUtil.parseRow(row, CURRENCY_ID_COL, Long.class));
-        result.setCASH_BILL_MAIN_ID(ManipulateUtil.parseRow(row, CASH_BILL_MAIN_ID_COL, Long.class));
-        result.setRATE(ManipulateUtil.parseRow(row, RATE_COL, Double.class));
-        result.setAMOUNT(ManipulateUtil.parseRow(row, AMOUNT_COL, Double.class));
-        result.setPAYMENT_STATUS(ManipulateUtil.parseRow(row, PAYMENT_STATUS_COL, String.class)); 
+        result.setCurrencyId(ManipulateUtil.parseRow(row, CURRENCY_ID_COL, Long.class));
+        result.setCashBillMainId(ManipulateUtil.parseRow(row, CASH_BILL_MAIN_ID_COL, Long.class));
+        result.setRate(ManipulateUtil.parseRow(row, RATE_COL, Double.class));
+        result.setAmount(ManipulateUtil.parseRow(row, AMOUNT_COL, Double.class));
+        result.setPaymentStatus(ManipulateUtil.parseRow(row, PAYMENT_STATUS_COL, String.class)); 
         return result;
     }
 
