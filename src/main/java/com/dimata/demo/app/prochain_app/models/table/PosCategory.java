@@ -8,6 +8,7 @@ import java.util.Objects;
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
+import com.dimata.demo.app.prochain_app.enums.StatusPosCatagory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.annotation.Id;
@@ -55,7 +56,7 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
         private String description;
         private Long locationId;
         private Long catParentId;
-        private String status;
+        private StatusPosCatagory status;
 
 
         @Setter(AccessLevel.PRIVATE)
@@ -114,12 +115,22 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
     private String description;
     private Long locationId;
     private Long catParentId;
-    private String status;
+    private Integer status;
     @Transient
     @JsonIgnore
     private Long insertId;
 
-    
+public void setStatus(StatusPosCatagory status) {
+    if (status != null) {
+        this.status = status.getCode();
+    }
+}
+public StatusPosCatagory getStatus() {
+    if (status != null) {
+        return StatusPosCatagory.getStatus(this.status);
+    }
+    return null;
+}
 
     public static PosCategory  fromRow(Row row) {
         var result = new PosCategory ();
@@ -132,7 +143,7 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
         result.setDescription(ManipulateUtil.parseRow(row, DESCRIPTION_COL, String.class));
         result.setLocationId(ManipulateUtil.parseRow(row, LOCATION_ID_COL, Long.class));
         result.setCatParentId(ManipulateUtil.parseRow(row, CAT_PARENT_ID_COL, Long.class));
-        result.setStatus(ManipulateUtil.parseRow(row, STAUS_COL, String.class));
+        result.setStatus(StatusPosCatagory.getStatus(ManipulateUtil.parseRow(row, STAUS_COL, Integer.class)));
         
         
         return result;

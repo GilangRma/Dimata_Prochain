@@ -2,16 +2,15 @@ package com.dimata.demo.app.prochain_app.models.table;
 
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
 
-import java.sql.Timestamp;
+
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
-import com.dimata.demo.app.prochain_app.core.util.jackson.TimeSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -51,7 +50,7 @@ public class PosDiscountMapping implements UpdateAvailable <PosDiscountMapping>,
         private Long currencyTypeId;
         private String discountPct;
         private String discountValue;
-        private Timestamp updateDate;
+        private LocalDateTime updateDate;
 
 
 
@@ -99,8 +98,7 @@ public class PosDiscountMapping implements UpdateAvailable <PosDiscountMapping>,
     private Long currencyTypeId;
     private String discountPct;
     private String discountValue;
-    @JsonSerialize(converter = TimeSerialize.class)
-    private Timestamp updateDate;
+    private LocalDateTime updateDate;
     @Transient
     @JsonIgnore
     private Long insertId;
@@ -112,7 +110,7 @@ public class PosDiscountMapping implements UpdateAvailable <PosDiscountMapping>,
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
         result.setDiscountPct(ManipulateUtil.parseRow(row, DISCOUNT_PCT_COL, String.class));
         result.setDiscountValue(ManipulateUtil.parseRow(row, DISCOUNT_VALUE_COL, String.class));
-        result.setUpdateDate(ManipulateUtil.parseRow(row, UPDATE_DATE_COL, Timestamp.class));
+        result.setUpdateDate(ManipulateUtil.parseRow(row, UPDATE_DATE_COL, LocalDateTime.class));
         result.setMaterialId(ManipulateUtil.parseRow(row, MATERIAL_ID_COL, Long.class));
         result.setCurrencyTypeId(ManipulateUtil.parseRow(row, CURRENCY_TYPE_ID_COL, Long.class));
         

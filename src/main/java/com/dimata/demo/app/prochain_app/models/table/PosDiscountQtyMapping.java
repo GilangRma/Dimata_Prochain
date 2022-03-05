@@ -2,16 +2,15 @@ package com.dimata.demo.app.prochain_app.models.table;
 
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
 
-import java.sql.Timestamp;
+
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
-import com.dimata.demo.app.prochain_app.core.util.jackson.TimeSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -55,9 +54,8 @@ public class PosDiscountQtyMapping implements UpdateAvailable<PosDiscountQtyMapp
         private String startQty;
         private String toQty;
         private String discountValue;
-        private String discountType;
-        @JsonSerialize(converter = TimeSerialize.class)       
-        private Timestamp updateDate; 
+        private String discountType;       
+        private LocalDateTime updateDate; 
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
@@ -111,8 +109,7 @@ public class PosDiscountQtyMapping implements UpdateAvailable<PosDiscountQtyMapp
     private String toQty;
     private String discountValue;
     private String discountType;
-    @JsonSerialize(converter = TimeSerialize.class)
-    private Timestamp updateDate;
+    private LocalDateTime updateDate;
     @Transient
     @JsonIgnore
     private Long insertId;
@@ -129,7 +126,7 @@ public class PosDiscountQtyMapping implements UpdateAvailable<PosDiscountQtyMapp
         result.setToQty(ManipulateUtil.parseRow(row, TO_QTY_COL, String.class));
         result.setDiscountValue(ManipulateUtil.parseRow(row, DISCOUNT_VALUE_COL, String.class));
         result.setDiscountType(ManipulateUtil.parseRow(row, DISCOUNT_TYPE_COL, String.class));
-        result.setUpdateDate(ManipulateUtil.parseRow(row, UPDATE_DATE_COL, Timestamp.class));
+        result.setUpdateDate(ManipulateUtil.parseRow(row, UPDATE_DATE_COL, LocalDateTime.class));
         
         
         return result;

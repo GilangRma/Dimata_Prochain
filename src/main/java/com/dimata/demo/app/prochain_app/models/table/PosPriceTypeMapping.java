@@ -2,16 +2,15 @@ package com.dimata.demo.app.prochain_app.models.table;
 
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
 
-import java.sql.Timestamp;
+
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
-import com.dimata.demo.app.prochain_app.core.util.jackson.TimeSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -48,7 +47,7 @@ public class PosPriceTypeMapping implements UpdateAvailable <PosPriceTypeMapping
         private Long materialId;
         private Long standartRateId;
         private String price;
-        private Timestamp updateDate;
+        private LocalDateTime updateDate;
 
 
 
@@ -92,8 +91,7 @@ public class PosPriceTypeMapping implements UpdateAvailable <PosPriceTypeMapping
     private Long materialId;
     private Long standartRateId;
     private String price;
-    @JsonSerialize(converter = TimeSerialize.class)
-    private Timestamp updateDate;
+    private LocalDateTime updateDate;
     @Transient
     @JsonIgnore
     private Long insertId;
@@ -105,7 +103,7 @@ public class PosPriceTypeMapping implements UpdateAvailable <PosPriceTypeMapping
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
         result.setStandartRateId(ManipulateUtil.parseRow(row, STANDART_RATE_ID_COL, Long.class));
         result.setPrice(ManipulateUtil.parseRow(row, PRICE_COL, String.class));
-        result.setUpdateDate(ManipulateUtil.parseRow(row, UPDATE_DATE_COL, Timestamp.class));
+        result.setUpdateDate(ManipulateUtil.parseRow(row, UPDATE_DATE_COL, LocalDateTime.class));
         result.setMaterialId(ManipulateUtil.parseRow(row, MATERIAL_ID_COL, Long.class));
         
         

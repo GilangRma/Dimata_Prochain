@@ -26,7 +26,7 @@ public class PriceTypeController {
 
     private static final String BASE_URL = "/maintainer/v1";
 
-    @PostMapping(path = BASE_URL + "/pos_unit", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = BASE_URL + "/price_type", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Mono<PriceType> maintainerAddPriceType(@RequestBody PriceTypeForm form) {
         return priceTypeApi.createPriceType(form);
     }

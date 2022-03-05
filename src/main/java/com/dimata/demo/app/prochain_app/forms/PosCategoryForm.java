@@ -1,6 +1,7 @@
 package com.dimata.demo.app.prochain_app.forms;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
+import com.dimata.demo.app.prochain_app.enums.StatusPosCatagory;
 import com.dimata.demo.app.prochain_app.models.table.PosCategory;
 
 import lombok.Data;
@@ -18,7 +19,7 @@ public class PosCategoryForm implements RecordAdapter <PosCategory>{
         private String description;
         private Long locationId;
         private Long catParentId;
-        private String status;
+        private StatusPosCatagory status;
 
         @Override
         public PosCategory convertNewRecord() {
