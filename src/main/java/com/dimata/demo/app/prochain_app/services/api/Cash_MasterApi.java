@@ -5,7 +5,7 @@ import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
 import com.dimata.demo.app.prochain_app.forms.Cash_MasterForm;
 import com.dimata.demo.app.prochain_app.models.table.Cash_Master;
-import com.dimata.demo.app.prochain_app.services.crude.Cash_MasterCrud;
+import com.dimata.demo.app.prochain_app.services.crude.Cash_MasterCrude;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
@@ -18,14 +18,14 @@ import reactor.core.publisher.Mono;
 public class Cash_MasterApi {
 
     @Autowired
-    private Cash_MasterCrud cash_MasterCrude;
+    private Cash_MasterCrude cash_MasterCrude;
     @Autowired
 	private R2dbcEntityTemplate template;
 
     public Mono<Cash_Master> createCash_Master(Cash_MasterForm form) {
         return Mono.just(form)
         .flatMap(f -> {
-            Cash_MasterCrud.Option option = Cash_MasterCrud.initOption(f.convertNewRecord());
+            Cash_MasterCrude.Option option = Cash_MasterCrude.initOption(f.convertNewRecord());
             return Mono.just(option);
         })
         .flatMap(cash_MasterCrude::create);
@@ -58,7 +58,7 @@ public class Cash_MasterApi {
                 return z.getT2();
             })
             .flatMap(d -> {
-                Cash_MasterCrud.Option option = Cash_MasterCrud.initOption(d.convertNewRecord());
+                Cash_MasterCrude.Option option = Cash_MasterCrude.initOption(d.convertNewRecord());
                 return Mono.just(option);
             })
             .flatMap(cash_MasterCrude::updateRecord);

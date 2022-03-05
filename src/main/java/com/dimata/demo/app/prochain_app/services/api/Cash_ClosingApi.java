@@ -5,7 +5,7 @@ import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
 import com.dimata.demo.app.prochain_app.forms.Cash_ClosingForm;
 import com.dimata.demo.app.prochain_app.models.table.Cash_Closing;
-import com.dimata.demo.app.prochain_app.services.crude.Cash_ClosingCrud;
+import com.dimata.demo.app.prochain_app.services.crude.Cash_ClosingCrude;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
@@ -18,14 +18,14 @@ import reactor.core.publisher.Mono;
 public class Cash_ClosingApi {
 
     @Autowired
-    private Cash_ClosingCrud cash_ClosingCrude;
+    private Cash_ClosingCrude cash_ClosingCrude;
     @Autowired
 	private R2dbcEntityTemplate template;
 
     public Mono<Cash_Closing> createCash_Closing(Cash_ClosingForm form) {
         return Mono.just(form)
         .flatMap(f -> {
-            Cash_ClosingCrud.Option option = Cash_ClosingCrud.initOption(f.convertNewRecord());
+            Cash_ClosingCrude.Option option = Cash_ClosingCrude.initOption(f.convertNewRecord());
             return Mono.just(option);
         })
         .flatMap(cash_ClosingCrude::create);
@@ -58,7 +58,7 @@ public class Cash_ClosingApi {
                 return z.getT2();
             })
             .flatMap(d -> {
-                Cash_ClosingCrud.Option option = Cash_ClosingCrud.initOption(d.convertNewRecord());
+                Cash_ClosingCrude.Option option = Cash_ClosingCrude.initOption(d.convertNewRecord());
                 return Mono.just(option);
             })
             .flatMap(cash_ClosingCrude::updateRecord);

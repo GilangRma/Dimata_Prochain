@@ -9,10 +9,12 @@ import com.dimata.demo.app.prochain_app.services.crude.Cash_ReturnPaymentCrude;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
+import org.springframework.stereotype.Service;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Service
 public class Cash_ReturnPaymentApi {
     
     @Autowired

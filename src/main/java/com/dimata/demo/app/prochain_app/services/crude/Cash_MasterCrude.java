@@ -13,7 +13,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
-public class Cash_MasterCrud {
+public class Cash_MasterCrude {
 
     @Autowired
     private Cash_MasterDbHandler cash_MasterDbHandler;
