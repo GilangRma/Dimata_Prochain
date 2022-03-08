@@ -17,8 +17,8 @@ public class PosCategoryForm implements RecordAdapter <PosCategory>{
         private String category; 
         private String typeCategory;
         private String description;
-        private Long locationId;
-        private Long catParentId;
+        private int locationId;
+        private int catParentId;
         private StatusPosCatagory status;
 
         @Override

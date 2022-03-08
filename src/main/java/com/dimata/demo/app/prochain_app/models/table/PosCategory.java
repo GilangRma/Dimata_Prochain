@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+
 @Data
 @Table
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -54,8 +55,9 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
         private String category; 
         private String typeCategory;
         private String description;
-        private Long locationId;
-        private Long catParentId;
+
+        private int locationId;
+        private int catParentId;
         private StatusPosCatagory status;
 
 
@@ -113,8 +115,8 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
     private String category; 
     private String typeCategory;
     private String description;
-    private Long locationId;
-    private Long catParentId;
+    private int locationId;
+    private int catParentId;
     private Integer status;
     @Transient
     @JsonIgnore
@@ -141,8 +143,8 @@ public StatusPosCatagory getStatus() {
         result.setCategory(ManipulateUtil.parseRow(row, CATEGORY_COL, String.class));
         result.setTypeCategory(ManipulateUtil.parseRow(row, TYPE_CATEGORY_COL, String.class));
         result.setDescription(ManipulateUtil.parseRow(row, DESCRIPTION_COL, String.class));
-        result.setLocationId(ManipulateUtil.parseRow(row, LOCATION_ID_COL, Long.class));
-        result.setCatParentId(ManipulateUtil.parseRow(row, CAT_PARENT_ID_COL, Long.class));
+        result.setLocationId(ManipulateUtil.parseRow(row, LOCATION_ID_COL, Integer.class));
+        result.setCatParentId(ManipulateUtil.parseRow(row, CAT_PARENT_ID_COL, Integer.class));
         result.setStatus(StatusPosCatagory.getStatus(ManipulateUtil.parseRow(row, STAUS_COL, Integer.class)));
         
         
