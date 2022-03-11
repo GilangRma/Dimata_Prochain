@@ -55,6 +55,7 @@ public class Cash_Master implements UpdateAvailable<Cash_Master>, Persistable<Lo
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
+        
         public static Builder createNewRecord(String cashierNumber, double tax, double service, String priceType, String cabang) {
             return new Builder().newRecord(true)
                 .cashierNumber(Objects.requireNonNull(cashierNumber, "cashierNumber diperlukan"))
