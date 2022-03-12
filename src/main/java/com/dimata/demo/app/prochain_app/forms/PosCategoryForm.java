@@ -2,6 +2,7 @@ package com.dimata.demo.app.prochain_app.forms;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
 import com.dimata.demo.app.prochain_app.enums.StatusPosCatagory;
+import com.dimata.demo.app.prochain_app.enums.TypeCatagoryEnum;
 import com.dimata.demo.app.prochain_app.models.table.PosCategory;
 
 import lombok.Data;
@@ -14,8 +15,8 @@ public class PosCategoryForm implements RecordAdapter <PosCategory>{
         private String name;
         private String code;
         private double pointPrice;
-        private String category; 
-        private String typeCategory;
+        private Integer category; 
+        private TypeCatagoryEnum typeCategory;
         private String description;
         private int locationId;
         private int catParentId;
@@ -23,8 +24,9 @@ public class PosCategoryForm implements RecordAdapter <PosCategory>{
 
         @Override
         public PosCategory convertNewRecord() {
-            return PosCategory.Builder.createNewRecord(name, code, category)
+            return PosCategory.Builder.createNewRecord(name,  category)
                 .pointPrice(pointPrice)
+                .code(code)
                 .category(category)
                 .typeCategory(typeCategory)
                 .description(description)

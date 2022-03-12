@@ -9,6 +9,7 @@ import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
 import com.dimata.demo.app.prochain_app.enums.StatusPosCatagory;
+import com.dimata.demo.app.prochain_app.enums.TypeCatagoryEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.annotation.Id;
@@ -52,8 +53,8 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
         private String name;
         private String code;
         private double pointPrice;
-        private String category; 
-        private String typeCategory;
+        private Integer category; 
+        private TypeCatagoryEnum typeCategory;
         private String description;
 
         private int locationId;
@@ -64,11 +65,11 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
-        public static Builder createNewRecord(String name, String code, String category) {
+        public static Builder createNewRecord(String name, Integer category) {
             return new Builder().newRecord(true)
                 .name(Objects.requireNonNull(name, "nama diperlukan"))
-                .category(Objects.requireNonNull(category, "category diperlukan"))
-                .code(Objects.requireNonNull(code, "code diperlukan"));
+                .category(Objects.requireNonNull(category, "category diperlukan"));
+                
                 
                 
         }
@@ -80,7 +81,8 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
                 .code(changeItOrNot(newRecord.getCode(), oldRecord.getCode()))
                 .pointPrice(changeItOrNot(newRecord.getPointPrice(), oldRecord.getPointPrice()))
                 .category(changeItOrNot(newRecord.getCategory(), oldRecord.getCategory()))
-                .typeCategory(changeItOrNot(newRecord.getTypeCategory(), oldRecord.getTypeCategory()))
+                .typeCategory(changeItOrNot(newRecord.getType(), oldRecord.getType()))
+                .status(changeItOrNot(oldRecord.getStatus(), oldRecord.getStatus()))
                 .description(changeItOrNot(newRecord.getDescription(), oldRecord.getDescription()))
                 .locationId(changeItOrNot(newRecord.getLocationId(), oldRecord.getLocationId()))
                 .catParentId(changeItOrNot(newRecord.getCatParentId(), oldRecord.getCatParentId()));
@@ -97,7 +99,7 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
             result.setCode(code);
             result.setPointPrice(pointPrice);
             result.setCategory(category);
-            result.setTypeCategory(typeCategory);
+            result.setType(typeCategory);
             result.setDescription(description);
             result.setLocationId(locationId);
             result.setCatParentId(catParentId);
@@ -112,8 +114,8 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
     private String name;
     private String code;
     private double pointPrice;
-    private String category; 
-    private String typeCategory;
+    private Integer category; 
+    private Integer typeCategory;
     private String description;
     private int locationId;
     private int catParentId;
@@ -121,7 +123,7 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
     @Transient
     @JsonIgnore
     private Long insertId;
-
+//status
 public void setStatus(StatusPosCatagory status) {
     if (status != null) {
         this.status = status.getCode();
@@ -134,14 +136,29 @@ public StatusPosCatagory getStatus() {
     return null;
 }
 
+
+//typeCategory
+
+public void setType(TypeCatagoryEnum status) {
+    if (status != null) {
+        this.status = status.getCode();
+    }
+}
+public TypeCatagoryEnum getType() {
+    if (status != null) {
+        return TypeCatagoryEnum.getType(this.status);
+    }
+    return null;
+}
+
     public static PosCategory  fromRow(Row row) {
         var result = new PosCategory ();
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
         result.setName(ManipulateUtil.parseRow(row, NAME_COL, String.class));
         result.setCode(ManipulateUtil.parseRow(row, CODE_COL, String.class));
         result.setPointPrice(ManipulateUtil.parseRow(row, POINT_PRICE_COL, Double.class));
-        result.setCategory(ManipulateUtil.parseRow(row, CATEGORY_COL, String.class));
-        result.setTypeCategory(ManipulateUtil.parseRow(row, TYPE_CATEGORY_COL, String.class));
+        result.setCategory(ManipulateUtil.parseRow(row, CATEGORY_COL, Integer.class));
+        result.setType(TypeCatagoryEnum.getType(ManipulateUtil.parseRow(row, TYPE_CATEGORY_COL,Integer.class)));
         result.setDescription(ManipulateUtil.parseRow(row, DESCRIPTION_COL, String.class));
         result.setLocationId(ManipulateUtil.parseRow(row, LOCATION_ID_COL, Integer.class));
         result.setCatParentId(ManipulateUtil.parseRow(row, CAT_PARENT_ID_COL, Integer.class));
