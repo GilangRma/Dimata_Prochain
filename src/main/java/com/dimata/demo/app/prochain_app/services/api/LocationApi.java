@@ -9,10 +9,12 @@ import com.dimata.demo.app.prochain_app.services.crude.LocationCrude;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
+import org.springframework.stereotype.Service;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Service
 public class LocationApi {
 
     @Autowired
@@ -49,7 +51,7 @@ public class LocationApi {
             .one();
     }
 
-    public Mono<Location> updateCash_Cashier(Long id, LocationForm form) {
+    public Mono<Location> updateLocation(Long id, LocationForm form) {
         return Mono.zip(Mono.just(id), Mono.just(form))
             .map(z -> {
                 z.getT2().setId(z.getT1());

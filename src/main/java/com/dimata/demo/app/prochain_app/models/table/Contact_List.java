@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
+import com.dimata.demo.app.prochain_app.enums.PaymentType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -200,7 +201,7 @@ public class Contact_List implements UpdateAvailable<Contact_List>, Persistable 
         private String memberPasswordId;
         private Long currencyTypeIdConsigmentLimit;
         private Long currencyTypeIdCreditLimit;
-        private int termOfPayment;
+        private PaymentType termOfPayment;
         private int daysTermOfpayment;
         private Long sistemOfPayment;
         private String weekDayOfPayment;
@@ -309,7 +310,7 @@ public class Contact_List implements UpdateAvailable<Contact_List>, Persistable 
                 .memberPasswordId(changeItOrNot(newRecord.getMemberPasswordId(), oldRecord.getMemberPasswordId()))
                 .currencyTypeIdConsigmentLimit(changeItOrNot(newRecord.getCurrencyTypeIdConsigmentLimit(), oldRecord.getCurrencyTypeIdConsigmentLimit()))
                 .currencyTypeIdCreditLimit(changeItOrNot(newRecord.getCurrencyTypeIdCreditLimit(), oldRecord.getCurrencyTypeIdCreditLimit()))
-                .termOfPayment(changeItOrNot(newRecord.getTermOfPayment(), oldRecord.getTermOfPayment()))
+                .termOfPayment(changeItOrNot(newRecord.getPayment(), oldRecord.getPayment()))
                 .daysTermOfpayment(changeItOrNot(newRecord.getDaysTermOfpayment(), oldRecord.getDaysTermOfpayment()))
                 .sistemOfPayment(changeItOrNot(newRecord.getSistemOfPayment(), oldRecord.getSistemOfPayment()))
                 .weekDayOfPayment(changeItOrNot(newRecord.getWeekDayOfPayment(), oldRecord.getWeekDayOfPayment()))
@@ -415,7 +416,7 @@ public class Contact_List implements UpdateAvailable<Contact_List>, Persistable 
             result.setMemberPasswordId(memberPasswordId);
             result.setCurrencyTypeIdConsigmentLimit(currencyTypeIdConsigmentLimit);
             result.setCurrencyTypeIdCreditLimit(currencyTypeIdCreditLimit);
-            result.setTermOfPayment(termOfPayment);
+            result.setPayment(termOfPayment);
             result.setDaysTermOfpayment(daysTermOfpayment);
             result.setSistemOfPayment(sistemOfPayment);
             result.setWeekDayOfPayment(weekDayOfPayment);
@@ -519,7 +520,7 @@ public class Contact_List implements UpdateAvailable<Contact_List>, Persistable 
         private String memberPasswordId;
         private Long currencyTypeIdConsigmentLimit;
         private Long currencyTypeIdCreditLimit;
-        private int termOfPayment;
+        private Integer termOfPayment;
         private int daysTermOfpayment;
         private Long sistemOfPayment;
         private String weekDayOfPayment;
@@ -554,6 +555,20 @@ public class Contact_List implements UpdateAvailable<Contact_List>, Persistable 
         @Transient
         @JsonIgnore
         private Long insertId;
+
+        public void setPayment(PaymentType termOfPayment) {
+            if (termOfPayment != null) {
+                this.termOfPayment = termOfPayment.getCode();
+            }
+        }
+    
+        public PaymentType getPayment() {
+            if (termOfPayment != null) {
+                return PaymentType.getPayment(this.termOfPayment);
+            }
+            return null;
+        }
+    
 
         public static Contact_List  fromRow(Row row) {
             var result = new Contact_List();
@@ -624,7 +639,7 @@ public class Contact_List implements UpdateAvailable<Contact_List>, Persistable 
             result.setMemberPasswordId(ManipulateUtil.parseRow(row, MEMBER_PASSWORD_ID_COL, String.class));
             result.setCurrencyTypeIdConsigmentLimit(ManipulateUtil.parseRow(row, CURRENCY_TYPE_ID_CONSIGMENT_LIMIT_COL, Long.class));
             result.setCurrencyTypeIdCreditLimit(ManipulateUtil.parseRow(row, CURRENCY_TYPE_ID_CREDIT_LIMIT_COL, Long.class));
-            result.setTermOfPayment(ManipulateUtil.parseRow(row, TERM_OF_PAYMENT_COL, Integer.class));
+            result.setPayment(PaymentType.getPayment(ManipulateUtil.parseRow(row, TERM_OF_PAYMENT_COL, Integer.class)));
             result.setDaysTermOfpayment(ManipulateUtil.parseRow(row, DAYS_TERM_OF_PAYMENT_COL, Integer.class));
             result.setSistemOfPayment(ManipulateUtil.parseRow(row, SISTEM_OF_PAYMENT_COL, Long.class));
             result.setWeekDayOfPayment(ManipulateUtil.parseRow(row, WEEK_DAY_OF_PAYMENT_COL, String.class));

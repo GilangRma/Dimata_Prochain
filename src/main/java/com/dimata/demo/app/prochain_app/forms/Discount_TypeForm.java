@@ -14,21 +14,22 @@ public class Discount_TypeForm implements RecordAdapter<Discount_Type> {
     private String code;
     private String dindex;
     private String name;
-
-    public Discount_Type convertToRecord() {
-        return Discount_Type.Builder.emptyBuilder()
-            .code(code)
-            .dindex(dindex)
-            .name(name)
-            .build();
-    }
-
+    @Override
     public Discount_Type convertNewRecord() {
+        
         return Discount_Type.Builder.createNewRecord(name, code)
-            .dindex(dindex)
-            .id(id)
-            .build();
-
+                .dindex(dindex)
+                .id(id)
+                .build();
+    }
+    @Override
+    public Discount_Type convertToRecord() {
+       
+        return Discount_Type.Builder.emptyBuilder()
+        .code(code)
+        .dindex(dindex)
+        .name(name)
+        .build();
     }
 
 }

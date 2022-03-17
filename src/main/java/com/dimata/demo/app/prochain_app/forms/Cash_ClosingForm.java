@@ -19,7 +19,8 @@ public class Cash_ClosingForm implements RecordAdapter<Cash_Closing> {
     @Override
     public Cash_Closing convertNewRecord() {
         return Cash_Closing.Builder.createNewRecord(paymentType,amountRP,amountUSD)
-                
+                .cashCashierId(cashCashierId)
+                .id(id)
                 .build();
     }
     @Override

@@ -16,9 +16,20 @@ public class Cash_ReturnPaymentForm implements RecordAdapter<Cash_ReturnPayment>
         private double rate;
         private String paymentStatus;
         private double amount;
-
-    public Cash_ReturnPayment convertToRecord() {
-        return Cash_ReturnPayment.Builder.emptyBuilder()
+        @Override
+        public Cash_ReturnPayment convertNewRecord() {
+            
+            return Cash_ReturnPayment.Builder.createNewRecord(rate,amount)
+                    .currencyId(currencyId)
+                    .cashBillMainId(cashBillMainId)
+                    .paymentStatus(paymentStatus)
+                    .id(id)
+                    .build();
+        }
+        @Override
+        public Cash_ReturnPayment convertToRecord() {
+           
+            return Cash_ReturnPayment.Builder.emptyBuilder()
             .currencyId(currencyId)
             .cashBillMainId(cashBillMainId)
             .rate(rate)
@@ -26,15 +37,6 @@ public class Cash_ReturnPaymentForm implements RecordAdapter<Cash_ReturnPayment>
             .amount(amount)
             .id(id)
             .build();
-    }
-    public Cash_ReturnPayment convertNewRecord() {
-        return Cash_ReturnPayment.Builder.createNewRecord(rate,amount)
-            .currencyId(currencyId)
-            .cashBillMainId(cashBillMainId)
-            .paymentStatus(paymentStatus)
-            .id(id)
-            .build();
-
-    }
+        }
 
 }
