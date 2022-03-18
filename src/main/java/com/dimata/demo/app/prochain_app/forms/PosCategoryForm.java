@@ -19,8 +19,8 @@ public class PosCategoryForm implements RecordAdapter <PosCategory>{
         private CatagoryEnum category; 
         private TypeCatagoryEnum typeCategory;
         private String description;
-        private int locationId;
-        private int catParentId;
+        private Long locationId;
+        private Long catParentId;
         private StatusPosCatagory status;
 
         @Override

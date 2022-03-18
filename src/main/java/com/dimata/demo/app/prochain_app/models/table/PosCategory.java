@@ -58,8 +58,8 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
         private TypeCatagoryEnum typeCategory;
         private String description;
 
-        private int locationId;
-        private int catParentId;
+        private Long locationId;
+        private Long catParentId;
         private StatusPosCatagory status;
 
 
@@ -118,8 +118,8 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
     private Integer category; 
     private Integer typeCategory;
     private String description;
-    private int locationId;
-    private int catParentId;
+    private Long locationId;
+    private Long catParentId;
     private Integer status;
     @Transient
     @JsonIgnore
@@ -173,8 +173,8 @@ public CatagoryEnum getCatagory() {
         result.setCatagory(CatagoryEnum.getCatagory(ManipulateUtil.parseRow(row, CATEGORY_COL, Integer.class)));
         result.setType(TypeCatagoryEnum.getType(ManipulateUtil.parseRow(row, TYPE_CATEGORY_COL,Integer.class)));
         result.setDescription(ManipulateUtil.parseRow(row, DESCRIPTION_COL, String.class));
-        result.setLocationId(ManipulateUtil.parseRow(row, LOCATION_ID_COL, Integer.class));
-        result.setCatParentId(ManipulateUtil.parseRow(row, CAT_PARENT_ID_COL, Integer.class));
+        result.setLocationId(ManipulateUtil.parseRow(row, LOCATION_ID_COL, Long.class));
+        result.setCatParentId(ManipulateUtil.parseRow(row, CAT_PARENT_ID_COL, Long.class));
         result.setStatus(StatusPosCatagory.getStatus(ManipulateUtil.parseRow(row, STAUS_COL, Integer.class)));
         
         
