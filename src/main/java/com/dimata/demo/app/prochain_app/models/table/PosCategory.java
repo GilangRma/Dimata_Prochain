@@ -8,6 +8,7 @@ import java.util.Objects;
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
+import com.dimata.demo.app.prochain_app.enums.CatagoryEnum;
 import com.dimata.demo.app.prochain_app.enums.StatusPosCatagory;
 import com.dimata.demo.app.prochain_app.enums.TypeCatagoryEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -53,7 +54,7 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
         private String name;
         private String code;
         private double pointPrice;
-        private Integer category; 
+        private CatagoryEnum category; 
         private TypeCatagoryEnum typeCategory;
         private String description;
 
@@ -65,7 +66,7 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
-        public static Builder createNewRecord(String name, Integer category) {
+        public static Builder createNewRecord(String name, CatagoryEnum category) {
             return new Builder().newRecord(true)
                 .name(Objects.requireNonNull(name, "nama diperlukan"))
                 .category(Objects.requireNonNull(category, "category diperlukan"));
@@ -80,7 +81,7 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
                 .name(changeItOrNot(newRecord.getName(), oldRecord.getName()))
                 .code(changeItOrNot(newRecord.getCode(), oldRecord.getCode()))
                 .pointPrice(changeItOrNot(newRecord.getPointPrice(), oldRecord.getPointPrice()))
-                .category(changeItOrNot(newRecord.getCategory(), oldRecord.getCategory()))
+                .category(changeItOrNot(newRecord.getCatagory(), oldRecord.getCatagory()))
                 .typeCategory(changeItOrNot(newRecord.getType(), oldRecord.getType()))
                 .status(changeItOrNot(oldRecord.getStatus(), oldRecord.getStatus()))
                 .description(changeItOrNot(newRecord.getDescription(), oldRecord.getDescription()))
@@ -98,7 +99,7 @@ public class PosCategory implements UpdateAvailable<PosCategory>, Persistable <L
             result.setName(name);
             result.setCode(code);
             result.setPointPrice(pointPrice);
-            result.setCategory(category);
+            result.setCatagory(category);
             result.setType(typeCategory);
             result.setDescription(description);
             result.setLocationId(locationId);
@@ -139,14 +140,26 @@ public StatusPosCatagory getStatus() {
 
 //typeCategory
 
-public void setType(TypeCatagoryEnum status) {
-    if (status != null) {
-        this.status = status.getCode();
+public void setType(TypeCatagoryEnum typeCategory) {
+    if (typeCategory != null) {
+        this.typeCategory = typeCategory.getCode();
     }
 }
 public TypeCatagoryEnum getType() {
-    if (status != null) {
-        return TypeCatagoryEnum.getType(this.status);
+    if (typeCategory != null) {
+        return TypeCatagoryEnum.getType(this.typeCategory);
+    }
+    return null;
+}
+//catagory
+public void setCatagory(CatagoryEnum category) {
+    if(category != null){
+        this.category = category.getCode();
+    }
+}
+public CatagoryEnum getCatagory() {
+    if(category != null){
+        return CatagoryEnum.getCatagory(this.category);
     }
     return null;
 }
@@ -157,7 +170,7 @@ public TypeCatagoryEnum getType() {
         result.setName(ManipulateUtil.parseRow(row, NAME_COL, String.class));
         result.setCode(ManipulateUtil.parseRow(row, CODE_COL, String.class));
         result.setPointPrice(ManipulateUtil.parseRow(row, POINT_PRICE_COL, Double.class));
-        result.setCategory(ManipulateUtil.parseRow(row, CATEGORY_COL, Integer.class));
+        result.setCatagory(CatagoryEnum.getCatagory(ManipulateUtil.parseRow(row, CATEGORY_COL, Integer.class)));
         result.setType(TypeCatagoryEnum.getType(ManipulateUtil.parseRow(row, TYPE_CATEGORY_COL,Integer.class)));
         result.setDescription(ManipulateUtil.parseRow(row, DESCRIPTION_COL, String.class));
         result.setLocationId(ManipulateUtil.parseRow(row, LOCATION_ID_COL, Integer.class));

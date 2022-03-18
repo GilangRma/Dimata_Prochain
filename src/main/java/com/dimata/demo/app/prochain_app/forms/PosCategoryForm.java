@@ -1,6 +1,7 @@
 package com.dimata.demo.app.prochain_app.forms;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
+import com.dimata.demo.app.prochain_app.enums.CatagoryEnum;
 import com.dimata.demo.app.prochain_app.enums.StatusPosCatagory;
 import com.dimata.demo.app.prochain_app.enums.TypeCatagoryEnum;
 import com.dimata.demo.app.prochain_app.models.table.PosCategory;
@@ -15,7 +16,7 @@ public class PosCategoryForm implements RecordAdapter <PosCategory>{
         private String name;
         private String code;
         private double pointPrice;
-        private Integer category; 
+        private CatagoryEnum category; 
         private TypeCatagoryEnum typeCategory;
         private String description;
         private int locationId;
