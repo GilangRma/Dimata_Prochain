@@ -2,15 +2,19 @@ package com.dimata.demo.app.prochain_app.models.table;
 
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
 
-
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
+import com.dimata.demo.app.prochain_app.core.util.jackson.DateSerialize;
+import com.dimata.demo.app.prochain_app.core.util.jackson.LocalDateTimeDeserialize;
+import com.dimata.demo.app.prochain_app.core.util.jackson.LocalDateTimeSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -91,6 +95,7 @@ public class PosPriceTypeMapping implements UpdateAvailable <PosPriceTypeMapping
     private Long materialId;
     private Long standartRateId;
     private String price;
+    @JsonSerialize(converter = LocalDateTimeSerialize.class)
     private LocalDateTime updateDate;
     @Transient
     @JsonIgnore
