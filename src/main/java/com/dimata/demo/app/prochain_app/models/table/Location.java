@@ -24,7 +24,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Data
-@Table
+@Table(Location.TABLE_NAME)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Location implements UpdateAvailable<Location>, Persistable <Long>{
