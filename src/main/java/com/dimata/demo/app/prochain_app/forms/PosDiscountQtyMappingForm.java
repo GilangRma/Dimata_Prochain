@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
 import com.dimata.demo.app.prochain_app.core.util.jackson.DateDeserialize;
+import com.dimata.demo.app.prochain_app.core.util.jackson.TimeDeserialize;
 import com.dimata.demo.app.prochain_app.models.table.PosDiscountQtyMapping;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -23,7 +24,7 @@ public class PosDiscountQtyMappingForm implements RecordAdapter<PosDiscountQtyMa
         private String toQty;
         private String discountValue;
         private String discountType;
-        @JsonDeserialize(converter = DateDeserialize.class)
+        @JsonDeserialize(converter = TimeDeserialize.class)
         private LocalDateTime updateDate;
 
         @Override

@@ -1,12 +1,11 @@
 package com.dimata.demo.app.prochain_app.forms;
 
 
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
-import com.dimata.demo.app.prochain_app.core.util.jackson.DateDeserialize;
-import com.dimata.demo.app.prochain_app.core.util.jackson.LocalDateTimeDeserialize;
+import com.dimata.demo.app.prochain_app.core.util.jackson.TimeDeserialize;
+
 import com.dimata.demo.app.prochain_app.models.table.PosPriceTypeMapping;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -20,7 +19,7 @@ public class PosPriceTypeMappingForm implements RecordAdapter<PosPriceTypeMappin
     private Long materialId;
     private Long standartRateId;
     private String price;
-    @JsonDeserialize(converter = LocalDateTimeDeserialize.class)
+    @JsonDeserialize(converter = TimeDeserialize.class)
     private LocalDateTime updateDate;
 
     @Override
