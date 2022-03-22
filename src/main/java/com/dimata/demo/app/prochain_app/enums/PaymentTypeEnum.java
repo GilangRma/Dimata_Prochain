@@ -2,7 +2,7 @@ package com.dimata.demo.app.prochain_app.enums;
 
 import lombok.Getter;
 
-public enum PaymentType {
+public enum PaymentTypeEnum {
     CASH(0),
     CREDIT(1),
     UNDEFINED(-1);
@@ -10,7 +10,7 @@ public enum PaymentType {
     @Getter
     private final int code;
 
-    public static PaymentType getPayment(Integer code){
+    public static PaymentTypeEnum getPayment(Integer code){
         switch (code) {
             case 0:
                 return CASH;
@@ -21,21 +21,21 @@ public enum PaymentType {
         }
     }
 
-    PaymentType(int code) {
+    PaymentTypeEnum(int code) {
         this.code = code;
     }
 
-    public String parsePayment(PaymentType payment){
-        if (payment == PaymentType.CASH) {
+    public String parsePayment(PaymentTypeEnum payment){
+        if (payment == PaymentTypeEnum.CASH) {
             return "CASH";
         }
         return "CASH";
     }
 
     public String parseStatus(int code) {
-        if (getPayment(code) == PaymentType.CASH) {
+        if (getPayment(code) == PaymentTypeEnum.CASH) {
             return "CASH";
-        } else if (getPayment(code) == PaymentType.CREDIT) {
+        } else if (getPayment(code) == PaymentTypeEnum.CREDIT) {
             return "CREDIT";
         }
         return "Undefined";

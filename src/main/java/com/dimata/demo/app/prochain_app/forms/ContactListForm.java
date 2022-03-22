@@ -3,8 +3,10 @@ package com.dimata.demo.app.prochain_app.forms;
 import java.time.LocalDateTime;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
-import com.dimata.demo.app.prochain_app.enums.PaymentType;
+import com.dimata.demo.app.prochain_app.core.util.jackson.TimeDeserialize;
+import com.dimata.demo.app.prochain_app.enums.PaymentTypeEnum;
 import com.dimata.demo.app.prochain_app.models.table.ContactList;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -80,7 +82,7 @@ public class ContactListForm implements RecordAdapter<ContactList> {
         private String memberPasswordId;
         private Long currencyTypeIdConsigmentLimit;
         private Long currencyTypeIdCreditLimit;
-        private PaymentType termOfPayment;
+        private PaymentTypeEnum termOfPayment;
         private int daysTermOfpayment;
         private Long sistemOfPayment;
         private String weekDayOfPayment;
@@ -111,6 +113,7 @@ public class ContactListForm implements RecordAdapter<ContactList> {
         private String postalCodeHome;
         private Long locationId;
         private String memberPassword;
+        @JsonDeserialize(converter = TimeDeserialize.class)
         @Override
         public ContactList convertNewRecord() {
     

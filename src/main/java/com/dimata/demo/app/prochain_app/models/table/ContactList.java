@@ -7,9 +7,11 @@ import java.time.LocalDateTime;
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
-import com.dimata.demo.app.prochain_app.enums.PaymentType;
+import com.dimata.demo.app.prochain_app.core.util.jackson.TimeSerialize;
+import com.dimata.demo.app.prochain_app.enums.PaymentTypeEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -201,7 +203,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
         private String memberPasswordId;
         private Long currencyTypeIdConsigmentLimit;
         private Long currencyTypeIdCreditLimit;
-        private PaymentType termOfPayment;
+        private PaymentTypeEnum termOfPayment;
         private int daysTermOfpayment;
         private Long sistemOfPayment;
         private String weekDayOfPayment;
@@ -551,20 +553,22 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
         private String postalCodeHome;
         private Long locationId;
         private String memberPassword;
+        @JsonSerialize(converter = TimeSerialize.class)
+
 
         @Transient
         @JsonIgnore
         private Long insertId;
 
-        public void setPayment(PaymentType termOfPayment) {
+        public void setPayment(PaymentTypeEnum termOfPayment) {
             if (termOfPayment != null) {
                 this.termOfPayment = termOfPayment.getCode();
             }
         }
     
-        public PaymentType getPayment() {
+        public PaymentTypeEnum getPayment() {
             if (termOfPayment != null) {
-                return PaymentType.getPayment(this.termOfPayment);
+                return PaymentTypeEnum.getPayment(this.termOfPayment);
             }
             return null;
         }
@@ -639,7 +643,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
             result.setMemberPasswordId(ManipulateUtil.parseRow(row, MEMBER_PASSWORD_ID_COL, String.class));
             result.setCurrencyTypeIdConsigmentLimit(ManipulateUtil.parseRow(row, CURRENCY_TYPE_ID_CONSIGMENT_LIMIT_COL, Long.class));
             result.setCurrencyTypeIdCreditLimit(ManipulateUtil.parseRow(row, CURRENCY_TYPE_ID_CREDIT_LIMIT_COL, Long.class));
-            result.setPayment(PaymentType.getPayment(ManipulateUtil.parseRow(row, TERM_OF_PAYMENT_COL, Integer.class)));
+            result.setPayment(PaymentTypeEnum.getPayment(ManipulateUtil.parseRow(row, TERM_OF_PAYMENT_COL, Integer.class)));
             result.setDaysTermOfpayment(ManipulateUtil.parseRow(row, DAYS_TERM_OF_PAYMENT_COL, Integer.class));
             result.setSistemOfPayment(ManipulateUtil.parseRow(row, SISTEM_OF_PAYMENT_COL, Long.class));
             result.setWeekDayOfPayment(ManipulateUtil.parseRow(row, WEEK_DAY_OF_PAYMENT_COL, String.class));

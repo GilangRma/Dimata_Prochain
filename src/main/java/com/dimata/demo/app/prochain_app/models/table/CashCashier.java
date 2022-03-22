@@ -8,7 +8,7 @@ import java.util.Objects;
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
-import com.dimata.demo.app.prochain_app.core.util.jackson.LocalDateTimeSerialize;
+import com.dimata.demo.app.prochain_app.core.util.jackson.TimeSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -111,7 +111,7 @@ public class CashCashier implements UpdateAvailable<CashCashier>, Persistable <L
     private Long  id;
     private Long cashMasterId;
     private Long appUserId;
-    @JsonSerialize(converter = LocalDateTimeSerialize.class)
+    @JsonSerialize(converter = TimeSerialize.class)
     private LocalDateTime openDate;
     private Long spvOpenId; 
     private String spvOpenName;

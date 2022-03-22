@@ -3,7 +3,7 @@ package com.dimata.demo.app.prochain_app.forms;
 import java.time.LocalDateTime;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
-import com.dimata.demo.app.prochain_app.core.util.jackson.LocalDateTimeDeserialize;
+import com.dimata.demo.app.prochain_app.core.util.jackson.TimeDeserialize;
 import com.dimata.demo.app.prochain_app.models.table.CashCashier;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -17,7 +17,7 @@ public class CashCashierForm implements RecordAdapter <CashCashier>{
     private Long  id;
     private Long cashMasterId;
     private Long appUserId;
-    @JsonDeserialize(converter = LocalDateTimeDeserialize.class)
+    @JsonDeserialize(converter = TimeDeserialize.class)
     private LocalDateTime openDate;
     private Long spvOpenId; 
     private String spvOpenName;
