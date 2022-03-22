@@ -51,8 +51,8 @@ public class PosDiscountMapping implements UpdateAvailable <PosDiscountMapping>,
         private Long  id;
         private Long materialId;
         private Long currencyTypeId;
-        private String discountPct;
-        private String discountValue;
+        private Double discountPct;
+        private Double discountValue;
         private LocalDateTime updateDate;
 
 
@@ -60,7 +60,7 @@ public class PosDiscountMapping implements UpdateAvailable <PosDiscountMapping>,
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
-        public static Builder createNewRecord(String discountPct, String discountValue) {
+        public static Builder createNewRecord(Double discountPct, Double discountValue) {
             return new Builder().newRecord(true)
                 .discountPct(Objects.requireNonNull(discountPct, "discountPct diperlukan"))
                 .discountValue(Objects.requireNonNull(discountValue, "discountValue diperlukan"));
@@ -99,8 +99,8 @@ public class PosDiscountMapping implements UpdateAvailable <PosDiscountMapping>,
     private Long  id;
     private Long materialId;
     private Long currencyTypeId;
-    private String discountPct;
-    private String discountValue;
+    private Double discountPct;
+    private Double discountValue;
     @JsonSerialize(converter = TimeSerialize.class)
     private LocalDateTime updateDate;
     @Transient
@@ -112,8 +112,8 @@ public class PosDiscountMapping implements UpdateAvailable <PosDiscountMapping>,
     public static PosDiscountMapping  fromRow(Row row) {
         var result = new PosDiscountMapping ();
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
-        result.setDiscountPct(ManipulateUtil.parseRow(row, DISCOUNT_PCT_COL, String.class));
-        result.setDiscountValue(ManipulateUtil.parseRow(row, DISCOUNT_VALUE_COL, String.class));
+        result.setDiscountPct(ManipulateUtil.parseRow(row, DISCOUNT_PCT_COL, Double.class));
+        result.setDiscountValue(ManipulateUtil.parseRow(row, DISCOUNT_VALUE_COL, Double.class));
         result.setUpdateDate(ManipulateUtil.parseRow(row, UPDATE_DATE_COL, LocalDateTime.class));
         result.setMaterialId(ManipulateUtil.parseRow(row, MATERIAL_ID_COL, Long.class));
         result.setCurrencyTypeId(ManipulateUtil.parseRow(row, CURRENCY_TYPE_ID_COL, Long.class));

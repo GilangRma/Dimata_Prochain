@@ -19,8 +19,8 @@ public class PosDiscountMappingForm implements RecordAdapter<PosDiscountMapping>
     private Long  id;
     private Long materialId;
     private Long currencyTypeId;
-    private String discountPct;
-    private String discountValue;
+    private Double discountPct;
+    private Double discountValue;
     @JsonDeserialize(converter = TimeDeserialize.class)
     private LocalDateTime updateDate;
     

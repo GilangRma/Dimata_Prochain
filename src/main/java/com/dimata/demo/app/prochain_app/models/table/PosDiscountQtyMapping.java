@@ -54,16 +54,16 @@ public class PosDiscountQtyMapping implements UpdateAvailable<PosDiscountQtyMapp
         private Long currencyTypeId;
         private Long locationId;
         private Long materialId;
-        private String startQty;
-        private String toQty;
-        private String discountValue;
+        private Double startQty;
+        private Double toQty;
+        private Double discountValue;
         private String discountType;  
         @JsonSerialize(converter = TimeSerialize.class)     
         private LocalDateTime updateDate; 
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
-        public static Builder createNewRecord(String discountvalue, String discountType) {
+        public static Builder createNewRecord(Double discountvalue, String discountType) {
             return new Builder().newRecord(true)
                 .discountValue(Objects.requireNonNull(discountvalue, "discountvalue diperlukan"))
                 .discountType(Objects.requireNonNull(discountType, "discountType diperlukan"));
@@ -109,9 +109,9 @@ public class PosDiscountQtyMapping implements UpdateAvailable<PosDiscountQtyMapp
     private Long currencyTypeId;
     private Long locationId;
     private Long materialId;
-    private String startQty;
-    private String toQty;
-    private String discountValue;
+    private Double startQty;
+    private Double toQty;
+    private Double discountValue;
     private String discountType;
     private LocalDateTime updateDate;
     @Transient
@@ -126,9 +126,9 @@ public class PosDiscountQtyMapping implements UpdateAvailable<PosDiscountQtyMapp
         result.setCurrencyTypeId(ManipulateUtil.parseRow(row, CURRENCY_TYPE_ID_COL, Long.class));
         result.setCurrencyTypeId(ManipulateUtil.parseRow(row, LOCATION_ID_COL, Long.class));
         result.setMaterialId(ManipulateUtil.parseRow(row, MATERIAL_ID_COL, Long.class));
-        result.setStartQty(ManipulateUtil.parseRow(row, START_QTY_COL, String.class));
-        result.setToQty(ManipulateUtil.parseRow(row, TO_QTY_COL, String.class));
-        result.setDiscountValue(ManipulateUtil.parseRow(row, DISCOUNT_VALUE_COL, String.class));
+        result.setStartQty(ManipulateUtil.parseRow(row, START_QTY_COL, Double.class));
+        result.setToQty(ManipulateUtil.parseRow(row, TO_QTY_COL, Double.class));
+        result.setDiscountValue(ManipulateUtil.parseRow(row, DISCOUNT_VALUE_COL, Double.class));
         result.setDiscountType(ManipulateUtil.parseRow(row, DISCOUNT_TYPE_COL, String.class));
         result.setUpdateDate(ManipulateUtil.parseRow(row, UPDATE_DATE_COL, LocalDateTime.class));
         

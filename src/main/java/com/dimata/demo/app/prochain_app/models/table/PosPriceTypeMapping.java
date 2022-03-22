@@ -47,7 +47,7 @@ public class PosPriceTypeMapping implements UpdateAvailable <PosPriceTypeMapping
         private Long  id;
         private Long materialId;
         private Long standartRateId;
-        private String price;
+        private Double price;
         private LocalDateTime updateDate;
 
 
@@ -55,7 +55,7 @@ public class PosPriceTypeMapping implements UpdateAvailable <PosPriceTypeMapping
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
-        public static Builder createNewRecord(String price) {
+        public static Builder createNewRecord(Double price) {
             return new Builder().newRecord(true)
                 .price(Objects.requireNonNull(price, "price diperlukan"));
                 
@@ -91,7 +91,7 @@ public class PosPriceTypeMapping implements UpdateAvailable <PosPriceTypeMapping
     private Long  id;
     private Long materialId;
     private Long standartRateId;
-    private String price;
+    private Double price;
     @JsonSerialize(converter = TimeSerialize.class)
     private LocalDateTime updateDate;
     @Transient
@@ -104,7 +104,7 @@ public class PosPriceTypeMapping implements UpdateAvailable <PosPriceTypeMapping
         var result = new PosPriceTypeMapping ();
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
         result.setStandartRateId(ManipulateUtil.parseRow(row, STANDART_RATE_ID_COL, Long.class));
-        result.setPrice(ManipulateUtil.parseRow(row, PRICE_COL, String.class));
+        result.setPrice(ManipulateUtil.parseRow(row, PRICE_COL, Double.class));
         result.setUpdateDate(ManipulateUtil.parseRow(row, UPDATE_DATE_COL, LocalDateTime.class));
         result.setMaterialId(ManipulateUtil.parseRow(row, MATERIAL_ID_COL, Long.class));
         

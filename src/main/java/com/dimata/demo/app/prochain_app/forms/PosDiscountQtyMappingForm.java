@@ -20,9 +20,9 @@ public class PosDiscountQtyMappingForm implements RecordAdapter<PosDiscountQtyMa
         private Long currencyTypeId;
         private Long locationId;
         private Long materialId;
-        private String startQty;
-        private String toQty;
-        private String discountValue;
+        private Double startQty;
+        private Double toQty;
+        private Double discountValue;
         private String discountType;
         @JsonDeserialize(converter = TimeDeserialize.class)
         private LocalDateTime updateDate;
