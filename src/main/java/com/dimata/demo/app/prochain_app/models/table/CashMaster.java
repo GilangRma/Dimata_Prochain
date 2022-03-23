@@ -122,6 +122,11 @@ public class CashMaster implements UpdateAvailable<CashMaster>, Persistable<Long
     }
 
     @Override
+    public CashMaster update(CashMaster newData) {
+        return Builder.updateBuilder(this, newData).build();
+    }
+
+    @Override
     public boolean isNew() {
         if (id == null && insertId == null) {
             id = new GenerateUtil().generateOID();
@@ -131,11 +136,6 @@ public class CashMaster implements UpdateAvailable<CashMaster>, Persistable<Long
             return true;
         }
         return false;
-    }
-
-    @Override
-    public CashMaster update(CashMaster newData) {
-        return Builder.updateBuilder(this, newData).build();
     }
 
 

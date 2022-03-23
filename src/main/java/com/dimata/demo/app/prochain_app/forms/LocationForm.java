@@ -3,6 +3,7 @@ package com.dimata.demo.app.prochain_app.forms;
 import java.time.LocalDateTime;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
+import com.dimata.demo.app.prochain_app.enums.LocationUsedEnum;
 import com.dimata.demo.app.prochain_app.models.table.Location;
 
 import lombok.Data;
@@ -42,7 +43,7 @@ public class LocationForm implements RecordAdapter<Location>{
         private long companyId;
         private long princeTypeId;
         private long standartRateId;
-        private int locationUsedTable;
+        private LocationUsedEnum locationUsedTable;
         private String sistemAddressHistoryOutlet;
         private String accountingEmail;
         private String locationIp;

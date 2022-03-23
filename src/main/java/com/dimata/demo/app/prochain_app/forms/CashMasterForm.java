@@ -18,22 +18,25 @@ public class CashMasterForm implements RecordAdapter<CashMaster> {
     private String priceType;
     private String cabang;
     
-    @Override
-    public CashMaster convertToRecord() {
-        return CashMaster.Builder.emptyBuilder()
-                .cashierNumber(cashierNumber)
-                .locationId(locationId)
-                .tax(tax)
-                .service(service)
-                .priceType(priceType)
-                .cabang(cabang)
-                .build();
-    }
-
+    
     @Override
     public CashMaster convertNewRecord() {
         return CashMaster.Builder.createNewRecord(cashierNumber, tax, service, priceType, cabang, locationId)
                 .build();
+    }
+
+    @Override
+    public CashMaster convertToRecord() {
+      
+        return CashMaster.Builder.emptyBuilder()
+                    .cashierNumber(cashierNumber)
+                    .locationId(locationId)
+                    .tax(tax)
+                    .service(service)
+                    .priceType(priceType)
+                    .cabang(cabang)
+                    .id(id)
+                    .build();
     }
     
     

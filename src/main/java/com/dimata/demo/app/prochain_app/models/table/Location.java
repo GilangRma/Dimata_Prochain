@@ -7,6 +7,7 @@ import java.util.Objects;
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
+import com.dimata.demo.app.prochain_app.enums.LocationUsedEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -105,7 +106,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
         private long companyId;
         private long princeTypeId;
         private long standartRateId;
-        private int locationUsedTable;
+        private LocationUsedEnum locationUsedTable;
         private String sistemAddressHistoryOutlet;
         private String accountingEmail;
         private String locationIp;
@@ -165,7 +166,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
                 .companyId(changeItOrNot(newRecord.getCompanyId(), oldRecord.getCompanyId()))
                 .princeTypeId(changeItOrNot(newRecord.getPrinceTypeId(), oldRecord.getPrinceTypeId()))
                 .standartRateId(changeItOrNot(newRecord.getStandartRateId(), oldRecord.getStandartRateId()))
-                .locationUsedTable(changeItOrNot(newRecord.getLocationUsedTable(), oldRecord.getLocationUsedTable()))
+                .locationUsedTable(changeItOrNot(newRecord.getLocation(), oldRecord.getLocation()))
                 .sistemAddressHistoryOutlet(changeItOrNot(newRecord.getSistemAddressHistoryOutlet(), oldRecord.getSistemAddressHistoryOutlet()))
                 .accountingEmail(changeItOrNot(newRecord.getAccountingEmail(), oldRecord.getAccountingEmail()))
                 .locationIp(changeItOrNot(newRecord.getLocationIp(), oldRecord.getLocationIp()))
@@ -212,7 +213,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
             result.setCompanyId(companyId);
             result.setPrinceTypeId(princeTypeId);
             result.setStandartRateId(standartRateId);
-            result.setLocationUsedTable(locationUsedTable);
+            result.setLocation(locationUsedTable);
             result.setSistemAddressHistoryOutlet(sistemAddressHistoryOutlet);
             result.setAccountingEmail(accountingEmail);
             result.setLocationIp(locationIp);
@@ -257,7 +258,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
         private long companyId;
         private long princeTypeId;
         private long standartRateId;
-        private int locationUsedTable;
+        private Integer locationUsedTable;
         private String sistemAddressHistoryOutlet;
         private String accountingEmail;
         private String locationIp;
@@ -269,6 +270,19 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
     @Transient
     @JsonIgnore
     private Long insertId;
+
+    public void setLocation(LocationUsedEnum locationUsedTable) {
+        if (locationUsedTable != null) {
+            this.locationUsedTable = locationUsedTable.getCode();
+        }
+    }
+
+    public LocationUsedEnum getLocation() {
+        if (locationUsedTable != null) {
+            return LocationUsedEnum.getLocation(this.locationUsedTable);
+        }
+        return null;
+    }
 
     public static Location  fromRow(Row row) {
         var result = new Location ();
@@ -302,7 +316,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
         result.setCompanyId(ManipulateUtil.parseRow(row,COMPANY_ID_COL, Long.class));
         result.setPrinceTypeId(ManipulateUtil.parseRow(row,PRICE_TYPE_ID_COL,  Long.class));
         result.setStandartRateId(ManipulateUtil.parseRow(row,STANDART_RATE_ID_COL,  Long.class));
-        result.setLocationUsedTable(ManipulateUtil.parseRow(row,LOCATION_USED_TABLE_COL, Integer.class));
+        result.setLocation(LocationUsedEnum.getLocation(ManipulateUtil.parseRow(row,LOCATION_USED_TABLE_COL, Integer.class)));
         result.setSistemAddressHistoryOutlet(ManipulateUtil.parseRow(row,SISTEM_ADDRESS_HISTORY_OUTLET_COL,  String.class));
         result.setAccountingEmail(ManipulateUtil.parseRow(row,ACCOUNTING_EMAIL_COL,  String.class));
         result.setLocationIp(ManipulateUtil.parseRow(row,LOCATION_IP_COL, String .class));
