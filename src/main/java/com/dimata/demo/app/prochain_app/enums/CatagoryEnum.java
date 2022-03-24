@@ -3,9 +3,10 @@ package com.dimata.demo.app.prochain_app.enums;
 import lombok.Getter;
 
 public enum CatagoryEnum {
-    deactivated(0),
-    Active(1),
-    Undefined(-1);
+    ADMIN(0),
+    CONTRACT(1),
+    DIRECTOR(2),
+    STAFF(-1);
 
     @Getter
     private final int code;
@@ -13,11 +14,13 @@ public enum CatagoryEnum {
     public static CatagoryEnum getCatagory(Integer code){
         switch (code) {
             case 0:
-                return deactivated;
+                return ADMIN;
             case 1:
-                return Active;
+                return CONTRACT;
+            case 2:
+                return DIRECTOR;
             default:
-                return Undefined;
+                return STAFF;
         }
     }
 
@@ -26,19 +29,21 @@ public enum CatagoryEnum {
     }
 
     public String parseCatagory(CatagoryEnum Catagory){
-        if (Catagory == CatagoryEnum.deactivated) {
-            return "deactivated";
+        if (Catagory == CatagoryEnum.ADMIN) {
+            return "ADMIN";
         }
-        return "Active";
+        return "CONTRACT";
     }
 
     public String parseCatagory(int code) {
-        if (getCatagory(code) == CatagoryEnum.deactivated) {
-            return "deactivated";
-        } else if (getCatagory(code) == CatagoryEnum.Active) {
-            return "Active";
+        if (getCatagory(code) == CatagoryEnum.ADMIN) {
+            return "ADMIN";
+        } else if (getCatagory(code) == CatagoryEnum.CONTRACT) {
+            return "CONTRACT";
+        } else if (getCatagory(code) == CatagoryEnum.DIRECTOR){
+            return "DIRECTOR";
         }
-        return "Undefined";
+        return "STAFF";
     }
 
     public Object getCatagory() {
