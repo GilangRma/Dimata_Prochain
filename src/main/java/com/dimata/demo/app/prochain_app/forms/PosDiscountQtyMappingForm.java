@@ -4,7 +4,6 @@ package com.dimata.demo.app.prochain_app.forms;
 import java.time.LocalDateTime;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
-import com.dimata.demo.app.prochain_app.core.util.jackson.DateDeserialize;
 import com.dimata.demo.app.prochain_app.core.util.jackson.TimeDeserialize;
 import com.dimata.demo.app.prochain_app.models.table.PosDiscountQtyMapping;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
