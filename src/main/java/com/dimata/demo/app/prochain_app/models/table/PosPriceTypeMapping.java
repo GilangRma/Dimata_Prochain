@@ -93,7 +93,7 @@ public class PosPriceTypeMapping implements UpdateAvailable <PosPriceTypeMapping
     private Long materialId;
     private Long standartRateId;
     private Double price;
-    @JsonSerialize(converter = TimeDeserialize.class)
+    @JsonSerialize(converter = TimeSerialize.class)
     private LocalDateTime updateDate;
     @Transient
     @JsonIgnore

@@ -19,7 +19,7 @@ public class PosPriceTypeMappingForm implements RecordAdapter<PosPriceTypeMappin
     private Long materialId;
     private Long standartRateId;
     private Double price;
-    @JsonDeserialize(converter = TimeSerialize.class)
+    @JsonDeserialize(converter = TimeDeserialize.class)
     private LocalDateTime updateDate;
 
     @Override
