@@ -12,6 +12,7 @@ import com.dimata.demo.app.prochain_app.core.util.jackson.TimeDeserialize;
 import com.dimata.demo.app.prochain_app.core.util.jackson.TimeSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.springframework.data.annotation.Id;
@@ -93,7 +94,7 @@ public class PosPriceTypeMapping implements UpdateAvailable <PosPriceTypeMapping
     private Long materialId;
     private Long standartRateId;
     private Double price;
-    @JsonSerialize(converter = TimeSerialize.class)
+    @JsonDeserialize(converter = TimeSerialize.class)
     private LocalDateTime updateDate;
     @Transient
     @JsonIgnore
