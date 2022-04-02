@@ -29,7 +29,7 @@ public enum LocationUsedEnum {
         if (location == LocationUsedEnum.NOTUSE) {
             return "NOTUSE";
         }
-        return "NOTUSE";
+        return "USETABLE";
     }
 
     public String parseStatus(int code) {
