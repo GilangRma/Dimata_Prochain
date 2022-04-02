@@ -12,6 +12,7 @@ import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
 import com.dimata.demo.app.prochain_app.core.util.jackson.TimeDeserialize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.springframework.data.annotation.Id;
@@ -111,7 +112,7 @@ public class PosDiscountQtyMapping implements UpdateAvailable<PosDiscountQtyMapp
     private Double toQty;
     private Double discountValue;
     private String discountType;
-    @JsonSerialize(converter = TimeDeserialize.class)
+    @JsonDeserialize(converter = TimeSerialize.class)
     private LocalDateTime updateDate;
     @Transient
     @JsonIgnore

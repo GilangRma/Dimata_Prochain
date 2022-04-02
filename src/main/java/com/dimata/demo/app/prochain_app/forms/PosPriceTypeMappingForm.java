@@ -5,9 +5,7 @@ import java.time.LocalDateTime;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
 import com.dimata.demo.app.prochain_app.core.util.jackson.TimeDeserialize;
-import com.dimata.demo.app.prochain_app.core.util.jackson.TimeSerialize;
 import com.dimata.demo.app.prochain_app.models.table.PosPriceTypeMapping;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.Data;
