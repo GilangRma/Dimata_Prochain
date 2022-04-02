@@ -41,9 +41,9 @@ public class CashReturnPayment implements UpdateAvailable<CashReturnPayment>, Pe
     @Setter
     public static class Builder {
 
-        private long id;
-        private long currencyId;
-        private long cashBillMainId;
+        private Long id;
+        private Long currencyId;
+        private Long cashBillMainId;
         private double rate;
         private String paymentStatus;
         private double amount;
@@ -89,8 +89,8 @@ public class CashReturnPayment implements UpdateAvailable<CashReturnPayment>, Pe
     @Id
     @Column(ID_COL)
     private Long id;
-    private long currencyId;
-    private long cashBillMainId;
+    private Long currencyId;
+    private Long cashBillMainId;
     private double rate;
     private String paymentStatus;
     private double amount;

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DiscountTypeForm implements RecordAdapter<DiscountType> {
     
-    private long id;
+    private Long id;
     private String code;
     private String dindex;
     private String name;

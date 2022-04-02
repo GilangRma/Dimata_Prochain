@@ -10,33 +10,33 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CashReturnPaymentForm implements RecordAdapter<CashReturnPayment> {
     
-    private long id;
-        private long currencyId;
-        private long cashBillMainId;
-        private double rate;
-        private String paymentStatus;
-        private double amount;
-        @Override
-        public CashReturnPayment convertNewRecord() {
+    private Long id;
+    private Long currencyId;
+    private Long cashBillMainId;
+    private double rate;
+    private String paymentStatus;
+    private double amount;
+    @Override
+    public CashReturnPayment convertNewRecord() {
             
-            return CashReturnPayment.Builder.createNewRecord(rate,amount)
-                    .currencyId(currencyId)
-                    .cashBillMainId(cashBillMainId)
-                    .paymentStatus(paymentStatus)
-                    .id(id)
-                    .build();
-        }
-        @Override
-        public CashReturnPayment convertToRecord() {
+        return CashReturnPayment.Builder.createNewRecord(rate,amount)
+                .currencyId(currencyId)
+                .cashBillMainId(cashBillMainId)
+                .paymentStatus(paymentStatus)
+                .id(id)
+                .build();
+    }
+    @Override
+    public CashReturnPayment convertToRecord() {
            
-            return CashReturnPayment.Builder.emptyBuilder()
-            .currencyId(currencyId)
-            .cashBillMainId(cashBillMainId)
-            .rate(rate)
-            .paymentStatus(paymentStatus)
-            .amount(amount)
-            .id(id)
-            .build();
-        }
+        return CashReturnPayment.Builder.emptyBuilder()
+        .currencyId(currencyId)
+        .cashBillMainId(cashBillMainId)
+        .rate(rate)
+        .paymentStatus(paymentStatus)
+        .amount(amount)
+        .id(id)
+        .build();
+    }
 
 }

@@ -15,23 +15,21 @@ public class CashClosingForm implements RecordAdapter<CashClosing> {
     private int paymentType;
     private String amountRP;
     private String amountUSD;
-
-    @Override
-    public CashClosing convertToRecord() {
-        return CashClosing.Builder.emptyBuilder()
-                .cashCashierId(cashCashierId)
-                .paymentType(paymentType)
-                .amountRP(amountRP)
-                .amountUSD(amountUSD)
-                .build();
-    }
-
+    
     @Override
     public CashClosing convertNewRecord() {
         return CashClosing.Builder.createNewRecord(paymentType,amountRP,amountUSD,cashCashierId)
-                .build();
+                    .id(id)
+                    .build();
     }
-   
-
-    
+    @Override
+    public CashClosing convertToRecord() {
+        return CashClosing.Builder.emptyBuilder()
+                    .cashCashierId(cashCashierId)
+                    .paymentType(paymentType)
+                    .amountRP(amountRP)
+                    .amountUSD(amountUSD)
+                    .id(id)
+                    .build();
+    }  
 }

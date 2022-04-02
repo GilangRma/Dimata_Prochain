@@ -40,7 +40,7 @@ public class DiscountType implements UpdateAvailable<DiscountType>, Persistable 
     @Setter
     public static class Builder {
 
-    private long id;
+    private Long id;
     private String name;
     private String dindex;
     private String code;

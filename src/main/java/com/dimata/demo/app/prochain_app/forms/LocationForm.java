@@ -30,7 +30,7 @@ public class LocationForm implements RecordAdapter<Location>{
         private String servicePercentage;
         private String taxPercentage;
         private long departmentId;
-        private double userdValue;
+        private double usedValue;
         private String serviceValue;
         private String taxValue;
         private String serviceValueUSD;
@@ -41,7 +41,7 @@ public class LocationForm implements RecordAdapter<Location>{
         private int taxSvcDefault;
         private double persentaseDistributionPurchaseOrder;
         private long companyId;
-        private long princeTypeId;
+        private long priceTypeId;
         private long standartRateId;
         private LocationUsedEnum locationUsedTable;
         private String sistemAddressHistoryOutlet;
@@ -56,7 +56,7 @@ public class LocationForm implements RecordAdapter<Location>{
         @Override
         public Location convertNewRecord() {
            
-            return Location.Builder.createNewRecord(name, description, address, person, princeTypeId, standartRateId, sistemAddressHistoryOutlet, accountingEmail, locationIp, colorLocation, status)
+            return Location.Builder.createNewRecord(name, description, address, person, priceTypeId, standartRateId, sistemAddressHistoryOutlet, accountingEmail, locationIp, colorLocation, status)
                 .parentId(parentId)
                 .code(code)
                 .telephone(telephone)
@@ -69,7 +69,7 @@ public class LocationForm implements RecordAdapter<Location>{
                 .servicePercentage(servicePercentage)
                 .taxPercentage(taxPercentage)
                 .departmentId(departmentId)
-                .userdValue(userdValue)
+                .usedValue(usedValue)
                 .serviceValue(serviceValue)
                 .taxValue(taxValue)
                 .serviceValueUSD(serviceValueUSD)
@@ -106,7 +106,7 @@ public class LocationForm implements RecordAdapter<Location>{
                 .servicePercentage(servicePercentage)
                 .taxPercentage(taxPercentage)
                 .departmentId(departmentId)
-                .userdValue(userdValue)
+                .usedValue(usedValue)
                 .serviceValue(serviceValue)
                 .taxValue(taxValue)
                 .serviceValueUSD(serviceValueUSD)
@@ -117,7 +117,7 @@ public class LocationForm implements RecordAdapter<Location>{
                 .taxSvcDefault(taxSvcDefault)
                 .persentaseDistributionPurchaseOrder(persentaseDistributionPurchaseOrder)
                 .companyId(companyId)
-                .princeTypeId(princeTypeId)
+                .priceTypeId(priceTypeId)
                 .standartRateId(standartRateId)
                 .locationUsedTable(locationUsedTable)
                 .sistemAddressHistoryOutlet(sistemAddressHistoryOutlet)

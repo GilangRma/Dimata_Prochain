@@ -41,7 +41,7 @@ public class CashClosing implements UpdateAvailable<CashClosing>, Persistable <L
     @Setter
     public static class Builder {
 
-        private long id;
+        private Long id;
         private Long cashCashierId;
         private int paymentType;
         private String amountRP;
@@ -92,9 +92,7 @@ public class CashClosing implements UpdateAvailable<CashClosing>, Persistable <L
     private int paymentType;
     private String amountRP;
     private String amountUSD;
-
-
-
+    
     @Transient
     @JsonIgnore
     private Long insertId;

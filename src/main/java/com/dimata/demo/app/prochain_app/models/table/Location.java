@@ -93,7 +93,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
         private String servicePercentage;
         private String taxPercentage;
         private long departmentId;
-        private double userdValue;
+        private double usedValue;
         private String serviceValue;
         private String taxValue;
         private String serviceValueUSD;
@@ -104,7 +104,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
         private int taxSvcDefault;
         private double persentaseDistributionPurchaseOrder;
         private long companyId;
-        private long princeTypeId;
+        private long priceTypeId;
         private long standartRateId;
         private LocationUsedEnum locationUsedTable;
         private String sistemAddressHistoryOutlet;
@@ -125,7 +125,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
                 .description(Objects.requireNonNull(description, "description diperlukan"))
                 .address(Objects.requireNonNull(address, "address diperlukan"))
                 .person(Objects.requireNonNull(person, "person diperlukan"))
-                .princeTypeId(Objects.requireNonNull(princeTypeId, "princeTypeId diperlukan"))
+                .priceTypeId(Objects.requireNonNull(princeTypeId, "priceTypeId diperlukan"))
                 .standartRateId(Objects.requireNonNull(standartRateId, "standartRateId diperlukan"))
                 .sistemAddressHistoryOutlet(Objects.requireNonNull(sistemAddressHistoryOutlet, "sistemAddressHistoryOutlet diperlukan"))
                 .accountingEmail(Objects.requireNonNull(accountingEmail, "accountingEmail diperlukan"))
@@ -153,7 +153,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
                 .servicePercentage(changeItOrNot(newRecord.getServicePercentage(), oldRecord.getServicePercentage()))
                 .taxPercentage(changeItOrNot(newRecord.getTaxPercentage(), oldRecord.getTaxPercentage()))
                 .departmentId(changeItOrNot(newRecord.getDepartmentId(), oldRecord.getDepartmentId()))
-                .userdValue(changeItOrNot(newRecord.getUserdValue(), oldRecord.getUserdValue()))
+                .usedValue(changeItOrNot(newRecord.getUsedValue(), oldRecord.getUsedValue()))
                 .serviceValue(changeItOrNot(newRecord.getServiceValue(), oldRecord.getServiceValue()))
                 .taxValue(changeItOrNot(newRecord.getTaxValue(), oldRecord.getTaxValue()))
                 .serviceValueUSD(changeItOrNot(newRecord.getServiceValueUSD(), oldRecord.getServiceValueUSD()))
@@ -164,7 +164,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
                 .taxSvcDefault(changeItOrNot(newRecord.getTaxSvcDefault(), oldRecord.getTaxSvcDefault()))
                 .persentaseDistributionPurchaseOrder(changeItOrNot(newRecord.getPersentaseDistributionPurchaseOrder(), oldRecord.getPersentaseDistributionPurchaseOrder()))
                 .companyId(changeItOrNot(newRecord.getCompanyId(), oldRecord.getCompanyId()))
-                .princeTypeId(changeItOrNot(newRecord.getPrinceTypeId(), oldRecord.getPrinceTypeId()))
+                .priceTypeId(changeItOrNot(newRecord.getPriceTypeId(), oldRecord.getPriceTypeId()))
                 .standartRateId(changeItOrNot(newRecord.getStandartRateId(), oldRecord.getStandartRateId()))
                 .locationUsedTable(changeItOrNot(newRecord.getLocation(), oldRecord.getLocation()))
                 .sistemAddressHistoryOutlet(changeItOrNot(newRecord.getSistemAddressHistoryOutlet(), oldRecord.getSistemAddressHistoryOutlet()))
@@ -200,7 +200,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
             result.setServicePercentage(servicePercentage);
             result.setTaxPercentage(taxPercentage);
             result.setDepartmentId(departmentId);
-            result.setUserdValue(userdValue);
+            result.setUsedValue(usedValue);
             result.setServiceValue(serviceValue);
             result.setTaxValue(taxValue);
             result.setServiceValueUSD(serviceValueUSD);
@@ -211,7 +211,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
             result.setTaxSvcDefault(taxSvcDefault);
             result.setPersentaseDistributionPurchaseOrder(persentaseDistributionPurchaseOrder);
             result.setCompanyId(companyId);
-            result.setPrinceTypeId(princeTypeId);
+            result.setPriceTypeId(priceTypeId);
             result.setStandartRateId(standartRateId);
             result.setLocation(locationUsedTable);
             result.setSistemAddressHistoryOutlet(sistemAddressHistoryOutlet);
@@ -245,7 +245,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
         private String servicePercentage;
         private String taxPercentage;
         private long departmentId;
-        private double userdValue;
+        private double usedValue;
         private String serviceValue;
         private String taxValue;
         private String serviceValueUSD;
@@ -256,7 +256,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
         private int taxSvcDefault;
         private double persentaseDistributionPurchaseOrder;
         private long companyId;
-        private long princeTypeId;
+        private long priceTypeId;
         private long standartRateId;
         private Integer locationUsedTable;
         private String sistemAddressHistoryOutlet;
@@ -303,7 +303,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
         result.setServicePercentage(ManipulateUtil.parseRow(row,SERVICE_PERCENTAGE_COL, String .class));
         result.setTaxPercentage(ManipulateUtil.parseRow(row,TAX_PERCENTAGE_COL,  String.class));
         result.setDepartmentId(ManipulateUtil.parseRow(row,DEPARTMENT_ID_COL,  Long.class));
-        result.setUserdValue(ManipulateUtil.parseRow(row,USED_VALUE_COL, Double .class));
+        result.setUsedValue(ManipulateUtil.parseRow(row,USED_VALUE_COL, Double .class));
         result.setServiceValue(ManipulateUtil.parseRow(row,SERVICE_VALUE_COL,  String.class));
         result.setTaxValue(ManipulateUtil.parseRow(row,TAX_VALUE_COL,  String.class));
         result.setServiceValueUSD(ManipulateUtil.parseRow(row,SERVICE_VALUE_USD_COL,  String.class));
@@ -314,7 +314,7 @@ public class Location implements UpdateAvailable<Location>, Persistable <Long>{
         result.setTaxSvcDefault(ManipulateUtil.parseRow(row,TAX_SVC_DEFAULT_COL,  Integer.class));
         result.setPersentaseDistributionPurchaseOrder(ManipulateUtil.parseRow(row,PERSENTASE_DISTRIBUTION_PURCHASE_ORDER_COL, Double .class));
         result.setCompanyId(ManipulateUtil.parseRow(row,COMPANY_ID_COL, Long.class));
-        result.setPrinceTypeId(ManipulateUtil.parseRow(row,PRICE_TYPE_ID_COL,  Long.class));
+        result.setPriceTypeId(ManipulateUtil.parseRow(row,PRICE_TYPE_ID_COL,  Long.class));
         result.setStandartRateId(ManipulateUtil.parseRow(row,STANDART_RATE_ID_COL,  Long.class));
         result.setLocation(LocationUsedEnum.getLocation(ManipulateUtil.parseRow(row,LOCATION_USED_TABLE_COL, Integer.class)));
         result.setSistemAddressHistoryOutlet(ManipulateUtil.parseRow(row,SISTEM_ADDRESS_HISTORY_OUTLET_COL,  String.class));

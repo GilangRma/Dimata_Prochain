@@ -42,7 +42,7 @@ public class CashMaster implements UpdateAvailable<CashMaster>, Persistable<Long
     @Setter
     public static class Builder {
         
-        private long id;
+        private Long id;
         private int cashierNumber;
         private long locationId;
         private double tax;

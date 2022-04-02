@@ -119,6 +119,7 @@ public class CashCashier implements UpdateAvailable<CashCashier>, Persistable <L
     private String spvCloseName;
     private Long shiftId;
     private LocalDateTime closeDate;
+    
     @Transient
     @JsonIgnore
     private Long insertId;
