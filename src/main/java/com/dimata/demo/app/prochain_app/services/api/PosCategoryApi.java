@@ -1,9 +1,12 @@
 package com.dimata.demo.app.prochain_app.services.api;
 
+import com.dimata.demo.app.prochain_app.core.exception.DataNotFoundException;
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
+
 import com.dimata.demo.app.prochain_app.forms.PosCategoryForm;
+import com.dimata.demo.app.prochain_app.forms.relation.PosCategoryRelation;
 import com.dimata.demo.app.prochain_app.models.table.PosCategory;
 import com.dimata.demo.app.prochain_app.services.crude.PosCategoryCrude;
 
@@ -61,5 +64,18 @@ public class PosCategoryApi {
                 return Mono.just(option);
             })
             .flatMap(posCategoryCrude::updateRecord);
+    }
+    public Mono<PosCategory> checkAvailableData(PosCategoryRelation form){
+        var sql = SelectQBuilder.emptyBuilder(PosCategory.TABLE_NAME)
+        .addJoin(WhereQuery.when(PosCategory.TABLE_NAME + "." + PosCategory.ID_COL).is(value))
+        .addWhere(WhereQuery.when(PosCategory.ID_COL).is(form.getId())
+        .and(WhereQuery.when(PosCategory.CODE_COL).is(form.getCoade())))
+        .build();
+        return template.getDatabaseClient()
+        .sql(sql)
+        .map(PosCategory::fromRow)
+        .one()
+        .switchIfEmpty(Mono.error(new DataNotFoundException("id atau password anda salah")));
+
     }
 }
