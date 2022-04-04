@@ -3,6 +3,7 @@ package com.dimata.demo.app.prochain_app.models.table;
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
@@ -204,11 +205,11 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
         private Long currencyTypeIdConsigmentLimit;
         private Long currencyTypeIdCreditLimit;
         private PaymentTypeEnum termOfPayment;
-        private int daysTermOfpayment;
+        private Integer daysTermOfpayment;
         private Long sistemOfPayment;
         private String weekDayOfPayment;
         private String weekDayOfSalesVisit;
-        private int termOfdelivery;
+        private Integer termOfdelivery;
         private String email1;
         private LocalDateTime lastUpdate;
         private Long memberReligionId;
@@ -238,9 +239,15 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
-        public static Builder createNewRecord() {
-            return new Builder().newRecord(true);
+        public static Builder createNewRecord(String contactCode, String salutation, String personName, String personLastname, String motherName, String compName) {
+            return new Builder().newRecord(true)
                  
+            .contactCode(Objects.requireNonNull(contactCode, "contactCode tidak boleh kosong"))
+            .salutation(Objects.requireNonNull(salutation, "salutation tidak boleh kosong"))
+            .personName(Objects.requireNonNull(personName, "personName tidak boleh kosong"))
+            .personLastname(Objects.requireNonNull(personLastname, "personLastname tidak boleh kosong"))
+            .motherName(Objects.requireNonNull(motherName, "motherName tidak boleh kosong"))
+            .compName(Objects.requireNonNull(compName, "compName tidak boleh kosong"));
         }
 
         public static Builder updateBuilder(ContactList oldRecord, ContactList  newRecord) {
@@ -523,11 +530,11 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
         private Long currencyTypeIdConsigmentLimit;
         private Long currencyTypeIdCreditLimit;
         private Integer termOfPayment;
-        private int daysTermOfpayment;
+        private Integer daysTermOfpayment;
         private Long sistemOfPayment;
         private String weekDayOfPayment;
         private String weekDayOfSalesVisit;
-        private int termOfdelivery;
+        private Integer termOfdelivery;
         private String email1;
         private LocalDateTime lastUpdate;
         private Long memberReligionId;
@@ -695,6 +702,3 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
     }
         
 }
-
-
-

@@ -14,7 +14,7 @@ public class CashReturnPaymentForm implements RecordAdapter<CashReturnPayment> {
     private Long currencyId;
     private Long cashBillMainId;
     private double rate;
-    private String paymentStatus;
+    private int paymentStatus;
     private double amount;
     @Override
     public CashReturnPayment convertNewRecord() {

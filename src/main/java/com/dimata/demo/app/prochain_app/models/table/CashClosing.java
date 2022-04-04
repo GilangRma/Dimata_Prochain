@@ -44,13 +44,13 @@ public class CashClosing implements UpdateAvailable<CashClosing>, Persistable <L
         private Long id;
         private Long cashCashierId;
         private int paymentType;
-        private String amountRP;
-        private String amountUSD;
+        private Double amountRP;
+        private Double amountUSD;
 
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
-        public static Builder createNewRecord(int paymentType, String amountRP, String amountUSD, Long cashCashierId ) {
+        public static Builder createNewRecord(int paymentType, Double amountRP, Double amountUSD, Long cashCashierId ) {
             return new Builder().newRecord(true)
 
                 .cashCashierId(Objects.requireNonNull(cashCashierId, "CASH_CASHIER_ID tidak boleh kosong"))
@@ -90,8 +90,8 @@ public class CashClosing implements UpdateAvailable<CashClosing>, Persistable <L
     private Long id;
     private Long cashCashierId;
     private int paymentType;
-    private String amountRP;
-    private String amountUSD;
+    private Double amountRP;
+    private Double amountUSD;
     
     @Transient
     @JsonIgnore
@@ -102,8 +102,8 @@ public class CashClosing implements UpdateAvailable<CashClosing>, Persistable <L
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
         result.setCashCashierId(ManipulateUtil.parseRow(row, CASH_CASHIER_ID_COL, Long.class));
         result.setPaymentType(ManipulateUtil.parseRow(row, PAYMENT_TYPE_COL, Integer.class));
-        result.setAmountRP(ManipulateUtil.parseRow(row, AMOUNT_RP_COL, String.class));
-        result.setAmountUSD(ManipulateUtil.parseRow(row, AMOUNT_USD_COL, String.class));  
+        result.setAmountRP(ManipulateUtil.parseRow(row, AMOUNT_RP_COL, Double.class));
+        result.setAmountUSD(ManipulateUtil.parseRow(row, AMOUNT_USD_COL, Double.class));  
         return result;
     }
 

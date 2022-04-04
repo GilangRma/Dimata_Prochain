@@ -13,8 +13,8 @@ public class CashClosingForm implements RecordAdapter<CashClosing> {
     private Long id;
     private Long cashCashierId;
     private int paymentType;
-    private String amountRP;
-    private String amountUSD;
+    private Double amountRP;
+    private Double amountUSD;
     
     @Override
     public CashClosing convertNewRecord() {

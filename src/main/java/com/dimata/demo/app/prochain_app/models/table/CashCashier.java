@@ -91,7 +91,7 @@ public class CashCashier implements UpdateAvailable<CashCashier>, Persistable <L
         }
 
         public CashCashier  build() {
-            CashCashier  result = new CashCashier ();
+            CashCashier  result = new CashCashier();
             result.setId(id);
             result.setCashMasterId(cashMasterId);
             result.setAppUserId(appUserId);

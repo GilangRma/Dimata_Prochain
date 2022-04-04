@@ -12,11 +12,11 @@ public class DiscountTypeForm implements RecordAdapter<DiscountType> {
     
     private Long id;
     private String code;
-    private String dindex;
+    private Integer dindex;
     private String name;
+
     @Override
     public DiscountType convertNewRecord() {
-        
         return DiscountType.Builder.createNewRecord(name, code)
                 .dindex(dindex)
                 .id(id)
@@ -24,7 +24,6 @@ public class DiscountTypeForm implements RecordAdapter<DiscountType> {
     }
     @Override
     public DiscountType convertToRecord() {
-       
         return DiscountType.Builder.emptyBuilder()
         .code(code)
         .dindex(dindex)

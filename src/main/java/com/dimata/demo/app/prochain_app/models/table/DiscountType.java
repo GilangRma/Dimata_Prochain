@@ -42,10 +42,9 @@ public class DiscountType implements UpdateAvailable<DiscountType>, Persistable 
 
     private Long id;
     private String name;
-    private String dindex;
+    private Integer dindex;
     private String code;
     
-
     @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
@@ -68,7 +67,7 @@ public class DiscountType implements UpdateAvailable<DiscountType>, Persistable 
         }
 
         public DiscountType  build() {
-            DiscountType  result = new DiscountType ();
+            DiscountType  result = new DiscountType();
             result.setId(id);
             result.setName(name);
             result.setCode(code);
@@ -81,8 +80,9 @@ public class DiscountType implements UpdateAvailable<DiscountType>, Persistable 
     @Column(ID_COL)
     private Long id;
     private String name;
-    private String dindex;
+    private Integer dindex;
     private String code;
+    
     @Transient
     @JsonIgnore
     private Long insertId;
@@ -92,7 +92,7 @@ public class DiscountType implements UpdateAvailable<DiscountType>, Persistable 
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
         result.setName(ManipulateUtil.parseRow(row, NAME_COL, String.class));
         result.setCode(ManipulateUtil.parseRow(row, CODE_COL, String.class));
-        result.setDindex(ManipulateUtil.parseRow(row, DINDEX_COL, String.class));
+        result.setDindex(ManipulateUtil.parseRow(row, DINDEX_COL, Integer.class));
         return result;
     }
     @Override

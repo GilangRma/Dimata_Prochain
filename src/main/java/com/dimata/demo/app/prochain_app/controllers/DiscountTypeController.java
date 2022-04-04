@@ -28,25 +28,25 @@ public class DiscountTypeController {
     private static final String BASE_URL = "/maintainer/v1";
 
     @PostMapping(path = BASE_URL + "/discount_type", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<DiscountType> maintainerAddDiscount_Type(@RequestBody DiscountTypeForm form) {
+    public Mono<DiscountType> maintainerAddDiscountType(@RequestBody DiscountTypeForm form) {
        
         return discountTypeApi.createDiscountType(form);
     }
 
     @GetMapping(path = BASE_URL + "/discount_type")
-    public Flux<DiscountType> maintainerGetAllDiscount_Type(CommonParam param) {
+    public Flux<DiscountType> maintainerGetAllDiscountType(CommonParam param) {
        
         return discountTypeApi.getAllDiscountType(param);
     }
 
     @GetMapping(path = BASE_URL + "/discount_type/{DISCOUNT_TYPE_ID}")
-    public Mono<DiscountType> maintainerGetDiscount_Type(@PathVariable("DISCOUNT_TYPE_ID") Long DISCOUNT_TYPE_ID) {
+    public Mono<DiscountType> maintainerGetDiscountType(@PathVariable("DISCOUNT_TYPE_ID") Long DISCOUNT_TYPE_ID) {
        
         return discountTypeApi.getDiscountType(DISCOUNT_TYPE_ID);
     }
 
     @PutMapping(path = BASE_URL + "/discount_type/{DISCOUNT_TYPE_ID}")
-    public Mono<DiscountType> maintainerUpdateDiscount_Type(@PathVariable("DISCOUNT_TYPE_ID") long DISCOUNT_TYPE_ID, @RequestBody DiscountTypeForm form) {
+    public Mono<DiscountType> maintainerUpdateDiscountType(@PathVariable("DISCOUNT_TYPE_ID") long DISCOUNT_TYPE_ID, @RequestBody DiscountTypeForm form) {
         return discountTypeApi.updateDiscountType(DISCOUNT_TYPE_ID, form);
     }
 

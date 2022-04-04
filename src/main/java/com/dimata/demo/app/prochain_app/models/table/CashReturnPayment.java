@@ -45,7 +45,7 @@ public class CashReturnPayment implements UpdateAvailable<CashReturnPayment>, Pe
         private Long currencyId;
         private Long cashBillMainId;
         private double rate;
-        private String paymentStatus;
+        private int paymentStatus;
         private double amount;
 
         @Setter(AccessLevel.PRIVATE)
@@ -92,7 +92,7 @@ public class CashReturnPayment implements UpdateAvailable<CashReturnPayment>, Pe
     private Long currencyId;
     private Long cashBillMainId;
     private double rate;
-    private String paymentStatus;
+    private int paymentStatus;
     private double amount;
 
 
@@ -107,7 +107,7 @@ public class CashReturnPayment implements UpdateAvailable<CashReturnPayment>, Pe
         result.setCashBillMainId(ManipulateUtil.parseRow(row, CASH_BILL_MAIN_ID_COL, Long.class));
         result.setRate(ManipulateUtil.parseRow(row, RATE_COL, Double.class));
         result.setAmount(ManipulateUtil.parseRow(row, AMOUNT_COL, Double.class));
-        result.setPaymentStatus(ManipulateUtil.parseRow(row, PAYMENT_STATUS_COL, String.class)); 
+        result.setPaymentStatus(ManipulateUtil.parseRow(row, PAYMENT_STATUS_COL, Integer.class)); 
         return result;
     }
 
