@@ -42,7 +42,7 @@ public class ContactListForm implements RecordAdapter<ContactList> {
         private String homeEmail;
         private String homeFax;
         private String homeWebsite;
-        private String homeprovince;
+        private String homeProvince;
         private String homeZipCode;
         private String compName;
         private String compAddress;
@@ -75,7 +75,7 @@ public class ContactListForm implements RecordAdapter<ContactList> {
         private int memberCounter;
         private Long memberGroupId;
         private String memberIdCardNumber;
-        private LocalDateTime memberLastUpadate;
+        private LocalDateTime memberLastUpdate;
         private double consigmentLimit;
         private double creditLimit;
         private String memberUserId;
@@ -83,11 +83,11 @@ public class ContactListForm implements RecordAdapter<ContactList> {
         private Long currencyTypeIdConsigmentLimit;
         private Long currencyTypeIdCreditLimit;
         private PaymentTypeEnum termOfPayment;
-        private Integer daysTermOfpayment;
+        private Integer daysTermOfPayment;
         private Long sistemOfPayment;
         private String weekDayOfPayment;
         private String weekDayOfSalesVisit;
-        private Integer termOfdelivery;
+        private Integer termOfDelivery;
         private String email1;
         private LocalDateTime lastUpdate;
         private Long memberReligionId;
@@ -144,7 +144,7 @@ public class ContactListForm implements RecordAdapter<ContactList> {
                     .homeEmail(homeEmail)
                     .homeFax(homeFax)
                     .homeWebsite(homeWebsite)
-                    .homeprovince(homeprovince)
+                    .homeProvince(homeProvince)
                     .homeZipCode(homeZipCode)
                     .compName(compName)
                     .compAddress(compAddress)
@@ -177,7 +177,7 @@ public class ContactListForm implements RecordAdapter<ContactList> {
                     .memberCounter(memberCounter)
                     .memberGroupId(memberGroupId)
                     .memberIdCardNumber(memberIdCardNumber)
-                    .memberLastUpadate(memberLastUpadate)
+                    .memberLastUpdate(memberLastUpdate)
                     .consigmentLimit(consigmentLimit)
                     .creditLimit(creditLimit)
                     .memberUserId(memberUserId)
@@ -185,7 +185,7 @@ public class ContactListForm implements RecordAdapter<ContactList> {
                     .currencyTypeIdConsigmentLimit(currencyTypeIdConsigmentLimit)
                     .currencyTypeIdCreditLimit(currencyTypeIdCreditLimit)
                     .termOfPayment(termOfPayment)
-                    .daysTermOfpayment(daysTermOfpayment)
+                    .daysTermOfPayment(daysTermOfPayment)
                     .sistemOfPayment(sistemOfPayment)
                     .weekDayOfPayment(weekDayOfPayment)
                     .email1(email1)
@@ -195,7 +195,7 @@ public class ContactListForm implements RecordAdapter<ContactList> {
                     .memberStatus(memberStatus)
                     .bussAddress(bussAddress)
                     .weekDayOfSalesVisit(weekDayOfSalesVisit)
-                    .termOfdelivery(termOfdelivery)
+                    .termOfDelivery(termOfDelivery)
                     .regdate(regdate)
                     .town(town)
                     .province(province)
@@ -248,7 +248,7 @@ public class ContactListForm implements RecordAdapter<ContactList> {
                     .homeEmail(homeEmail)
                     .homeFax(homeFax)
                     .homeWebsite(homeWebsite)
-                    .homeprovince(homeprovince)
+                    .homeProvince(homeProvince)
                     .homeZipCode(homeZipCode)
                     .compName(compName)
                     .compAddress(compAddress)
@@ -281,7 +281,7 @@ public class ContactListForm implements RecordAdapter<ContactList> {
                     .memberCounter(memberCounter)
                     .memberGroupId(memberGroupId)
                     .memberIdCardNumber(memberIdCardNumber)
-                    .memberLastUpadate(memberLastUpadate)
+                    .memberLastUpdate(memberLastUpdate)
                     .consigmentLimit(consigmentLimit)
                     .creditLimit(creditLimit)
                     .memberUserId(memberUserId)
@@ -289,7 +289,7 @@ public class ContactListForm implements RecordAdapter<ContactList> {
                     .currencyTypeIdConsigmentLimit(currencyTypeIdConsigmentLimit)
                     .currencyTypeIdCreditLimit(currencyTypeIdCreditLimit)
                     .termOfPayment(termOfPayment)
-                    .daysTermOfpayment(daysTermOfpayment)
+                    .daysTermOfPayment(daysTermOfPayment)
                     .sistemOfPayment(sistemOfPayment)
                     .weekDayOfPayment(weekDayOfPayment)
                     .email1(email1)
@@ -299,7 +299,7 @@ public class ContactListForm implements RecordAdapter<ContactList> {
                     .memberStatus(memberStatus)
                     .bussAddress(bussAddress)
                     .weekDayOfSalesVisit(weekDayOfSalesVisit)
-                    .termOfdelivery(termOfdelivery)
+                    .termOfDelivery(termOfDelivery)
                     .regdate(regdate)
                     .town(town)
                     .province(province)

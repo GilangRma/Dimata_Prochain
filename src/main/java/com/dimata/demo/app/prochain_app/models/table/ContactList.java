@@ -39,7 +39,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
     public static final String CONTACT_TYPE_COL = "CONTACT_TYPE";
     public static final String CIN_COL ="CIN";
     public static final String CIN_COUNTER_COL = "CIN_COUNTER";
-    public static final String REG_DATE_COL = "REG_DATE";
+    public static final String REG_DATE1_COL = "REG_DATE1";
     public static final String SALUTATION_COL = "SALUTATION";
     public static final String DATE_OF_BIRTH_COL = "DATE_OF_BIRTH";
     public static final String PERSON_NAME_COL = "PERSON_NAME";
@@ -164,7 +164,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
         private String homeEmail;
         private String homeFax;
         private String homeWebsite;
-        private String homeprovince;
+        private String homeProvince;
         private String homeZipCode;
         private String compName;
         private String compAddress;
@@ -197,7 +197,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
         private int memberCounter;
         private Long memberGroupId;
         private String memberIdCardNumber;
-        private LocalDateTime memberLastUpadate;
+        private LocalDateTime memberLastUpdate;
         private double consigmentLimit;
         private double creditLimit;
         private String memberUserId;
@@ -205,11 +205,11 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
         private Long currencyTypeIdConsigmentLimit;
         private Long currencyTypeIdCreditLimit;
         private PaymentTypeEnum termOfPayment;
-        private Integer daysTermOfpayment;
+        private Integer daysTermOfPayment;
         private Long sistemOfPayment;
         private String weekDayOfPayment;
         private String weekDayOfSalesVisit;
-        private Integer termOfdelivery;
+        private Integer termOfDelivery;
         private String email1;
         private LocalDateTime lastUpdate;
         private Long memberReligionId;
@@ -279,7 +279,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
                 .homeEmail(changeItOrNot(newRecord.getHomeEmail(), oldRecord.getHomeEmail()))
                 .homeFax(changeItOrNot(newRecord.getHomeFax(), oldRecord.getHomeFax()))
                 .homeWebsite(changeItOrNot(newRecord.getHomeWebsite(), oldRecord.getHomeWebsite()))
-                .homeprovince(changeItOrNot(newRecord.getHomeprovince(), oldRecord.getHomeprovince()))
+                .homeProvince(changeItOrNot(newRecord.getHomeProvince(), oldRecord.getHomeProvince()))
                 .homeZipCode(changeItOrNot(newRecord.getHomeZipCode(), oldRecord.getHomeZipCode()))
                 .compName(changeItOrNot(newRecord.getCompName(), oldRecord.getCompName()))
                 .compAddress(changeItOrNot(newRecord.getCompAddress(), oldRecord.getCompAddress()))
@@ -312,7 +312,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
                 .memberCounter(changeItOrNot(newRecord.getMemberCounter(), oldRecord.getMemberCounter()))
                 .memberGroupId(changeItOrNot(newRecord.getMemberGroupId(), oldRecord.getMemberGroupId()))
                 .memberIdCardNumber(changeItOrNot(newRecord.getMemberIdCardNumber(), oldRecord.getMemberIdCardNumber()))
-                .memberLastUpadate(changeItOrNot(newRecord.getMemberLastUpadate(), oldRecord.getMemberLastUpadate()))
+                .memberLastUpdate(changeItOrNot(newRecord.getMemberLastUpdate(), oldRecord.getMemberLastUpdate()))
                 .consigmentLimit(changeItOrNot(newRecord.getConsigmentLimit(), oldRecord.getConsigmentLimit()))
                 .creditLimit(changeItOrNot(newRecord.getCreditLimit(), oldRecord.getCreditLimit()))
                 .memberUserId(changeItOrNot(newRecord.getMemberUserId(), oldRecord.getMemberUserId()))
@@ -320,11 +320,11 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
                 .currencyTypeIdConsigmentLimit(changeItOrNot(newRecord.getCurrencyTypeIdConsigmentLimit(), oldRecord.getCurrencyTypeIdConsigmentLimit()))
                 .currencyTypeIdCreditLimit(changeItOrNot(newRecord.getCurrencyTypeIdCreditLimit(), oldRecord.getCurrencyTypeIdCreditLimit()))
                 .termOfPayment(changeItOrNot(newRecord.getPayment(), oldRecord.getPayment()))
-                .daysTermOfpayment(changeItOrNot(newRecord.getDaysTermOfpayment(), oldRecord.getDaysTermOfpayment()))
+                .daysTermOfPayment(changeItOrNot(newRecord.getDaysTermOfPayment(), oldRecord.getDaysTermOfPayment()))
                 .sistemOfPayment(changeItOrNot(newRecord.getSistemOfPayment(), oldRecord.getSistemOfPayment()))
                 .weekDayOfPayment(changeItOrNot(newRecord.getWeekDayOfPayment(), oldRecord.getWeekDayOfPayment()))
                 .weekDayOfSalesVisit(changeItOrNot(newRecord.getWeekDayOfSalesVisit(), oldRecord.getWeekDayOfSalesVisit()))
-                .termOfdelivery(changeItOrNot(newRecord.getTermOfdelivery(), oldRecord.getTermOfdelivery()))
+                .termOfDelivery(changeItOrNot(newRecord.getTermOfDelivery(), oldRecord.getTermOfDelivery()))
                 .email1(changeItOrNot(newRecord.getEmail1(), oldRecord.getEmail1()))
                 .lastUpdate(changeItOrNot(newRecord.getLastUpdate(), oldRecord.getLastUpdate()))
                 .memberReligionId(changeItOrNot(newRecord.getMemberReligionId(), oldRecord.getMemberReligionId()))
@@ -385,7 +385,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
             result.setHomeEmail(homeEmail);
             result.setHomeFax(homeFax);
             result.setHomeWebsite(homeWebsite);
-            result.setHomeprovince(homeprovince);
+            result.setHomeProvince(homeProvince);
             result.setHomeZipCode(homeZipCode);
             result.setCompName(compName);
             result.setCompAddress(compAddress);
@@ -418,7 +418,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
             result.setMemberCounter(memberCounter);
             result.setMemberGroupId(memberGroupId);
             result.setMemberIdCardNumber(memberIdCardNumber);
-            result.setMemberLastUpadate(memberLastUpadate);
+            result.setMemberLastUpdate(memberLastUpdate);
             result.setConsigmentLimit(consigmentLimit);
             result.setCreditLimit(creditLimit);
             result.setMemberUserId(memberUserId);
@@ -426,11 +426,11 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
             result.setCurrencyTypeIdConsigmentLimit(currencyTypeIdConsigmentLimit);
             result.setCurrencyTypeIdCreditLimit(currencyTypeIdCreditLimit);
             result.setPayment(termOfPayment);
-            result.setDaysTermOfpayment(daysTermOfpayment);
+            result.setDaysTermOfPayment(daysTermOfPayment);
             result.setSistemOfPayment(sistemOfPayment);
             result.setWeekDayOfPayment(weekDayOfPayment);
             result.setWeekDayOfSalesVisit(weekDayOfSalesVisit);
-            result.setTermOfdelivery(termOfdelivery);
+            result.setTermOfDelivery(termOfDelivery);
             result.setEmail1(email1);
             result.setLastUpdate(lastUpdate);
             result.setMemberReligionId(memberReligionId);
@@ -489,7 +489,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
         private String homeEmail;
         private String homeFax;
         private String homeWebsite;
-        private String homeprovince;
+        private String homeProvince;
         private String homeZipCode;
         private String compName;
         private String compAddress;
@@ -522,7 +522,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
         private int memberCounter;
         private Long memberGroupId;
         private String memberIdCardNumber;
-        private LocalDateTime memberLastUpadate;
+        private LocalDateTime memberLastUpdate;
         private double consigmentLimit;
         private double creditLimit;
         private String memberUserId;
@@ -530,11 +530,11 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
         private Long currencyTypeIdConsigmentLimit;
         private Long currencyTypeIdCreditLimit;
         private Integer termOfPayment;
-        private Integer daysTermOfpayment;
+        private Integer daysTermOfPayment;
         private Long sistemOfPayment;
         private String weekDayOfPayment;
         private String weekDayOfSalesVisit;
-        private Integer termOfdelivery;
+        private Integer termOfDelivery;
         private String email1;
         private LocalDateTime lastUpdate;
         private Long memberReligionId;
@@ -588,7 +588,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
             result.setContactType(ManipulateUtil.parseRow(row, CONTACT_TYPE_COL, Integer.class));
             result.setCin(ManipulateUtil.parseRow(row, CIN_COL, String.class));
             result.setCinCounter(ManipulateUtil.parseRow(row, CIN_COUNTER_COL,Integer.class));
-            result.setRegDate1(ManipulateUtil.parseRow(row, REG_DATE_COL, LocalDateTime.class));
+            result.setRegDate1(ManipulateUtil.parseRow(row, REG_DATE1_COL, LocalDateTime.class));
             result.setSalutation(ManipulateUtil.parseRow(row, SALUTATION_COL, String.class));
             result.setDateOfBirth(ManipulateUtil.parseRow(row, DATE_OF_BIRTH_COL, LocalDateTime.class));
             result.setPersonName(ManipulateUtil.parseRow(row, PERSON_NAME_COL, String.class));
@@ -610,7 +610,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
             result.setHomeEmail(ManipulateUtil.parseRow(row, HOME_EMAIL_COL, String.class));
             result.setHomeFax(ManipulateUtil.parseRow(row, HOME_FAX_COL, String.class));
             result.setHomeWebsite(ManipulateUtil.parseRow(row, HOME_WEBSITE_COL, String.class));
-            result.setHomeprovince(ManipulateUtil.parseRow(row, HOME_PROVINCE_COL, String.class));
+            result.setHomeProvince(ManipulateUtil.parseRow(row, HOME_PROVINCE_COL, String.class));
             result.setHomeZipCode(ManipulateUtil.parseRow(row, HOME_ZIP_CODE_COL, String.class));
             result.setCompName(ManipulateUtil.parseRow(row, COMP_NAME_COL, String.class));
             result.setCompAddress(ManipulateUtil.parseRow(row, COMP_ADDRESS_COL, String.class));
@@ -643,19 +643,19 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
             result.setMemberCounter(ManipulateUtil.parseRow(row, MEMBER_COUNTER_COL, Integer.class));
             result.setMemberGroupId(ManipulateUtil.parseRow(row, MEMBER_GROUP_ID_COL, Long.class));
             result.setMemberIdCardNumber(ManipulateUtil.parseRow(row, MEMBER_ID_CARD_NUMBER_COL, String.class));
-            result.setMemberLastUpadate(ManipulateUtil.parseRow(row, MEMBER_LAST_UPDATE_COL, LocalDateTime.class));
-            result.setConsigmentLimit(ManipulateUtil.parseRow(row, CONSIGMENT_LIMIT_COL, Long.class));
-            result.setCreditLimit(ManipulateUtil.parseRow(row, CREDIT_LIMIT_COL, Long.class));
+            result.setMemberLastUpdate(ManipulateUtil.parseRow(row, MEMBER_LAST_UPDATE_COL, LocalDateTime.class));
+            result.setConsigmentLimit(ManipulateUtil.parseRow(row, CONSIGMENT_LIMIT_COL, Double.class));
+            result.setCreditLimit(ManipulateUtil.parseRow(row, CREDIT_LIMIT_COL, Double.class));
             result.setMemberUserId(ManipulateUtil.parseRow(row, MEMBER_USER_ID_COL, String.class));
             result.setMemberPasswordId(ManipulateUtil.parseRow(row, MEMBER_PASSWORD_ID_COL, String.class));
             result.setCurrencyTypeIdConsigmentLimit(ManipulateUtil.parseRow(row, CURRENCY_TYPE_ID_CONSIGMENT_LIMIT_COL, Long.class));
             result.setCurrencyTypeIdCreditLimit(ManipulateUtil.parseRow(row, CURRENCY_TYPE_ID_CREDIT_LIMIT_COL, Long.class));
             result.setPayment(PaymentTypeEnum.getPayment(ManipulateUtil.parseRow(row, TERM_OF_PAYMENT_COL, Integer.class)));
-            result.setDaysTermOfpayment(ManipulateUtil.parseRow(row, DAYS_TERM_OF_PAYMENT_COL, Integer.class));
+            result.setDaysTermOfPayment(ManipulateUtil.parseRow(row, DAYS_TERM_OF_PAYMENT_COL, Integer.class));
             result.setSistemOfPayment(ManipulateUtil.parseRow(row, SISTEM_OF_PAYMENT_COL, Long.class));
             result.setWeekDayOfPayment(ManipulateUtil.parseRow(row, WEEK_DAY_OF_PAYMENT_COL, String.class));
             result.setWeekDayOfSalesVisit(ManipulateUtil.parseRow(row, WEEK_DAY_OF_SALES_VISIT_COL, String.class));
-            result.setTermOfdelivery(ManipulateUtil.parseRow(row, TERM_OF_DELIVERY_COL, Integer.class));
+            result.setTermOfDelivery(ManipulateUtil.parseRow(row, TERM_OF_DELIVERY_COL, Integer.class));
             result.setEmail1(ManipulateUtil.parseRow(row, EMAIL1_COL, String.class));
             result.setLastUpdate(ManipulateUtil.parseRow(row, LAST_UPDATE_COL, LocalDateTime.class));
             result.setMemberReligionId(ManipulateUtil.parseRow(row, MEMBER_RELIGION_ID_COL, Long.class));
