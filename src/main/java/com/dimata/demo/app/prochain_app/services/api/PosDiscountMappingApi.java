@@ -1,9 +1,11 @@
 package com.dimata.demo.app.prochain_app.services.api;
 
+import com.dimata.demo.app.prochain_app.core.exception.DataNotFoundException;
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
 import com.dimata.demo.app.prochain_app.forms.PosDiscountMappingForm;
+import com.dimata.demo.app.prochain_app.forms.relation.PosDiscountMappingRelation;
 import com.dimata.demo.app.prochain_app.models.table.PosDiscountMapping;
 import com.dimata.demo.app.prochain_app.services.crude.PosDiscountMappingCrude;
 
@@ -61,5 +63,18 @@ public class PosDiscountMappingApi {
                 return Mono.just(option);
             })
             .flatMap(posDiscountMappingCrude::updateRecord);
+    }
+    public Mono<PosDiscountMapping> checkAvailableData(PosDiscountMappingRelation form){
+        var sql = SelectQBuilder.emptyBuilder(PosDiscountMapping.TABLE_NAME)
+        .addJoin(WhereQuery.when(PosDiscountMapping.TABLE_NAME + "." + PosDiscountMapping.ID_COL).is(value))
+        .addWhere(WhereQuery.when(PosDiscountMapping.ID_COL).is(form.getId())
+        .and(WhereQuery.when(PosDiscountMapping.MATERIAL_ID_COL).is(form.getMaterialId())))
+        .build();
+        return template.getDatabaseClient()
+        .sql(sql)
+        .map(PosDiscountMapping::fromRow)
+        .one()
+        .switchIfEmpty(Mono.error(new DataNotFoundException("id atau password anda salah")));
+        
     }
 }

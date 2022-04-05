@@ -5,7 +5,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PosCategoryRelation {
-    private Long id;
-    private String code;
+public class PosDiscountMappingRelation {
+    public Long id;
+    public long materialId;  
+        
+    
 }
