@@ -2,11 +2,13 @@ package com.dimata.demo.app.prochain_app.services.api;
 
 import com.dimata.demo.app.prochain_app.core.exception.DataNotFoundException;
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
+import com.dimata.demo.app.prochain_app.core.search.JoinQuery;
 import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
 
 import com.dimata.demo.app.prochain_app.forms.PosCategoryForm;
 import com.dimata.demo.app.prochain_app.forms.relation.PosCategoryRelation;
+import com.dimata.demo.app.prochain_app.models.table.Location;
 import com.dimata.demo.app.prochain_app.models.table.PosCategory;
 import com.dimata.demo.app.prochain_app.services.crude.PosCategoryCrude;
 
@@ -65,17 +67,20 @@ public class PosCategoryApi {
             })
             .flatMap(posCategoryCrude::updateRecord);
     }
-    // public Mono<PosCategory> checkAvailableData(PosCategoryRelation form){
-    //     var sql = SelectQBuilder.emptyBuilder(PosCategory.TABLE_NAME)
-    //     .addJoin(WhereQuery.when(PosCategory.TABLE_NAME + "." + PosCategory.ID_COL).is(value))
-    //     .addWhere(WhereQuery.when(PosCategory.ID_COL).is(form.getId())
-    //     .and(WhereQuery.when(PosCategory.CODE_COL).is(form.getCode())))
-    //     .build();
-    //     return template.getDatabaseClient()
-    //     .sql(sql)
-    //     .map(PosCategory::fromRow)
-    //     .one()
-    //     .switchIfEmpty(Mono.error(new DataNotFoundException("id atau password anda salah")));
-
-    // }
+    public Mono<PosCategory> checkAvailableData(PosCategoryRelation form){
+        var sql = SelectQBuilder.emptyBuilder(PosCategory.TABLE_NAME)
+        .addJoin(JoinQuery.doLeftJoin(
+            PosCategory.TABLE_NAME
+            )
+            .on(WhereQuery.when((PosCategory.TABLE_NAME + "." + PosCategory.LOCATION_ID_COL))
+            .is(Location.TABLE_NAME + "." + Location.ID_COL)))
+            
+        .addWhere(WhereQuery.when(PosCategory.LOCATION_ID_COL).is(form.getLocationId()))
+        .build();
+        return template.getDatabaseClient()
+        .sql(sql)
+        .map(PosCategory::fromRow)
+        .one()
+        .switchIfEmpty(Mono.error(new DataNotFoundException("id price type salah")));
+}
 }

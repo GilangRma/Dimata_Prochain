@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PosDiscountMappingRelation {
-    private Long id;
+public class PosDiscountQTYMappingRelation {
+    public Long id;
+    public long locationId;  
+        
+    
 }

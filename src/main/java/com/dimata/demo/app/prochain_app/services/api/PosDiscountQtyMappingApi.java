@@ -1,10 +1,15 @@
 package com.dimata.demo.app.prochain_app.services.api;
 
 
+import com.dimata.demo.app.prochain_app.core.exception.DataNotFoundException;
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
+import com.dimata.demo.app.prochain_app.core.search.JoinQuery;
 import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
 import com.dimata.demo.app.prochain_app.forms.PosDiscountQtyMappingForm;
+import com.dimata.demo.app.prochain_app.forms.relation.PosDiscountQTYMappingRelation;
+import com.dimata.demo.app.prochain_app.models.table.DiscountType;
+import com.dimata.demo.app.prochain_app.models.table.Location;
 import com.dimata.demo.app.prochain_app.models.table.PosDiscountQtyMapping;
 import com.dimata.demo.app.prochain_app.services.crude.PosDiscountQtyMappingCrude;
 
@@ -63,4 +68,21 @@ public class PosDiscountQtyMappingApi {
             })
             .flatMap(posDiscountQtyMappingCrude::updateRecord);
     }
+    public Mono<PosDiscountQtyMapping> checkAvailableData(PosDiscountQTYMappingRelation form){
+        var sql = SelectQBuilder.emptyBuilder(PosDiscountQtyMapping.TABLE_NAME)
+        .addJoin(JoinQuery.doLeftJoin(
+            PosDiscountQtyMapping.TABLE_NAME
+            )
+            .on(WhereQuery.when((PosDiscountQtyMapping.TABLE_NAME + "." + PosDiscountQtyMapping.ID_COL + "." + PosDiscountQtyMapping.LOCATION_ID_COL))
+            .is(DiscountType.TABLE_NAME + "." + DiscountType.ID_COL + "." + Location.TABLE_NAME + "." + Location.ID_COL)))
+            
+        .addWhere(WhereQuery.when(PosDiscountQtyMapping.ID_COL).is(form.getId())
+        .and(WhereQuery.when(PosDiscountQtyMapping.LOCATION_ID_COL).is(form.getLocationId())))
+        .build();
+        return template.getDatabaseClient()
+        .sql(sql)
+        .map(PosDiscountQtyMapping::fromRow)
+        .one()
+        .switchIfEmpty(Mono.error(new DataNotFoundException("id price type salah")));
+}
 }

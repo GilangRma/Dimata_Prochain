@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PosCategoryRelation {
-    private Long id;
-    private String code;
+    private Long locationId;
+    
 }

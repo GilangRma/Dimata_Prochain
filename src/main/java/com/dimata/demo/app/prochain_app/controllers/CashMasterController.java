@@ -30,7 +30,7 @@ public class CashMasterController {
 
     @PostMapping(path = BASE_URL + "/cash_master", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Mono<CashMaster> maintainerAddCashClosing(@RequestBody CashMasterForm form) {
-       
+    
         return cashMasterApi.createCashMaster(form);
     }
 
@@ -51,10 +51,6 @@ public class CashMasterController {
         return cashMasterApi.updateCashMaster(CASH_MASTER_ID, form);
     }
 
-    @PostMapping(path = BASE_URL + "/cash_master/cash_master_id")
-    public Mono<CashMaster> maintainerIdCashier(@RequestBody CashMasterRelation form) {
-        return cashMasterApi.checkAvailableData(form)
-            .flatMap(f -> cashMasterApi.getUserCashMaster(f.getId()));
-    }
+    
 
 }
