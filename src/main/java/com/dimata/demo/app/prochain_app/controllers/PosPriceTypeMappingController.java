@@ -2,7 +2,9 @@ package com.dimata.demo.app.prochain_app.controllers;
 
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.forms.PosPriceTypeMappingForm;
+import com.dimata.demo.app.prochain_app.forms.relation.PosPriceMappingRelation;
 import com.dimata.demo.app.prochain_app.models.table.PosPriceTypeMapping;
+import com.dimata.demo.app.prochain_app.models.table.PriceType;
 import com.dimata.demo.app.prochain_app.services.api.PosPriceTypeMappingApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +46,10 @@ public class PosPriceTypeMappingController {
     @PutMapping(path = BASE_URL + "/pos_price_type_mapping/{PRICE_TYPE_ID}")
     public Mono<PosPriceTypeMapping> maintainerUpdatePosPriceTypeMapping(@PathVariable("PRICE_TYPE_ID") long PRICE_TYPE_ID, @RequestBody PosPriceTypeMappingForm form) {
         return posPriceTypeMappingApi.updatePosPriceTypeMapping(PRICE_TYPE_ID, form);
+    }
+    @PostMapping(path = BASE_URL +"/pos_price_type/price_type_id")
+    public Mono<PriceType> maintainerPriceTypeId(@RequestBody PosPriceMappingRelation form) {
+        return posPriceTypeMappingApi.checkAvailableData(form)
+            .flatMap(f -> posPriceTypeMappingApi.getDataPriceType(f.getId()));
     }
 }

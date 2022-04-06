@@ -65,17 +65,17 @@ public class PosCategoryApi {
             })
             .flatMap(posCategoryCrude::updateRecord);
     }
-    public Mono<PosCategory> checkAvailableData(PosCategoryRelation form){
-        var sql = SelectQBuilder.emptyBuilder(PosCategory.TABLE_NAME)
-        .addJoin(WhereQuery.when(PosCategory.TABLE_NAME + "." + PosCategory.ID_COL).is(value))
-        .addWhere(WhereQuery.when(PosCategory.ID_COL).is(form.getId())
-        .and(WhereQuery.when(PosCategory.CODE_COL).is(form.getCode())))
-        .build();
-        return template.getDatabaseClient()
-        .sql(sql)
-        .map(PosCategory::fromRow)
-        .one()
-        .switchIfEmpty(Mono.error(new DataNotFoundException("id atau password anda salah")));
+    // public Mono<PosCategory> checkAvailableData(PosCategoryRelation form){
+    //     var sql = SelectQBuilder.emptyBuilder(PosCategory.TABLE_NAME)
+    //     .addJoin(WhereQuery.when(PosCategory.TABLE_NAME + "." + PosCategory.ID_COL).is(value))
+    //     .addWhere(WhereQuery.when(PosCategory.ID_COL).is(form.getId())
+    //     .and(WhereQuery.when(PosCategory.CODE_COL).is(form.getCode())))
+    //     .build();
+    //     return template.getDatabaseClient()
+    //     .sql(sql)
+    //     .map(PosCategory::fromRow)
+    //     .one()
+    //     .switchIfEmpty(Mono.error(new DataNotFoundException("id atau password anda salah")));
 
-    }
+    // }
 }

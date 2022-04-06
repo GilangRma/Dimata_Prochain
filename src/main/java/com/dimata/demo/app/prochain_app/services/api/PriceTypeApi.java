@@ -62,4 +62,15 @@ public class PriceTypeApi {
             })
             .flatMap(posPriceTypeCrude::updateRecord);
     }
+    public  Mono<PriceType> getDataByPriceTypeId(Long id) {
+        var sql = SelectQBuilder.emptyBuilder(PriceType.TABLE_NAME)
+            .addWhere(WhereQuery.when(PriceType.ID_COL).is(id))
+            .build();
+        System.out.println(sql);
+        return template.getDatabaseClient()
+            .sql(sql)
+            .map(PriceType::fromRow)
+            .one();
+    }
+
 }

@@ -1,10 +1,16 @@
 package com.dimata.demo.app.prochain_app.services.api;
 
+import com.dimata.demo.app.prochain_app.core.exception.DataNotFoundException;
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
+import com.dimata.demo.app.prochain_app.core.search.JoinQuery;
+import com.dimata.demo.app.prochain_app.core.search.JoinQueryStep;
 import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
+import com.dimata.demo.app.prochain_app.core.search.WhereQueryStep;
 import com.dimata.demo.app.prochain_app.forms.PosPriceTypeMappingForm;
+import com.dimata.demo.app.prochain_app.forms.relation.PosPriceMappingRelation;
 import com.dimata.demo.app.prochain_app.models.table.PosPriceTypeMapping;
+import com.dimata.demo.app.prochain_app.models.table.PriceType;
 import com.dimata.demo.app.prochain_app.services.crude.PosPriceTypeMappingCrude;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +24,8 @@ import reactor.core.publisher.Mono;
 public class PosPriceTypeMappingApi {
     @Autowired
     private PosPriceTypeMappingCrude posPriceTypeMappingCrude;
+    @Autowired
+    private PriceTypeApi priceTypeApi;
     @Autowired
 	private R2dbcEntityTemplate template;
 
@@ -61,5 +69,23 @@ public class PosPriceTypeMappingApi {
                 return Mono.just(option);
             })
             .flatMap(posPriceTypeMappingCrude::updateRecord);
+    }
+    public Mono<PosPriceTypeMapping> checkAvailableData(PosPriceMappingRelation form){
+        var sql = SelectQBuilder.emptyBuilder(PosPriceTypeMapping.TABLE_NAME)
+        .addJoin(JoinQuery.doLeftJoin(
+            PosPriceTypeMapping.TABLE_NAME
+            )
+            .on(WhereQuery.when((PosPriceTypeMapping.TABLE_NAME + "." + PosPriceTypeMapping.ID_COL)).is(PriceType.TABLE_NAME + "." + PriceType.ID_COL)))
+        .addWhere(WhereQuery.when(PosPriceTypeMapping.ID_COL).is(form.getId()))
+        .build();
+        return template.getDatabaseClient()
+        .sql(sql)
+        .map(PosPriceTypeMapping::fromRow)
+        .one()
+        .switchIfEmpty(Mono.error(new DataNotFoundException("id price type salah")));
+        
+    }
+    public Mono<PriceType> getDataPriceType(Long id) {
+        return priceTypeApi.getDataByPriceTypeId(id);
     }
 }
