@@ -2,7 +2,9 @@ package com.dimata.demo.app.prochain_app.controllers;
 
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.forms.CashCashierForm;
+import com.dimata.demo.app.prochain_app.forms.relation.CashCashierRelation;
 import com.dimata.demo.app.prochain_app.models.table.CashCashier;
+import com.dimata.demo.app.prochain_app.models.table.CashMaster;
 import com.dimata.demo.app.prochain_app.services.api.CashCashierApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +52,11 @@ public class CashCashierController {
         return cashCashierApi.updateCashCashier(CASH_CASHIER_ID, form);
     }
 
+    @PostMapping(path = BASE_URL + "/cash_cashier/cash_master_id")
+    public Mono<CashMaster> maintainerIdCashier(@RequestBody CashCashierRelation form) {
+        return cashCashierApi.checkAvailableData(form)
+            .flatMap(f -> cashCashierApi.getUserCashMaster(f.getId()));
+    }
+    
     
 }

@@ -1,10 +1,14 @@
 package com.dimata.demo.app.prochain_app.services.api;
 
+import com.dimata.demo.app.prochain_app.core.exception.DataNotFoundException;
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
+import com.dimata.demo.app.prochain_app.core.search.JoinQuery;
 import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
 import com.dimata.demo.app.prochain_app.forms.CashCashierForm;
+import com.dimata.demo.app.prochain_app.forms.relation.CashCashierRelation;
 import com.dimata.demo.app.prochain_app.models.table.CashCashier;
+import com.dimata.demo.app.prochain_app.models.table.CashMaster;
 import com.dimata.demo.app.prochain_app.services.crude.CashCashierCrude;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,8 @@ public class CashCashierApi {
 
     @Autowired
     private CashCashierCrude cashCashierCrude;
+    @Autowired
+    private CashMasterApi cashMasterApi;
     @Autowired
 	private R2dbcEntityTemplate template;
 
@@ -62,6 +68,27 @@ public class CashCashierApi {
                 return Mono.just(option);
             })
             .flatMap(cashCashierCrude::updateRecord);
-    }  
+    }
     
+    public Mono<CashCashier> checkAvailableData(CashCashierRelation form){
+        var sql = SelectQBuilder.emptyBuilder(CashCashier.TABLE_NAME)
+        .addJoin(JoinQuery.doLeftJoin(
+            CashCashier.TABLE_NAME
+            )
+            .on(WhereQuery.when(CashCashier.TABLE_NAME + "." + CashCashier.ID_COL).is(CashMaster.TABLE_NAME + "." + CashMaster.ID_COL)))
+        .addWhere(WhereQuery.when(CashCashier.ID_COL).is(form.getId())
+        .and(WhereQuery.when(CashCashier.CASH_MASTER_ID_COL).is(form.getCashMasterId()))
+        .and(WhereQuery.when(CashCashier.SHIFT_ID_COL).is(form.getShiftId())))
+        .build();
+        return template.getDatabaseClient()
+        .sql(sql)
+        .map(CashCashier::fromRow)
+        .one()
+        .switchIfEmpty(Mono.error(new DataNotFoundException("id atau password anda salah")));
+
+    }
+    
+    public Mono<CashMaster> getUserCashMaster(Long id) {
+        return cashMasterApi.getDataByCashMasterId(id);
+    }
 }

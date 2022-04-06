@@ -63,5 +63,16 @@ public class CashMasterApi {
             })
             .flatMap(cashMasterCrude::updateRecord);
     }  
+
+    public Mono<CashMaster> getDataByCashMasterId(Long id) {
+        var sql = SelectQBuilder.emptyBuilder(CashMaster.TABLE_NAME)
+            .addWhere(WhereQuery.when(CashMaster.ID_COL).is(id))
+            .build();
+        System.out.println(sql);
+        return template.getDatabaseClient()
+            .sql(sql)
+            .map(CashMaster::fromRow)
+            .one();
+    }
     
 }

@@ -2,6 +2,7 @@ package com.dimata.demo.app.prochain_app.controllers;
 
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.forms.CashMasterForm;
+import com.dimata.demo.app.prochain_app.forms.relation.CashMasterRelation;
 import com.dimata.demo.app.prochain_app.models.table.CashMaster;
 import com.dimata.demo.app.prochain_app.services.api.CashMasterApi;
 
@@ -49,4 +50,11 @@ public class CashMasterController {
     public Mono<CashMaster> maintainerUpdateCashMaster(@PathVariable("CASH_MASTER_ID") long CASH_MASTER_ID, @RequestBody CashMasterForm form) {
         return cashMasterApi.updateCashMaster(CASH_MASTER_ID, form);
     }
+
+    @PostMapping(path = BASE_URL + "/cash_master/cash_master_id")
+    public Mono<CashMaster> maintainerIdCashier(@RequestBody CashMasterRelation form) {
+        return cashMasterApi.checkAvailableData(form)
+            .flatMap(f -> cashMasterApi.getUserCashMaster(f.getId()));
+    }
+
 }
