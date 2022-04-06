@@ -91,5 +91,11 @@ public class FormatUtil {
     return Date.from(result);
   }
 
+  public static LocalDateTime convertDateToLocalDateTime(String value, String string) {
+    return null;
+}
 
+public static String convertLocalDateTimeToString(LocalDateTime dateTime) {
+    return convertLocalDateTimeToString(dateTime);
+}
 }
