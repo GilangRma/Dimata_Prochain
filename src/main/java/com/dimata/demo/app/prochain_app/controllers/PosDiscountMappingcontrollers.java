@@ -3,6 +3,8 @@ package com.dimata.demo.app.prochain_app.controllers;
 
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.forms.PosDiscountMappingForm;
+import com.dimata.demo.app.prochain_app.forms.relation.PosDiscountMappingRelation;
+import com.dimata.demo.app.prochain_app.models.table.DiscountType;
 import com.dimata.demo.app.prochain_app.models.table.PosDiscountMapping;
 import com.dimata.demo.app.prochain_app.services.api.PosDiscountMappingApi;
 
@@ -24,6 +26,7 @@ import reactor.core.publisher.Mono;
 public class PosDiscountMappingcontrollers {
     @Autowired
     private PosDiscountMappingApi posDiscountMappingApi;
+    
 
     private static final String BASE_URL = "/maintainer/v1";
 
@@ -45,5 +48,10 @@ public class PosDiscountMappingcontrollers {
     @PutMapping(path = BASE_URL + "/pos_discount_mapping/{DISCOUNT_TYPE_ID}")
     public Mono<PosDiscountMapping> maintainerUpdatePosDiscountMapping(@PathVariable("DISCOUNT_TYPE_ID") long DISCOUNT_TYPE_ID, @RequestBody PosDiscountMappingForm form) {
         return posDiscountMappingApi.updatePosDiscountMapping(DISCOUNT_TYPE_ID, form);
+    }
+    @PostMapping(path = BASE_URL +"/pos_discount_mapping/discount_id")
+    public Mono<DiscountType> maintainerPriceTypeId(@RequestBody PosDiscountMappingRelation form) {
+        return posDiscountMappingApi.checkAvailableData(form)
+            .flatMap(f -> posDiscountMappingApi.getDatadiscount(f.getId()));
     }
 }

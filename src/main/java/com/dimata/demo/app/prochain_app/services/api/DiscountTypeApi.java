@@ -63,5 +63,15 @@ public class DiscountTypeApi {
             })
             .flatMap(discountTypeCrude::updateRecord);
     }  
-    
+    //relation
+    public  Mono<DiscountType> getDataByDiscount(Long id) {
+        var sql = SelectQBuilder.emptyBuilder(DiscountType.TABLE_NAME)
+            .addWhere(WhereQuery.when(DiscountType.ID_COL).is(id))
+            .build();
+        System.out.println(sql);
+        return template.getDatabaseClient()
+            .sql(sql)
+            .map(DiscountType::fromRow)
+            .one();
+    }
 }

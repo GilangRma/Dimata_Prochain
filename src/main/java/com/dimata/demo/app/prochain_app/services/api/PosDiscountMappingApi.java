@@ -23,6 +23,8 @@ public class PosDiscountMappingApi {
     @Autowired
     private  PosDiscountMappingCrude posDiscountMappingCrude;
     @Autowired
+    private DiscountTypeApi discountTypeApi;
+    @Autowired
 	private R2dbcEntityTemplate template;
 
     public Mono<PosDiscountMapping> createPosDiscountMapping(PosDiscountMappingForm form) {
@@ -81,5 +83,8 @@ public class PosDiscountMappingApi {
         .map(PosDiscountMapping::fromRow)
         .one()
         .switchIfEmpty(Mono.error(new DataNotFoundException("id price type salah")));
+}
+    public Mono<DiscountType> getDatadiscount(Long id) {
+    return discountTypeApi.getDataByDiscount(id);
 }
 }
