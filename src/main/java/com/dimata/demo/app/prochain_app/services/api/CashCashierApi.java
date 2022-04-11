@@ -75,16 +75,14 @@ public class CashCashierApi {
         .addJoin(JoinQuery.doLeftJoin(
             CashCashier.TABLE_NAME
             )
-            .on(WhereQuery.when(CashCashier.TABLE_NAME + "." + CashCashier.ID_COL).is(CashMaster.TABLE_NAME + "." + CashMaster.ID_COL)))
-        .addWhere(WhereQuery.when(CashCashier.ID_COL).is(form.getId())
-        .and(WhereQuery.when(CashCashier.CASH_MASTER_ID_COL).is(form.getCashMasterId()))
-        .and(WhereQuery.when(CashCashier.SHIFT_ID_COL).is(form.getShiftId())))
+            .on(WhereQuery.when(CashCashier.TABLE_NAME + "." + CashCashier.CASH_MASTER_ID_COL).is(CashMaster.TABLE_NAME + "." + CashMaster.ID_COL)))
+        .addWhere(WhereQuery.when(CashCashier.CASH_MASTER_ID_COL).is(form.getCashMasterId()))
         .build();
         return template.getDatabaseClient()
         .sql(sql)
         .map(CashCashier::fromRow)
         .one()
-        .switchIfEmpty(Mono.error(new DataNotFoundException("id atau password anda salah")));
+        .switchIfEmpty(Mono.error(new DataNotFoundException("id anda salah")));
 
     }
     

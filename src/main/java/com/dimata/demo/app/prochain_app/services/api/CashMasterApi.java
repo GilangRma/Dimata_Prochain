@@ -1,10 +1,14 @@
 package com.dimata.demo.app.prochain_app.services.api;
 
+import com.dimata.demo.app.prochain_app.core.exception.DataNotFoundException;
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
+import com.dimata.demo.app.prochain_app.core.search.JoinQuery;
 import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
 import com.dimata.demo.app.prochain_app.forms.CashMasterForm;
+import com.dimata.demo.app.prochain_app.forms.relation.CashMasterRelation;
 import com.dimata.demo.app.prochain_app.models.table.CashMaster;
+import com.dimata.demo.app.prochain_app.models.table.Location;
 import com.dimata.demo.app.prochain_app.services.crude.CashMasterCrude;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,8 @@ public class CashMasterApi {
 
     @Autowired
     private CashMasterCrude cashMasterCrude;
+    @Autowired
+    private LocationApi locationApi;
     @Autowired
 	private R2dbcEntityTemplate template;
 
@@ -74,5 +80,25 @@ public class CashMasterApi {
             .map(CashMaster::fromRow)
             .one();
     }
+
+    public Mono<CashMaster> checkAvailableData(CashMasterRelation form){
+        var sql = SelectQBuilder.emptyBuilder(CashMaster.TABLE_NAME)
+        .addJoin(JoinQuery.doLeftJoin(
+            CashMaster.TABLE_NAME
+            )
+            .on(WhereQuery.when(CashMaster.TABLE_NAME + "." + CashMaster.LOCATION_ID_COL).is(Location.TABLE_NAME + "." + Location.ID_COL)))
+        .addWhere(WhereQuery.when(CashMaster.LOCATION_ID_COL).is(form.getLocationId()))
+        .build();
+        return template.getDatabaseClient()
+        .sql(sql)
+        .map(CashMaster::fromRow)
+        .one()
+        .switchIfEmpty(Mono.error(new DataNotFoundException("id anda salah")));
+
+    }
     
+    public Mono<Location> getDataLocation(Long id) {
+        return locationApi.getDataByLocation(id);    
 }
+}  
+
