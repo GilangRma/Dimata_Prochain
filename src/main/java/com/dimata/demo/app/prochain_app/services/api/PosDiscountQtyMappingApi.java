@@ -25,6 +25,8 @@ public class PosDiscountQtyMappingApi {
     @Autowired
     private PosDiscountQtyMappingCrude posDiscountQtyMappingCrude;
     @Autowired
+    private LocationApi locationApi;
+    @Autowired
 	private R2dbcEntityTemplate template;
 
     public Mono<PosDiscountQtyMapping> createPosDiscountQtyMapping(PosDiscountQtyMappingForm form) {
@@ -73,16 +75,18 @@ public class PosDiscountQtyMappingApi {
         .addJoin(JoinQuery.doLeftJoin(
             PosDiscountQtyMapping.TABLE_NAME
             )
-            .on(WhereQuery.when((PosDiscountQtyMapping.TABLE_NAME + "." + PosDiscountQtyMapping.ID_COL + "." + PosDiscountQtyMapping.LOCATION_ID_COL))
-            .is(DiscountType.TABLE_NAME + "." + DiscountType.ID_COL + "." + Location.TABLE_NAME + "." + Location.ID_COL)))
+            .on(WhereQuery.when((PosDiscountQtyMapping.TABLE_NAME + "." + PosDiscountQtyMapping.LOCATION_ID_COL))
+            .is( Location.TABLE_NAME + "." + Location.ID_COL)))
             
-        .addWhere(WhereQuery.when(PosDiscountQtyMapping.ID_COL).is(form.getId())
-        .and(WhereQuery.when(PosDiscountQtyMapping.LOCATION_ID_COL).is(form.getLocationId())))
+        .addWhere(WhereQuery.when(PosDiscountQtyMapping.LOCATION_ID_COL).is(form.getLocationId()))
         .build();
         return template.getDatabaseClient()
         .sql(sql)
         .map(PosDiscountQtyMapping::fromRow)
         .one()
         .switchIfEmpty(Mono.error(new DataNotFoundException("id price type salah")));
+}
+public Mono<Location> getDataLocation(Long id) {
+    return locationApi.getDataByLocation(id);
 }
 }

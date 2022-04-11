@@ -24,6 +24,8 @@ public class PosCategoryApi {
     @Autowired
     private PosCategoryCrude posCategoryCrude;
     @Autowired
+    private LocationApi locationApi;
+    @Autowired
 	private R2dbcEntityTemplate template;
 
     public Mono<PosCategory> createPosCategory(PosCategoryForm form) {
@@ -81,6 +83,9 @@ public class PosCategoryApi {
         .sql(sql)
         .map(PosCategory::fromRow)
         .one()
-        .switchIfEmpty(Mono.error(new DataNotFoundException("id price type salah")));
+        .switchIfEmpty(Mono.error(new DataNotFoundException("id lokasi anda salah")));
+}
+public Mono<Location> getDataLocation(Long id) {
+    return locationApi.getDataByLocation(id);
 }
 }

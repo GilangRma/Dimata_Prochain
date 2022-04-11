@@ -49,9 +49,9 @@ public class PosDiscountMappingcontrollers {
     public Mono<PosDiscountMapping> maintainerUpdatePosDiscountMapping(@PathVariable("DISCOUNT_TYPE_ID") long DISCOUNT_TYPE_ID, @RequestBody PosDiscountMappingForm form) {
         return posDiscountMappingApi.updatePosDiscountMapping(DISCOUNT_TYPE_ID, form);
     }
-    @PostMapping(path = BASE_URL +"/pos_discount_mapping/discount_id")
-    public Mono<DiscountType> maintainerPriceTypeId(@RequestBody PosDiscountMappingRelation form) {
-        return posDiscountMappingApi.checkAvailableData(form)
-            .flatMap(f -> posDiscountMappingApi.getDatadiscount(f.getId()));
-    }
+    // @PostMapping(path = BASE_URL +"/pos_discount_mapping/discount_id")
+    // public Mono<DiscountType> maintainerPriceTypeId(@RequestBody PosDiscountMappingRelation form) {
+    //     return posDiscountMappingApi.checkAvailableData(form)
+    //         .flatMap(f -> posDiscountMappingApi.getDatadiscount(f.getId()));
+    // }
 }

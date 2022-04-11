@@ -2,6 +2,8 @@ package com.dimata.demo.app.prochain_app.controllers;
 
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.forms.PosDiscountQtyMappingForm;
+import com.dimata.demo.app.prochain_app.forms.relation.PosDiscountQTYMappingRelation;
+import com.dimata.demo.app.prochain_app.models.table.Location;
 import com.dimata.demo.app.prochain_app.models.table.PosDiscountQtyMapping;
 import com.dimata.demo.app.prochain_app.services.api.PosDiscountQtyMappingApi;
 
@@ -44,5 +46,10 @@ public class PosDiscountQtyMappingController {
     @PutMapping(path = BASE_URL + "/pos_discount_qty_mapping/{DISCOUNT_TYPE_ID}")
     public Mono<PosDiscountQtyMapping> maintainerUpdatePosDiscountQtyMapping(@PathVariable("DISCOUNT_TYPE_ID") long DISCOUNT_TYPE_ID, @RequestBody PosDiscountQtyMappingForm form) {
         return posDiscountQtyMappingApi.updatePosDiscountQtyMapping(DISCOUNT_TYPE_ID, form);
+    }
+    @PostMapping(path = BASE_URL +"/pos_category/location")
+    public Mono<Location> maintainerLocationId(@RequestBody PosDiscountQTYMappingRelation form) {
+        return posDiscountQtyMappingApi.checkAvailableData(form)
+            .flatMap(f -> posDiscountQtyMappingApi.getDataLocation(f.getId()));
     }
 }

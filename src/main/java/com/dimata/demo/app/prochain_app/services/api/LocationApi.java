@@ -63,4 +63,15 @@ public class LocationApi {
             })
             .flatMap(locationCrude::updateRecord);
     }    
+    //relation
+    public  Mono<Location> getDataByLocation(Long id) {
+        var sql = SelectQBuilder.emptyBuilder(Location.TABLE_NAME)
+            .addWhere(WhereQuery.when(Location.ID_COL).is(id))
+            .build();
+        System.out.println(sql);
+        return template.getDatabaseClient()
+            .sql(sql)
+            .map(Location::fromRow)
+            .one();
+    }
 }

@@ -68,23 +68,23 @@ public class PosDiscountMappingApi {
             })
             .flatMap(posDiscountMappingCrude::updateRecord);
     }
-    public Mono<PosDiscountMapping> checkAvailableData(PosDiscountMappingRelation form){
-        var sql = SelectQBuilder.emptyBuilder(PosDiscountMapping.TABLE_NAME)
-        .addJoin(JoinQuery.doLeftJoin(
-            PosDiscountMapping.TABLE_NAME
-            )
-            .on(WhereQuery.when((PosDiscountMapping.TABLE_NAME + "." + PosDiscountMapping.ID_COL))
-            .is(DiscountType.TABLE_NAME + "." + DiscountType.ID_COL)))
+//     public Mono<PosDiscountMapping> checkAvailableData(PosDiscountMappingRelation form){
+//         var sql = SelectQBuilder.emptyBuilder(PosDiscountMapping.TABLE_NAME)
+//         .addJoin(JoinQuery.doLeftJoin(
+//             PosDiscountMapping.TABLE_NAME
+//             )
+//             .on(WhereQuery.when((PosDiscountMapping.TABLE_NAME + "." + PosDiscountMapping.ID_COL))
+//             .is(DiscountType.TABLE_NAME + "." + DiscountType.ID_COL)))
             
-        .addWhere(WhereQuery.when(PosDiscountMapping.ID_COL).is(form.getId()))
-        .build();
-        return template.getDatabaseClient()
-        .sql(sql)
-        .map(PosDiscountMapping::fromRow)
-        .one()
-        .switchIfEmpty(Mono.error(new DataNotFoundException("id price type salah")));
-}
-    public Mono<DiscountType> getDatadiscount(Long id) {
-    return discountTypeApi.getDataByDiscount(id);
-}
+//         .addWhere(WhereQuery.when(PosDiscountMapping.ID_COL).is(form.getId()))
+//         .build();
+//         return template.getDatabaseClient()
+//         .sql(sql)
+//         .map(PosDiscountMapping::fromRow)
+//         .one()
+//         .switchIfEmpty(Mono.error(new DataNotFoundException("id price type salah")));
+// }
+//     public Mono<DiscountType> getDatadiscount(Long id) {
+//     return discountTypeApi.getDataByDiscount(id);
+//}
 }

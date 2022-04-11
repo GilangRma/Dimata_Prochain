@@ -2,6 +2,8 @@ package com.dimata.demo.app.prochain_app.controllers;
 
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.forms.PosCategoryForm;
+import com.dimata.demo.app.prochain_app.forms.relation.PosCategoryRelation;
+import com.dimata.demo.app.prochain_app.models.table.Location;
 import com.dimata.demo.app.prochain_app.models.table.PosCategory;
 import com.dimata.demo.app.prochain_app.services.api.PosCategoryApi;
 
@@ -45,6 +47,10 @@ public class PosCategoryController {
     public Mono<PosCategory> maintainerUpdatePosCatagory(@PathVariable("CATEGORY_ID") long CATEGORY_ID, @RequestBody PosCategoryForm form) {
         return posCategoryApi.updatePosCatagory(CATEGORY_ID, form);
     }
-
+    @PostMapping(path = BASE_URL +"/pos_category/location")
+    public Mono<Location> maintainerLocationId(@RequestBody PosCategoryRelation form) {
+        return posCategoryApi.checkAvailableData(form)
+            .flatMap(f -> posCategoryApi.getDataLocation(f.getId()));
+    }
     
 }
