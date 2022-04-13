@@ -3,8 +3,6 @@ package com.dimata.demo.app.prochain_app.controllers;
 
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.forms.PosDiscountMappingForm;
-import com.dimata.demo.app.prochain_app.forms.relation.PosDiscountMappingRelation;
-import com.dimata.demo.app.prochain_app.models.table.DiscountType;
 import com.dimata.demo.app.prochain_app.models.table.PosDiscountMapping;
 import com.dimata.demo.app.prochain_app.services.api.PosDiscountMappingApi;
 

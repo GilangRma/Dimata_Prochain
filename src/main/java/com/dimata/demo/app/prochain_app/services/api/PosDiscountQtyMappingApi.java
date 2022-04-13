@@ -8,7 +8,6 @@ import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
 import com.dimata.demo.app.prochain_app.forms.PosDiscountQtyMappingForm;
 import com.dimata.demo.app.prochain_app.forms.relation.PosDiscountQTYMappingRelation;
-import com.dimata.demo.app.prochain_app.models.table.DiscountType;
 import com.dimata.demo.app.prochain_app.models.table.Location;
 import com.dimata.demo.app.prochain_app.models.table.PosDiscountQtyMapping;
 import com.dimata.demo.app.prochain_app.services.crude.PosDiscountQtyMappingCrude;

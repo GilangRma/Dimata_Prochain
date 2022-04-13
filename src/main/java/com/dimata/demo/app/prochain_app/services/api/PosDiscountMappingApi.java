@@ -1,13 +1,9 @@
 package com.dimata.demo.app.prochain_app.services.api;
 
-import com.dimata.demo.app.prochain_app.core.exception.DataNotFoundException;
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
-import com.dimata.demo.app.prochain_app.core.search.JoinQuery;
 import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
 import com.dimata.demo.app.prochain_app.forms.PosDiscountMappingForm;
-import com.dimata.demo.app.prochain_app.forms.relation.PosDiscountMappingRelation;
-import com.dimata.demo.app.prochain_app.models.table.DiscountType;
 import com.dimata.demo.app.prochain_app.models.table.PosDiscountMapping;
 import com.dimata.demo.app.prochain_app.services.crude.PosDiscountMappingCrude;
 
@@ -22,8 +18,7 @@ import reactor.core.publisher.Mono;
 public class PosDiscountMappingApi {
     @Autowired
     private  PosDiscountMappingCrude posDiscountMappingCrude;
-    @Autowired
-    private DiscountTypeApi discountTypeApi;
+    
     @Autowired
 	private R2dbcEntityTemplate template;
 
@@ -68,23 +63,5 @@ public class PosDiscountMappingApi {
             })
             .flatMap(posDiscountMappingCrude::updateRecord);
     }
-//     public Mono<PosDiscountMapping> checkAvailableData(PosDiscountMappingRelation form){
-//         var sql = SelectQBuilder.emptyBuilder(PosDiscountMapping.TABLE_NAME)
-//         .addJoin(JoinQuery.doLeftJoin(
-//             PosDiscountMapping.TABLE_NAME
-//             )
-//             .on(WhereQuery.when((PosDiscountMapping.TABLE_NAME + "." + PosDiscountMapping.ID_COL))
-//             .is(DiscountType.TABLE_NAME + "." + DiscountType.ID_COL)))
-            
-//         .addWhere(WhereQuery.when(PosDiscountMapping.ID_COL).is(form.getId()))
-//         .build();
-//         return template.getDatabaseClient()
-//         .sql(sql)
-//         .map(PosDiscountMapping::fromRow)
-//         .one()
-//         .switchIfEmpty(Mono.error(new DataNotFoundException("id price type salah")));
-// }
-//     public Mono<DiscountType> getDatadiscount(Long id) {
-//     return discountTypeApi.getDataByDiscount(id);
-//}
+
 }
