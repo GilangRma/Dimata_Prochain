@@ -84,16 +84,19 @@ public class CashMasterApi {
     public Mono<CashMaster> checkAvailableData(CashMasterRelation form){
         var sql = SelectQBuilder.emptyBuilder(CashMaster.TABLE_NAME)
         .addJoin(JoinQuery.doLeftJoin(
-            CashMaster.TABLE_NAME
+            Location.TABLE_NAME
             )
-            .on(WhereQuery.when(CashMaster.TABLE_NAME + "." + CashMaster.LOCATION_ID_COL).is(Location.TABLE_NAME + "." + Location.ID_COL)))
-        .addWhere(WhereQuery.when(CashMaster.LOCATION_ID_COL).is(form.getLocationId()))
+            .on(WhereQuery.when((CashMaster.TABLE_NAME + "." + CashMaster.LOCATION_ID_COL))
+            .is(Location.TABLE_NAME + "." + Location.ID_COL)))
+
+        .addWhere(WhereQuery.when(CashMaster.TABLE_NAME + "." +CashMaster.LOCATION_ID_COL).is(form.getLocationId()))
         .build();
+        System.out.println(sql);
         return template.getDatabaseClient()
         .sql(sql)
         .map(CashMaster::fromRow)
         .one()
-        .switchIfEmpty(Mono.error(new DataNotFoundException("id anda salah")));
+        .switchIfEmpty(Mono.error(new DataNotFoundException("id Location anda salah")));
 
     }
     

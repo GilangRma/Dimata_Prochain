@@ -73,17 +73,18 @@ public class CashCashierApi {
     public Mono<CashCashier> checkAvailableData(CashCashierRelation form){
         var sql = SelectQBuilder.emptyBuilder(CashCashier.TABLE_NAME)
         .addJoin(JoinQuery.doLeftJoin(
-            CashCashier.TABLE_NAME
+            CashMaster.TABLE_NAME
             )
-            .on(WhereQuery.when(CashCashier.TABLE_NAME + "." + CashCashier.CASH_MASTER_ID_COL).is(CashMaster.TABLE_NAME + "." + CashMaster.ID_COL)))
-        .addWhere(WhereQuery.when(CashCashier.CASH_MASTER_ID_COL).is(form.getCashMasterId()))
+            .on(WhereQuery.when((CashCashier.TABLE_NAME + "." + CashCashier.CASH_MASTER_ID_COL))
+            .is(CashMaster.TABLE_NAME + "." + CashMaster.ID_COL)))
+        .addWhere(WhereQuery.when(CashCashier.TABLE_NAME + "." +CashCashier.CASH_MASTER_ID_COL).is(form.getCashMasterId()))
         .build();
+        System.out.println(sql);
         return template.getDatabaseClient()
         .sql(sql)
         .map(CashCashier::fromRow)
         .one()
-        .switchIfEmpty(Mono.error(new DataNotFoundException("id anda salah")));
-
+        .switchIfEmpty(Mono.error(new DataNotFoundException("id MAster salah")));
     }
     
     public Mono<CashMaster> getUserCashMaster(Long id) {
