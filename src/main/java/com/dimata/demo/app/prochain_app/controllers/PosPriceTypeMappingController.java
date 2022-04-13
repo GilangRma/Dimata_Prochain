@@ -1,6 +1,6 @@
 package com.dimata.demo.app.prochain_app.controllers;
 
-import com.dimata.demo.app.prochain_app.core.search.CommonParam;
+import com.dimata.demo.app.prochain_app.core.search.CommonParam; 
 import com.dimata.demo.app.prochain_app.forms.PosPriceTypeMappingForm;
 import com.dimata.demo.app.prochain_app.forms.relation.PosPriceMappingRelation;
 import com.dimata.demo.app.prochain_app.models.table.PosPriceTypeMapping;

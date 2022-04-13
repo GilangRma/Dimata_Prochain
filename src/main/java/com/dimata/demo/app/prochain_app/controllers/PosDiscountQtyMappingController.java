@@ -47,7 +47,7 @@ public class PosDiscountQtyMappingController {
     public Mono<PosDiscountQtyMapping> maintainerUpdatePosDiscountQtyMapping(@PathVariable("DISCOUNT_TYPE_ID") long DISCOUNT_TYPE_ID, @RequestBody PosDiscountQtyMappingForm form) {
         return posDiscountQtyMappingApi.updatePosDiscountQtyMapping(DISCOUNT_TYPE_ID, form);
     }
-    @PostMapping(path = BASE_URL +"/pos_category/location")
+    @PostMapping(path = BASE_URL +"/pos_discount_qty_mapping/location")
     public Mono<Location> maintainerLocationId(@RequestBody PosDiscountQTYMappingRelation form) {
         return posDiscountQtyMappingApi.checkAvailableData(form)
             .flatMap(f -> posDiscountQtyMappingApi.getDataLocation(f.getId()));
