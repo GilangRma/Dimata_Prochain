@@ -72,18 +72,19 @@ public class PosCategoryApi {
     public Mono<PosCategory> checkAvailableData(PosCategoryRelation form){
         var sql = SelectQBuilder.emptyBuilder(PosCategory.TABLE_NAME)
         .addJoin(JoinQuery.doLeftJoin(
-            PosCategory.TABLE_NAME
+            Location.TABLE_NAME
             )
             .on(WhereQuery.when((PosCategory.TABLE_NAME + "." + PosCategory.LOCATION_ID_COL))
             .is(Location.TABLE_NAME + "." + Location.ID_COL)))
             
-        .addWhere(WhereQuery.when(PosCategory.LOCATION_ID_COL).is(form.getLocationId()))
+        .addWhere(WhereQuery.when(PosCategory.TABLE_NAME + "." +PosCategory.LOCATION_ID_COL).is(form.getLocationId()))
         .build();
+        System.out.println(sql);
         return template.getDatabaseClient()
-        .sql(sql)
-        .map(PosCategory::fromRow)
-        .one()
-        .switchIfEmpty(Mono.error(new DataNotFoundException("id lokasi anda salah")));
+            .sql(sql)
+            .map(PosCategory::fromRow)
+            .one()
+            .switchIfEmpty(Mono.error(new DataNotFoundException("id lokasi anda salah")));
 }
 public Mono<Location> getDataLocation(Long id) {
     return locationApi.getDataByLocation(id);
