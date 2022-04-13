@@ -73,13 +73,15 @@ public class PosDiscountQtyMappingApi {
     public Mono<PosDiscountQtyMapping> checkAvailableData(PosDiscountQTYMappingRelation form){
         var sql = SelectQBuilder.emptyBuilder(PosDiscountQtyMapping.TABLE_NAME)
         .addJoin(JoinQuery.doLeftJoin(
-            PosDiscountQtyMapping.TABLE_NAME
+            Location.TABLE_NAME
             )
             .on(WhereQuery.when((PosDiscountQtyMapping.TABLE_NAME + "." + PosDiscountQtyMapping.LOCATION_ID_COL))
             .is( Location.TABLE_NAME + "." + Location.ID_COL)))
             
-        .addWhere(WhereQuery.when(PosDiscountQtyMapping.LOCATION_ID_COL).is(form.getLocationId()))
+        .addWhere(WhereQuery.when(PosDiscountQtyMapping.TABLE_NAME + "." + PosDiscountQtyMapping.LOCATION_ID_COL).is(form.getLocationId()))
         .build();
+
+        System.out.println(sql);
         return template.getDatabaseClient()
         .sql(sql)
         .map(PosDiscountQtyMapping::fromRow)
