@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PosDiscountQTYMappingRelation {
-    // public Long id;
     public long locationId;  
         
     
