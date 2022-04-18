@@ -30,10 +30,10 @@ import lombok.experimental.Accessors;
 
 public class DiscountType implements UpdateAvailable<DiscountType>, Persistable <Long>{
 
-    public static final String TABLE_NAME = "discount_type ";
-    public static final String ID_COL = "DISCOUNT_TYPE_ID ";
+    public static final String TABLE_NAME = "discount_type";
+    public static final String ID_COL = "DISCOUNT_TYPE_ID";
     public static final String NAME_COL = "NAME";
-    public static final String DINDEX_COL = "DINDEX ";
+    public static final String DINDEX_COL = "DINDEX";
     public static final String CODE_COL ="CODE";
 
     @Accessors(fluent = true)
@@ -42,16 +42,17 @@ public class DiscountType implements UpdateAvailable<DiscountType>, Persistable 
 
     private Long id;
     private String name;
-    private Integer dindex;
+    private int dindex;
     private String code;
     
     @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
-        public static Builder createNewRecord(String code, String name ) {
+        public static Builder createNewRecord(String code, String name, int dindex ) {
             return new Builder().newRecord(true)
             .name(Objects.requireNonNull(name, "name diperlukan"))
-            .code(Objects.requireNonNull(code, "code diperlukan")); 
+            .code(Objects.requireNonNull(code, "code diperlukan"))
+            .dindex(Objects.requireNonNull(dindex, "dindex diperlukan")); 
         }
 
         public static Builder updateBuilder(DiscountType oldRecord, DiscountType  newRecord) {

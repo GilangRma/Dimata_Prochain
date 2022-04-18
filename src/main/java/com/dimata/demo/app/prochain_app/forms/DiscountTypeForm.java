@@ -17,8 +17,7 @@ public class DiscountTypeForm implements RecordAdapter<DiscountType> {
 
     @Override
     public DiscountType convertNewRecord() {
-        return DiscountType.Builder.createNewRecord(name, code)
-                .dindex(dindex)
+        return DiscountType.Builder.createNewRecord(name, code, dindex)
                 .id(id)
                 .build();
     }

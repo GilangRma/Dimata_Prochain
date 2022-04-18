@@ -32,7 +32,7 @@ import lombok.experimental.Accessors;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CashCashier implements UpdateAvailable<CashCashier>, Persistable <Long>{
 
-    public static final String TABLE_NAME = "cash_cashier ";
+    public static final String TABLE_NAME = "cash_cashier";
     public static final String ID_COL = "CASH_CASHIER_ID";
     public static final String CASH_MASTER_ID_COL = "CASH_MASTER_ID";
     public static final String APP_USER_ID_COL = "APP_USER_ID";
