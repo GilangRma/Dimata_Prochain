@@ -1,8 +1,8 @@
 spring:
   r2dbc:
-    url: r2dbc:mysql://localhost:3306/pos_yashoda_server
-    username: root
-    password: 
+    url: r2dbc:mysql://13.214.234.176:3306/pos_yashoda_server
+    username: dev
+    password: dsj4dev
   main:
     web-application-type: reactive
   application:
