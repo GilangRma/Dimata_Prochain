@@ -2,6 +2,8 @@ package com.dimata.demo.app.prochain_app.controllers;
 
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.forms.PosMaterialStockForm;
+import com.dimata.demo.app.prochain_app.forms.relation.PosMaterialStockRelation;
+import com.dimata.demo.app.prochain_app.models.table.Location;
 import com.dimata.demo.app.prochain_app.models.table.PosMaterialStock;
 import com.dimata.demo.app.prochain_app.services.api.PosMaterialStockApi;
 
@@ -48,6 +50,12 @@ public class PosMaterialStockController {
     @PutMapping(path = BASE_URL + "/pos_material_stock/{MATERIAL_STOCK_ID}")
     public Mono<PosMaterialStock> maintainerUpdatePosMaterialStock(@PathVariable("MATERIAL_STOCK_ID") long MATERIAL_STOCK_ID, @RequestBody PosMaterialStockForm form) {
         return posMaterialStockApi.updatePosMaterialStock(MATERIAL_STOCK_ID, form);
+    }
+
+    @PostMapping(path = BASE_URL + "/pos_material_stock/location_id")
+    public Mono<Location> maintainerLocationId(@RequestBody PosMaterialStockRelation form) {
+        return posMaterialStockApi.checkAvailableData(form)
+            .flatMap(f -> posMaterialStockApi.getDataLocation(f.getId()));
     }
 
 }

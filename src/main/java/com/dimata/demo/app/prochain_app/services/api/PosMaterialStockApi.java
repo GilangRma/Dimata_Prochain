@@ -1,9 +1,13 @@
 package com.dimata.demo.app.prochain_app.services.api;
 
+import com.dimata.demo.app.prochain_app.core.exception.DataNotFoundException;
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
+import com.dimata.demo.app.prochain_app.core.search.JoinQuery;
 import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
 import com.dimata.demo.app.prochain_app.forms.PosMaterialStockForm;
+import com.dimata.demo.app.prochain_app.forms.relation.PosMaterialStockRelation;
+import com.dimata.demo.app.prochain_app.models.table.Location;
 import com.dimata.demo.app.prochain_app.models.table.PosMaterialStock;
 import com.dimata.demo.app.prochain_app.services.crude.PosMaterialStockCrude;
 
@@ -19,6 +23,8 @@ public class PosMaterialStockApi {
 
     @Autowired
     private PosMaterialStockCrude posMaterialStockCrude;
+    @Autowired
+    private LocationApi locationApi;
     @Autowired
 	private R2dbcEntityTemplate template;
 
@@ -62,5 +68,28 @@ public class PosMaterialStockApi {
             })
             .flatMap(posMaterialStockCrude::updateRecord);
     }  
+
+    public Mono<PosMaterialStock> checkAvailableData(PosMaterialStockRelation form){
+        var sql = SelectQBuilder.emptyBuilder(PosMaterialStock.TABLE_NAME)
+        .addJoin(JoinQuery.doLeftJoin(
+            Location.TABLE_NAME
+            )
+            .on(WhereQuery.when((PosMaterialStock.TABLE_NAME + "." + PosMaterialStock.LOCATION_ID_COL))
+            .is(Location.TABLE_NAME + "." + Location.ID_COL)))
+
+        .addWhere(WhereQuery.when(PosMaterialStock.TABLE_NAME + "." + PosMaterialStock.LOCATION_ID_COL).is(form.getLocationId()))
+        .build();
+        System.out.println(sql);
+        return template.getDatabaseClient()
+        .sql(sql)
+        .map(PosMaterialStock::fromRow)
+        .one()
+        .switchIfEmpty(Mono.error(new DataNotFoundException("id Location anda salah")));
+
+    }
+    
+    public Mono<Location> getDataLocation(Long id) {
+        return locationApi.getDataByLocation(id);    
+}
     
 }
