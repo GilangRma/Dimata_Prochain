@@ -3,6 +3,7 @@ package com.dimata.demo.app.prochain_app.models.table;
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
@@ -77,8 +78,12 @@ public class PosMaterialStock implements UpdateAvailable<PosMaterialStock>, Pers
         @Setter(AccessLevel.PRIVATE)
             private boolean newRecord = false;
              
-            public static Builder createNewRecord(){
-                return new Builder().newRecord(true);
+            public static Builder createNewRecord(Long periodeId, Long materialUnitId,Long locationId,LocalDateTime updateDate){
+                return new Builder().newRecord(true)
+                .periodeId(Objects.requireNonNull(periodeId, "periodeId diperlukan"))
+                .materialUnitId(Objects.requireNonNull(materialUnitId, "materialUnitId diperlukan"))
+                .locationId(Objects.requireNonNull(locationId, "locationId diperlukan"))
+                .updateDate(Objects.requireNonNull(updateDate, "updateDate diperlukan"));
             }
 
             public static Builder updateBuilder(PosMaterialStock oldRecord, PosMaterialStock newRecord) {

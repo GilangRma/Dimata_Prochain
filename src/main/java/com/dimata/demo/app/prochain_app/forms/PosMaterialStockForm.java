@@ -36,7 +36,21 @@ public class PosMaterialStockForm implements RecordAdapter<PosMaterialStock>{
     
     @Override
     public PosMaterialStock convertNewRecord() {
-        return PosMaterialStock.Builder.createNewRecord()
+        return PosMaterialStock.Builder.createNewRecord(periodeId, materialUnitId,locationId, updateDate)
+        .qty(qty)
+        .qtyMin(qtyMin)
+        .qtyMax(qtyMax)
+        .openingQty(openingQty)
+        .closingQty(closingQty)
+        .qtyIn(qtyIn)
+        .qtyOut(qtyOut)
+        .qtyOptimum(qtyOptimum)
+        .beratIn(beratIn)
+        .berat(berat)
+        .beratOut(beratOut)
+        .openingBerat(openingBerat)
+        .closingBerat(closingBerat)
+        .id(id)
         .build();
 
     }

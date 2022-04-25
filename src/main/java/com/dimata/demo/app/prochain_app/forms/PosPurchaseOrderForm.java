@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
 import com.dimata.demo.app.prochain_app.core.util.jackson.DateDeserialize;
+import com.dimata.demo.app.prochain_app.enums.IncludePpnEnum;
 import com.dimata.demo.app.prochain_app.models.table.PosPurchaseOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PosPurchaseOrderForm implements RecordAdapter <PosPurchaseOrder>{
 
-    private Long id;
+        private Long id;
         private Long supplierId;
         @JsonDeserialize(converter = DateDeserialize.class)
         private LocalDate purchDate;
@@ -29,12 +30,24 @@ public class PosPurchaseOrderForm implements RecordAdapter <PosPurchaseOrder>{
         private Long currencyId;
         private int termsOfPayment;
         private String revisiCode;
-        private int includePpn;
+        private IncludePpnEnum includePpn;
         private double exchangeRate;
         private Long categoryId;
         @Override
         public PosPurchaseOrder convertNewRecord() {
-            return PosPurchaseOrder.Builder.createNewRecord()
+            return PosPurchaseOrder.Builder.createNewRecord(purchDate, remark, locationId, revisiCode, categoryId)
+                    .supplierId(supplierId)
+                    .poCodeCounter(poCodeCounter)
+                    .poCode(poCode)
+                    .poStatus(poStatus)
+                    .locationType(locationType)
+                    .ppn(ppn)
+                    .creditTime(creditTime)
+                    .currencyId(currencyId)
+                    .termsOfPayment(termsOfPayment)
+                    .includePpn(includePpn)
+                    .exchangeRate(exchangeRate)
+                    .id(id)
                     .build();
         }
         @Override
