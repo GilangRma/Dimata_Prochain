@@ -3,11 +3,13 @@ package com.dimata.demo.app.prochain_app.models.table;
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
 import com.dimata.demo.app.prochain_app.core.util.jackson.DateSerialize;
+import com.dimata.demo.app.prochain_app.enums.IncludePpnEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -26,7 +28,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Data
-@Table(DiscountType.TABLE_NAME)
+@Table
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PosPurchaseOrder implements UpdateAvailable<PosPurchaseOrder>, Persistable<Long> {
@@ -68,15 +70,21 @@ public class PosPurchaseOrder implements UpdateAvailable<PosPurchaseOrder>, Pers
         private Long currencyId;
         private int termsOfPayment;
         private String revisiCode;
-        private int includePpn;
+        private IncludePpnEnum includePpn;
         private double exchangeRate;
         private Long categoryId;
 
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
         
-        public static Builder createNewRecord(){
-            return new Builder().newRecord(true);
+        public static Builder createNewRecord(LocalDate purchDate, String remark, Long locationId, String revisiCode, Long categoryId){
+            return new Builder().newRecord(true)
+            .purchDate(Objects.requireNonNull(purchDate, "purchDate diperlukan"))
+            .remark(Objects.requireNonNull(remark, "remark diperlukan"))
+            .locationId(Objects.requireNonNull(locationId, "locationId diperlukan"))
+            .revisiCode(Objects.requireNonNull(revisiCode, "revisiCode diperlukan"))
+            .categoryId(Objects.requireNonNull(categoryId, "categoryId diperlukan"));
+
         }
 
         public static Builder updateBuilder(PosPurchaseOrder oldRecord, PosPurchaseOrder  newRecord) {
@@ -95,7 +103,7 @@ public class PosPurchaseOrder implements UpdateAvailable<PosPurchaseOrder>, Pers
                 .currencyId(changeItOrNot(newRecord.getCurrencyId(), oldRecord.getCurrencyId()))
                 .termsOfPayment(changeItOrNot(newRecord.getTermsOfPayment(), oldRecord.getTermsOfPayment()))
                 .revisiCode(changeItOrNot(newRecord.getRevisiCode(), oldRecord.getRevisiCode()))
-                .includePpn(changeItOrNot(newRecord.getIncludePpn(), oldRecord.getIncludePpn()))
+                .includePpn(changeItOrNot(newRecord.getInclude(), oldRecord.getInclude()))
                 .exchangeRate(changeItOrNot(newRecord.getExchangeRate(), oldRecord.getExchangeRate()))
                 .categoryId(changeItOrNot(newRecord.getCategoryId(), oldRecord.getCategoryId()));
         }
@@ -120,7 +128,7 @@ public class PosPurchaseOrder implements UpdateAvailable<PosPurchaseOrder>, Pers
             result.setCurrencyId(currencyId);
             result.setTermsOfPayment(termsOfPayment);
             result.setRevisiCode(revisiCode);
-            result.setIncludePpn(includePpn);
+            result.setInclude(includePpn);
             result.setExchangeRate(exchangeRate);
             result.setCategoryId(categoryId);
             return result;
@@ -144,13 +152,26 @@ public class PosPurchaseOrder implements UpdateAvailable<PosPurchaseOrder>, Pers
     private Long currencyId;
     private int termsOfPayment;
     private String revisiCode;
-    private int includePpn;
+    private Integer includePpn;
     private double exchangeRate;
     private Long categoryId;
 
     @Transient
     @JsonIgnore
     private Long insertId;
+
+    public void setInclude(IncludePpnEnum includePpn) {
+        if (includePpn != null) {
+            this.includePpn = includePpn.getCode();
+        }
+    }
+
+    public IncludePpnEnum getInclude() {
+        if (includePpn != null) {
+            return IncludePpnEnum.getInclude(this.includePpn);
+        }
+        return null;
+    }
 
     public static PosPurchaseOrder  fromRow(Row row) {
         var result = new PosPurchaseOrder ();
@@ -168,7 +189,7 @@ public class PosPurchaseOrder implements UpdateAvailable<PosPurchaseOrder>, Pers
         result.setCurrencyId(ManipulateUtil.parseRow(row, CURRENCY_ID_COL, Long.class));
         result.setTermsOfPayment(ManipulateUtil.parseRow(row, TERMS_OF_PAYMENT_COL, Integer.class));
         result.setRevisiCode(ManipulateUtil.parseRow(row, REVISI_CODE_COL, String.class));
-        result.setIncludePpn(ManipulateUtil.parseRow(row, INCLUDE_PPN_COL, Integer.class));
+        result.setInclude(IncludePpnEnum.getInclude(ManipulateUtil.parseRow(row,INCLUDE_PPN_COL, Integer.class)));
         result.setExchangeRate(ManipulateUtil.parseRow(row, EXCHANGE_RATE_COL, Double.class));
         result.setCategoryId(ManipulateUtil.parseRow(row, CATEGORY_ID_COL, Long.class));
         return result;
