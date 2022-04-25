@@ -3,6 +3,8 @@ package com.dimata.demo.app.prochain_app.models.table;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
+
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
@@ -147,9 +149,14 @@ public class PosMaterial implements UpdateAvailable <PosMaterial>, Persistable<L
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
-        public static Builder createNewRecord() {
-            return new Builder().newRecord(true);
-                
+        public static Builder createNewRecord(Integer defaultSupplierType,Double priceType_01,Double priceType_02,Double priceType_03,Integer salesRule,Integer viewInShoppingChart) {
+            return new Builder().newRecord(true)
+            .defaultSupplierType(Objects.requireNonNull(defaultSupplierType, "defaultSupplierType diperlukan"))
+            .priceType_01(Objects.requireNonNull(priceType_01, "priceType_01 diperlukan"))
+            .priceType_02(Objects.requireNonNull(priceType_02, "priceType_02 diperlukan"))
+            .priceType_03(Objects.requireNonNull(priceType_03, "priceType_03 diperlukan"))
+            .viewInShoppingChart(Objects.requireNonNull(viewInShoppingChart, "viewInShoppingChart diperlukan"))
+            .salesRule(Objects.requireNonNull(salesRule, "salesRule diperlukan"));
                 
                 
         }
