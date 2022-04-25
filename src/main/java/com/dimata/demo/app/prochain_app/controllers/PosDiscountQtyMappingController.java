@@ -5,6 +5,7 @@ import com.dimata.demo.app.prochain_app.forms.PosDiscountQtyMappingForm;
 import com.dimata.demo.app.prochain_app.forms.relation.PosDiscountQTYMappingRelation;
 import com.dimata.demo.app.prochain_app.models.table.Location;
 import com.dimata.demo.app.prochain_app.models.table.PosDiscountQtyMapping;
+import com.dimata.demo.app.prochain_app.models.table.PosMaterial;
 import com.dimata.demo.app.prochain_app.services.api.PosDiscountQtyMappingApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,10 @@ public class PosDiscountQtyMappingController {
     public Mono<Location> maintainerLocationId(@RequestBody PosDiscountQTYMappingRelation form) {
         return posDiscountQtyMappingApi.checkAvailableData(form)
             .flatMap(f -> posDiscountQtyMappingApi.getDataLocation(f.getId()));
+    }
+    @PostMapping(path = BASE_URL +"/pos_discount_qty_mapping/material")
+    public Mono<PosMaterial> maintainerMaterialId(@RequestBody PosDiscountQTYMappingRelation form) {
+        return posDiscountQtyMappingApi.checkMaterialData(form)
+            .flatMap(f -> posDiscountQtyMappingApi.getDataByMaterial(f.getId()));
     }
 }

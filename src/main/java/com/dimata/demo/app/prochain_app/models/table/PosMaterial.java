@@ -9,9 +9,12 @@ import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
 import com.dimata.demo.app.prochain_app.core.util.jackson.DateSerialize;
 import com.dimata.demo.app.prochain_app.core.util.jackson.TimeSerialize;
+import com.dimata.demo.app.prochain_app.enums.MaterialEnum;
+import com.dimata.demo.app.prochain_app.enums.ProccesStatusEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -95,21 +98,21 @@ public class PosMaterial implements UpdateAvailable <PosMaterial>, Persistable<L
         private String name;
         private Long merkId;
         private Long categoryId;
-        private Long subcategoryId;
+        private Long subCategoryId;
         private Long defaultStockUnitId;
         private Double defaultPrice;
         private Long defaultPriceCurrencyId;
         private Long supplierId;
         private Double defaultCost;
-        private Double defaultSuplierType;
-        private Double priceType1;
-        private Double priceType2;
-        private Double priceType3;
+        private Integer defaultSupplierType;
+        private Double priceType_01;
+        private Double priceType_02;
+        private Double priceType_03;
         private Long defaultCostCurrencyId;
         private Integer materialType;
-        private Double lastvat;
+        private Double lastVat;
         private Double currBuyPrice;
-        private Integer processStatus;
+        private ProccesStatusEnum processStatus;
         private Long buyUnitId;
         private Double profit;
         private Double currSellPriceRecomentation;
@@ -120,7 +123,7 @@ public class PosMaterial implements UpdateAvailable <PosMaterial>, Persistable<L
         private String description;
         private Double itemCostUsd;
         private Double sellingPrice;
-        private Integer itemtype;
+        private Integer itemType;
         private Double lastDiscount;
         private Integer consigmentType;
         private Integer gondolaCode;
@@ -129,16 +132,16 @@ public class PosMaterial implements UpdateAvailable <PosMaterial>, Persistable<L
         private Long sizeId;
         private Double lastCostCargo;
         private Integer editMaterial;
-        private Integer viewInShopingChart;
+        private Integer viewInShoppingChart;
         private Integer pointSalesPerson;
         private String materialDescription;
         private Long kadarId;
         private Long kepemilikanId;
-        private Integer materialMain;
+        private MaterialEnum materialMain;
         private String materialImage;
-        private Integer selesRule;
+        private Integer salesRule;
         private Integer returnRule;
-        private LocalDateTime lastUPdate;
+        private LocalDateTime lastUpdate;
         private LocalDate expiredDate;
         private LocalDateTime updateDate;
         @Setter(AccessLevel.PRIVATE)
@@ -159,21 +162,21 @@ public class PosMaterial implements UpdateAvailable <PosMaterial>, Persistable<L
                 .name(changeItOrNot(newRecord.getName(), oldRecord.getName()))
                 .merkId(changeItOrNot(newRecord.getMerkId(), oldRecord.getMerkId()))
                 .categoryId(changeItOrNot(newRecord.getCategoryId(), oldRecord.getCategoryId()))
-                .subcategoryId(changeItOrNot(newRecord.getSubcategoryId(), oldRecord.getSubcategoryId()))
+                .subCategoryId(changeItOrNot(newRecord.getSubCategoryId(), oldRecord.getSubCategoryId()))
                 .defaultStockUnitId(changeItOrNot(newRecord.getDefaultStockUnitId(), oldRecord.getDefaultStockUnitId()))
                 .defaultPrice(changeItOrNot(newRecord.getDefaultPrice(), oldRecord.getDefaultPrice()))
                 .defaultPriceCurrencyId(changeItOrNot(newRecord.getDefaultPriceCurrencyId(), oldRecord.getDefaultPriceCurrencyId()))
                 .supplierId(changeItOrNot(newRecord.getSupplierId(), oldRecord.getSupplierId()))
                 .defaultCost(changeItOrNot(newRecord.getDefaultCost(), oldRecord.getDefaultCost()))
-                .defaultSuplierType(changeItOrNot(newRecord.getDefaultSuplierType(), oldRecord.getDefaultSuplierType()))
-                .priceType1(changeItOrNot(newRecord.getPriceType1(), oldRecord.getPriceType1()))
-                .priceType2(changeItOrNot(newRecord.getPriceType2(), oldRecord.getPriceType2()))
-                .priceType3(changeItOrNot(newRecord.getPriceType3(), oldRecord.getPriceType3()))
+                .defaultSupplierType(changeItOrNot(newRecord.getDefaultSupplierType(), oldRecord.getDefaultSupplierType()))
+                .priceType_01(changeItOrNot(newRecord.getPriceType_01(), oldRecord.getPriceType_01()))
+                .priceType_02(changeItOrNot(newRecord.getPriceType_02(), oldRecord.getPriceType_02()))
+                .priceType_03(changeItOrNot(newRecord.getPriceType_03(), oldRecord.getPriceType_03()))
                 .defaultCostCurrencyId(changeItOrNot(newRecord.getDefaultCostCurrencyId(), oldRecord.getDefaultCostCurrencyId()))
                 .materialType(changeItOrNot(newRecord.getMaterialType(), oldRecord.getMaterialType()))
-                .lastvat(changeItOrNot(newRecord.getLastvat(), oldRecord.getLastvat()))
+                .lastVat(changeItOrNot(newRecord.getLastVat(), oldRecord.getLastVat()))
                 .currBuyPrice(changeItOrNot(newRecord.getCurrBuyPrice(), oldRecord.getCurrBuyPrice()))
-                .processStatus(changeItOrNot(newRecord.getProcessStatus(), oldRecord.getProcessStatus()))
+                .processStatus(changeItOrNot(newRecord.getProcces(), oldRecord.getProcces()))
                 .buyUnitId(changeItOrNot(newRecord.getBuyUnitId(), oldRecord.getBuyUnitId()))
                 .profit(changeItOrNot(newRecord.getProfit(), oldRecord.getProfit()))
                 .currSellPriceRecomentation(changeItOrNot(newRecord.getCurrSellPriceRecomentation(), oldRecord.getCurrSellPriceRecomentation()))
@@ -184,7 +187,7 @@ public class PosMaterial implements UpdateAvailable <PosMaterial>, Persistable<L
                 .description(changeItOrNot(newRecord.getDescription(), oldRecord.getDescription()))
                 .itemCostUsd(changeItOrNot(newRecord.getItemCostUsd(), oldRecord.getItemCostUsd()))
                 .sellingPrice(changeItOrNot(newRecord.getSellingPrice(), oldRecord.getSellingPrice()))
-                .itemtype(changeItOrNot(newRecord.getItemtype(), oldRecord.getItemtype()))
+                .itemType(changeItOrNot(newRecord.getItemType(), oldRecord.getItemType()))
                 .lastDiscount(changeItOrNot(newRecord.getLastDiscount(), oldRecord.getLastDiscount()))
                 .consigmentType(changeItOrNot(newRecord.getConsigmentType(), oldRecord.getConsigmentType()))
                 .gondolaCode(changeItOrNot(newRecord.getGondolaCode(), oldRecord.getGondolaCode()))
@@ -193,17 +196,17 @@ public class PosMaterial implements UpdateAvailable <PosMaterial>, Persistable<L
                 .sizeId(changeItOrNot(newRecord.getSizeId(), oldRecord.getSizeId()))
                 .lastCostCargo(changeItOrNot(newRecord.getLastCostCargo(), oldRecord.getLastCostCargo()))
                 .editMaterial(changeItOrNot(newRecord.getEditMaterial(), oldRecord.getEditMaterial()))
-                .viewInShopingChart(changeItOrNot(newRecord.getViewInShopingChart(), oldRecord.getViewInShopingChart()))
+                .viewInShoppingChart(changeItOrNot(newRecord.getViewInShoppingChart(), oldRecord.getViewInShoppingChart()))
                 .pointSalesPerson(changeItOrNot(newRecord.getPointSalesPerson(), oldRecord.getPointSalesPerson()))
                 .materialDescription(changeItOrNot(newRecord.getMaterialDescription(), oldRecord.getMaterialDescription()))
                 .kadarId(changeItOrNot(newRecord.getKadarId(), oldRecord.getKadarId()))
                 .kepemilikanId(changeItOrNot(newRecord.getKepemilikanId(), oldRecord.getKepemilikanId()))
-                .materialMain(changeItOrNot(newRecord.getMaterialMain(), oldRecord.getMaterialMain()))
+                .materialMain(changeItOrNot(newRecord.getMaterial(), oldRecord.getMaterial()))
                 .materialImage(changeItOrNot(newRecord.getMaterialImage(), oldRecord.getMaterialImage()))
-                .selesRule(changeItOrNot(newRecord.getSelesRule(), oldRecord.getSelesRule()))
+                .salesRule(changeItOrNot(newRecord.getSalesRule(), oldRecord.getSalesRule()))
                 .returnRule(changeItOrNot(newRecord.getReturnRule(), oldRecord.getReturnRule()))
                 .expiredDate(changeItOrNot(newRecord.getExpiredDate(), oldRecord.getExpiredDate()))
-                .lastUPdate(changeItOrNot(newRecord.getLastUPdate(), oldRecord.getLastUPdate()))
+                .lastUpdate(changeItOrNot(newRecord.getLastUpdate(), oldRecord.getLastUpdate()))
                 .updateDate(changeItOrNot(newRecord.getUpdateDate(), oldRecord.getUpdateDate()));
         }
 
@@ -219,48 +222,48 @@ public class PosMaterial implements UpdateAvailable <PosMaterial>, Persistable<L
             result.setName(name);
             result.setMerkId(merkId);
             result.setCategoryId(categoryId);
-            result.setSubcategoryId(subcategoryId);
+            result.setSubCategoryId(subCategoryId);
             result.setDefaultStockUnitId(defaultStockUnitId);
             result.setDefaultPrice(defaultPrice);
             result.setDefaultPriceCurrencyId(defaultPriceCurrencyId);
             result.setSupplierId(supplierId);
             result.setDefaultCost(defaultCost);
-            result.setDefaultSuplierType(defaultSuplierType);
-            result.setPriceType1(priceType1);
-            result.setPriceType2(priceType2);
-            result.setPriceType3(priceType3);
+            result.setDefaultSupplierType(defaultSupplierType);
+            result.setPriceType_01(priceType_01);
+            result.setPriceType_02(priceType_02);
+            result.setPriceType_03(priceType_03);
             result.setDefaultCostCurrencyId(defaultCostCurrencyId);
             result.setMaterialType(materialType);
-            result.setLastvat(lastvat);
+            result.setLastVat(lastVat);
             result.setCurrBuyPrice(currBuyPrice);
-            result.setProcessStatus(processStatus);
+            result.setprocces(processStatus);
             result.setExpiredDate(expiredDate);
             result.setBuyUnitId(buyUnitId);
             result.setProfit(profit);
             result.setCurrSellPriceRecomentation(currSellPriceRecomentation);
             result.setAveragePrice(averagePrice);
             result.setMinimumPoint(minimumPoint);
-            result.setLastUPdate(lastUPdate);
+            result.setLastUpdate(lastUpdate);
             result.setRequiredSerialNumber(requiredSerialNumber);
             result.setLocationId(locationId);
             result.setDescription(description);
             result.setItemCostUsd(itemCostUsd);
             result.setSellingPrice(sellingPrice);
-            result.setItemtype(itemtype);
+            result.setItemType(itemType);
             result.setLastDiscount(lastDiscount);
             result.setConsigmentType(consigmentType);
             result.setGondolaCode(gondolaCode);
             result.setLastCostCargo(lastCostCargo);
             result.setUpdateDate(updateDate);
             result.setEditMaterial(editMaterial);
-            result.setViewInShopingChart(viewInShopingChart);
+            result.setViewInShoppingChart(viewInShoppingChart);
             result.setPointSalesPerson(pointSalesPerson);
             result.setMaterialDescription(materialDescription);
             result.setKadarId(kadarId);
             result.setKepemilikanId(kepemilikanId);
-            result.setMaterialMain(materialMain);
+            result.setMaterial(materialMain);
             result.setMaterialImage(materialImage);
-            result.setSelesRule(selesRule);
+            result.setSalesRule(salesRule);
             result.setReturnRule(returnRule);
             result.setCogsPrice(cogsPrice);
             result.setColorId(colorId);
@@ -278,19 +281,19 @@ public class PosMaterial implements UpdateAvailable <PosMaterial>, Persistable<L
     private String name;
     private Long merkId;
     private Long categoryId;
-    private Long subcategoryId;
+    private Long subCategoryId;
     private Long defaultStockUnitId;
     private Double defaultPrice;
     private Long defaultPriceCurrencyId;
     private Long supplierId;
     private Double defaultCost;
-    private Double defaultSuplierType;
-    private Double priceType1;
-    private Double priceType2;
-    private Double priceType3;
+    private Integer defaultSupplierType;
+    private Double priceType_01;
+    private Double priceType_02;
+    private Double priceType_03;
     private Long defaultCostCurrencyId;
     private Integer materialType;
-    private Double lastvat;
+    private Double lastVat;
     private Double currBuyPrice;
     private Integer processStatus;
     private Long buyUnitId;
@@ -303,7 +306,7 @@ public class PosMaterial implements UpdateAvailable <PosMaterial>, Persistable<L
     private String description;
     private Double itemCostUsd;
     private Double sellingPrice;
-    private Integer itemtype;
+    private Integer itemType;
     private Double lastDiscount;
     private Integer consigmentType;
     private Integer gondolaCode;
@@ -312,23 +315,48 @@ public class PosMaterial implements UpdateAvailable <PosMaterial>, Persistable<L
     private Long sizeId;
     private Double lastCostCargo;
     private Integer editMaterial;
-    private Integer viewInShopingChart;
+    private Integer viewInShoppingChart;
     private Integer pointSalesPerson;
     private String materialDescription;
     private Long kadarId;
     private Long kepemilikanId;
     private Integer materialMain;
     private String materialImage;
-    private Integer selesRule;
+    private Integer salesRule;
     private Integer returnRule;
-    @JsonDeserialize(converter = DateSerialize.class)
+    @JsonSerialize(converter = DateSerialize.class)
     private LocalDate expiredDate;
-    @JsonDeserialize(converter = TimeSerialize.class)
-    private LocalDateTime lastUPdate;
+    @JsonSerialize(converter = TimeSerialize.class)
+    private LocalDateTime lastUpdate;
     private LocalDateTime updateDate;
     @Transient
     @JsonIgnore
     private Long insertId;
+//material main
+    public void setMaterial(MaterialEnum materialEnum) {
+        if (materialEnum != null) {
+            this.materialMain = materialEnum.getCode();
+        }
+    }
+    public MaterialEnum getMaterial() {
+        if (materialMain!= null) {
+            return MaterialEnum.getMaterial(this.materialMain);
+        }
+        return null;
+    }
+
+    //procces status
+    public void setprocces(ProccesStatusEnum proccesStatusEnum) {
+        if (proccesStatusEnum != null) {
+            this.processStatus = proccesStatusEnum.getCode();
+        }
+    }
+    public ProccesStatusEnum getProcces() {
+        if (processStatus!= null) {
+            return ProccesStatusEnum.getProcces(this.processStatus);
+        }
+        return null;
+    }
 
     
 
@@ -340,19 +368,19 @@ public class PosMaterial implements UpdateAvailable <PosMaterial>, Persistable<L
         result.setName(ManipulateUtil.parseRow(row, NAME_COL, String.class));
         result.setMerkId(ManipulateUtil.parseRow(row, MERK_ID_COL, Long.class));
         result.setCategoryId(ManipulateUtil.parseRow(row, CATEGORY_ID_COL, Long.class));
-        result.setSubcategoryId(ManipulateUtil.parseRow(row, SUB_CATEGORY_ID_COL, Long.class));
+        result.setSubCategoryId(ManipulateUtil.parseRow(row, SUB_CATEGORY_ID_COL, Long.class));
         result.setDefaultStockUnitId(ManipulateUtil.parseRow(row, DEFAULT_STOCK_UNIT_ID_COL, Long.class));
         result.setDefaultPrice(ManipulateUtil.parseRow(row, DEFAULT_PRICE_COL, Double.class));
         result.setDefaultPriceCurrencyId(ManipulateUtil.parseRow(row, DEFAULT_PRICE_CURRENCY_ID_COL, Long.class));
         result.setSupplierId(ManipulateUtil.parseRow(row, SUPPLIER_ID_COL, Long.class));
         result.setDefaultCost(ManipulateUtil.parseRow(row, DEFAULT_COST_COL, Double.class));
-        result.setDefaultSuplierType(ManipulateUtil.parseRow(row, DEFAULT_SUPPLIER_TYPE_COL, Double.class));
-        result.setPriceType1(ManipulateUtil.parseRow(row, PRICE_TYPE_01_COL, Double.class));
-        result.setPriceType2(ManipulateUtil.parseRow(row, PRICE_TYPE_02_COL, Double.class));
-        result.setPriceType3(ManipulateUtil.parseRow(row, PRICE_TYPE_03_COL, Double.class));
+        result.setDefaultSupplierType(ManipulateUtil.parseRow(row, DEFAULT_SUPPLIER_TYPE_COL, Integer.class));
+        result.setPriceType_01(ManipulateUtil.parseRow(row, PRICE_TYPE_01_COL, Double.class));
+        result.setPriceType_02(ManipulateUtil.parseRow(row, PRICE_TYPE_02_COL, Double.class));
+        result.setPriceType_03(ManipulateUtil.parseRow(row, PRICE_TYPE_03_COL, Double.class));
         result.setDefaultCostCurrencyId(ManipulateUtil.parseRow(row, DEFAULT_COST_CURRENCY_ID_COL, Long.class));
         result.setMaterialType(ManipulateUtil.parseRow(row, MATERIAL_TYPE_COL, Integer.class));
-        result.setLastvat(ManipulateUtil.parseRow(row, LAST_VAT_COL, Double.class));
+        result.setLastVat(ManipulateUtil.parseRow(row, LAST_VAT_COL, Double.class));
         result.setCurrBuyPrice(ManipulateUtil.parseRow(row, CURR_BUY_PRICE_COL, Double.class));
         result.setProcessStatus(ManipulateUtil.parseRow(row, PROCESS_STATUS_COL, Integer.class));
         result.setExpiredDate(ManipulateUtil.parseRow(row, EXPIRED_DATE_COL,LocalDate.class));
@@ -361,27 +389,27 @@ public class PosMaterial implements UpdateAvailable <PosMaterial>, Persistable<L
         result.setCurrSellPriceRecomentation(ManipulateUtil.parseRow(row,CURR_SELL_PRICE_RECOMENTATION_COL, Double.class));
         result.setAveragePrice(ManipulateUtil.parseRow(row, AVERAGE_PRICE_COL, Double.class));
         result.setMinimumPoint(ManipulateUtil.parseRow(row, MINIMUM_POINT_COL, Integer.class));
-        result.setLastUPdate(ManipulateUtil.parseRow(row, LAST_UPDATE_COL, LocalDateTime.class));
+        result.setLastUpdate(ManipulateUtil.parseRow(row, LAST_UPDATE_COL, LocalDateTime.class));
         result.setRequiredSerialNumber(ManipulateUtil.parseRow(row, REQUIRED_SERIAL_NUMBER_COL, Integer.class));
         result.setLocationId(ManipulateUtil.parseRow(row, LOCATION_ID_COL, Long.class));
         result.setDescription(ManipulateUtil.parseRow(row, DESCRIPTION_COL, String.class));
         result.setItemCostUsd(ManipulateUtil.parseRow(row, ITEM_COST_USD_COL, Double.class));
         result.setSellingPrice(ManipulateUtil.parseRow(row, SELLING_PRICE_COL, Double.class));
-        result.setItemtype(ManipulateUtil.parseRow(row, ITEM_TYPE_COL, Integer.class));
+        result.setItemType(ManipulateUtil.parseRow(row, ITEM_TYPE_COL, Integer.class));
         result.setLastDiscount(ManipulateUtil.parseRow(row, LAST_DISCOUNT_COL, Double.class));
         result.setConsigmentType(ManipulateUtil.parseRow(row, CONSIGMENT_TYPE_COL, Integer.class));
         result.setGondolaCode(ManipulateUtil.parseRow(row, GONDOLA_CODE_COL, Integer.class));
         result.setLastCostCargo(ManipulateUtil.parseRow(row, LAST_COST_CARGO_COL, Double.class));
         result.setUpdateDate(ManipulateUtil.parseRow(row, UPDATE_DATE_COL, LocalDateTime.class));
         result.setEditMaterial(ManipulateUtil.parseRow(row, EDIT_MATERIAL_COL, Integer.class));
-        result.setViewInShopingChart(ManipulateUtil.parseRow(row, VIEW_IN_SHOPPING_CHART_COL, Integer.class));
+        result.setViewInShoppingChart(ManipulateUtil.parseRow(row, VIEW_IN_SHOPPING_CHART_COL, Integer.class));
         result.setPointSalesPerson(ManipulateUtil.parseRow(row, POINT_SALES_PERSON_COL, Integer.class));
         result.setMaterialDescription(ManipulateUtil.parseRow(row, MATERIAL_DESCRIPTION_COL, String.class));
         result.setKadarId(ManipulateUtil.parseRow(row, KADAR_ID_COL, Long.class));
         result.setKepemilikanId(ManipulateUtil.parseRow(row, KEPEMILIKAN_ID_COL, Long.class));
         result.setMaterialMain(ManipulateUtil.parseRow(row, MATERIAL_MAIN_COL, Integer.class));
         result.setMaterialImage(ManipulateUtil.parseRow(row, MATERIAL_IMAGE_COL, String.class));
-        result.setSelesRule(ManipulateUtil.parseRow(row, SALES_RULE_COL, Integer.class));
+        result.setSalesRule(ManipulateUtil.parseRow(row, SALES_RULE_COL, Integer.class));
         result.setReturnRule(ManipulateUtil.parseRow(row, RETURN_RULE_COL, Integer.class));
         result.setCogsPrice(ManipulateUtil.parseRow(row, COGS_PRICE_COL, Double.class));
         result.setColorId(ManipulateUtil.parseRow(row, COLOR_ID_COL, Long.class));

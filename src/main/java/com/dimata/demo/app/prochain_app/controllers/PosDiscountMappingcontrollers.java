@@ -3,7 +3,9 @@ package com.dimata.demo.app.prochain_app.controllers;
 
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.forms.PosDiscountMappingForm;
+import com.dimata.demo.app.prochain_app.forms.relation.PosDiscountMappingRelation;
 import com.dimata.demo.app.prochain_app.models.table.PosDiscountMapping;
+import com.dimata.demo.app.prochain_app.models.table.PosMaterial;
 import com.dimata.demo.app.prochain_app.services.api.PosDiscountMappingApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +49,9 @@ public class PosDiscountMappingcontrollers {
     public Mono<PosDiscountMapping> maintainerUpdatePosDiscountMapping(@PathVariable("DISCOUNT_TYPE_ID") long DISCOUNT_TYPE_ID, @RequestBody PosDiscountMappingForm form) {
         return posDiscountMappingApi.updatePosDiscountMapping(DISCOUNT_TYPE_ID, form);
     }
-    
+    @PostMapping(path = BASE_URL +"/pos_discount_mapping/material")
+    public Mono<PosMaterial> maintainerMaterialId(@RequestBody PosDiscountMappingRelation form) {
+        return posDiscountMappingApi.checkAvailableData(form)
+            .flatMap(f -> posDiscountMappingApi.getDataByMaterial(f.getId()));
+    }
 }

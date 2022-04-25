@@ -10,6 +10,7 @@ import com.dimata.demo.app.prochain_app.forms.PosDiscountQtyMappingForm;
 import com.dimata.demo.app.prochain_app.forms.relation.PosDiscountQTYMappingRelation;
 import com.dimata.demo.app.prochain_app.models.table.Location;
 import com.dimata.demo.app.prochain_app.models.table.PosDiscountQtyMapping;
+import com.dimata.demo.app.prochain_app.models.table.PosMaterial;
 import com.dimata.demo.app.prochain_app.services.crude.PosDiscountQtyMappingCrude;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class PosDiscountQtyMappingApi {
     private PosDiscountQtyMappingCrude posDiscountQtyMappingCrude;
     @Autowired
     private LocationApi locationApi;
+    @Autowired
+    private PosMaterialApi posMaterialApi;
     @Autowired
 	private R2dbcEntityTemplate template;
 
@@ -69,6 +72,7 @@ public class PosDiscountQtyMappingApi {
             })
             .flatMap(posDiscountQtyMappingCrude::updateRecord);
     }
+    //location relation
     public Mono<PosDiscountQtyMapping> checkAvailableData(PosDiscountQTYMappingRelation form){
         var sql = SelectQBuilder.emptyBuilder(PosDiscountQtyMapping.TABLE_NAME)
         .addJoin(JoinQuery.doLeftJoin(
@@ -89,5 +93,26 @@ public class PosDiscountQtyMappingApi {
 }
 public Mono<Location> getDataLocation(Long id) {
     return locationApi.getDataByLocation(id);
+}
+public Mono<PosDiscountQtyMapping> checkMaterialData(PosDiscountQTYMappingRelation form){
+    var sql = SelectQBuilder.emptyBuilder(PosDiscountQtyMapping.TABLE_NAME)
+    .addJoin(JoinQuery.doLeftJoin(
+        PosMaterial.TABLE_NAME
+        )
+        .on(WhereQuery.when((PosDiscountQtyMapping.TABLE_NAME + "." + PosDiscountQtyMapping.MATERIAL_ID_COL))
+        .is( PosMaterial.TABLE_NAME + "." + PosMaterial.ID_COL)))
+        
+    .addWhere(WhereQuery.when(PosDiscountQtyMapping.TABLE_NAME + "." + PosDiscountQtyMapping.MATERIAL_ID_COL).is(form.getMaterialId()))
+    .build();
+
+    System.out.println(sql);
+    return template.getDatabaseClient()
+    .sql(sql)
+    .map(PosDiscountQtyMapping::fromRow)
+    .one()
+    .switchIfEmpty(Mono.error(new DataNotFoundException("id material anda salah")));
+}
+public Mono<PosMaterial> getDataByMaterial(Long id) {
+    return posMaterialApi.getDataByMaterial(id);
 }
 }

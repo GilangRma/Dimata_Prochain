@@ -4,8 +4,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
+import com.dimata.demo.app.prochain_app.core.util.jackson.DateDeserialize;
 import com.dimata.demo.app.prochain_app.core.util.jackson.DateSerialize;
+import com.dimata.demo.app.prochain_app.core.util.jackson.TimeDeserialize;
 import com.dimata.demo.app.prochain_app.core.util.jackson.TimeSerialize;
+import com.dimata.demo.app.prochain_app.enums.MaterialEnum;
+import com.dimata.demo.app.prochain_app.enums.ProccesStatusEnum;
 import com.dimata.demo.app.prochain_app.models.table.PosMaterial;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -23,21 +27,21 @@ public class PosMaterialForm implements RecordAdapter<PosMaterial> {
     private String name;
     private Long merkId;
     private Long categoryId;
-    private Long subcategoryId;
+    private Long subCategoryId;
     private Long defaultStockUnitId;
     private Double defaultPrice;
     private Long defaultPriceCurrencyId;
     private Long supplierId;
     private Double defaultCost;
-    private Double defaultSuplierType;
-    private Double priceType1;
-    private Double priceType2;
-    private Double priceType3;
+    private Integer defaultSupplierType;
+    private Double priceType_01;
+    private Double priceType_02;
+    private Double priceType_03;
     private Long defaultCostCurrencyId;
     private Integer materialType;
-    private Double lastvat;
+    private Double lastVat;
     private Double currBuyPrice;
-    private Integer processStatus;
+    private ProccesStatusEnum processStatus;
     private Long buyUnitId;
     private Double profit;
     private Double currSellPriceRecomentation;
@@ -48,7 +52,7 @@ public class PosMaterialForm implements RecordAdapter<PosMaterial> {
     private String description;
     private Double itemCostUsd;
     private Double sellingPrice;
-    private Integer itemtype;
+    private Integer itemType;
     private Double lastDiscount;
     private Integer consigmentType;
     private Integer gondolaCode;
@@ -57,24 +61,75 @@ public class PosMaterialForm implements RecordAdapter<PosMaterial> {
     private Long sizeId;
     private Double lastCostCargo;
     private Integer editMaterial;
-    private Integer viewInShopingChart;
+    private Integer viewInShoppingChart;
     private Integer pointSalesPerson;
     private String materialDescription;
     private Long kadarId;
     private Long kepemilikanId;
-    private Integer materialMain;
+    private MaterialEnum materialMain;
     private String materialImage;
-    private Integer selesRule;
+    private Integer salesRule;
     private Integer returnRule;
-    @JsonDeserialize(converter = DateSerialize.class)
+    @JsonDeserialize(converter = DateDeserialize.class)
     private LocalDate expiredDate;
-    @JsonDeserialize(converter = TimeSerialize.class)
-    private LocalDateTime lastUPdate;
+    @JsonDeserialize(converter = TimeDeserialize.class)
+    private LocalDateTime lastUpdate;
     private LocalDateTime updateDate;
     @Override
     public PosMaterial convertNewRecord() {
         
         return PosMaterial.Builder.createNewRecord()
+        .sku(sku)
+        .barcode(barcode)
+        .name(name)
+        .merkId(merkId)
+        .categoryId(categoryId)
+        .subCategoryId(subCategoryId)
+        .defaultStockUnitId(defaultStockUnitId)
+        .defaultPrice(defaultPrice)
+        .defaultPriceCurrencyId(defaultPriceCurrencyId)
+        .supplierId(supplierId)
+        .defaultCost(defaultCost)
+        .defaultSupplierType(defaultSupplierType)
+        .priceType_01(priceType_01)
+        .priceType_02(priceType_02)
+        .priceType_03(priceType_03)
+        .defaultCostCurrencyId(defaultCostCurrencyId)
+        .materialType(materialType)
+        .lastVat(lastVat)
+        .currBuyPrice(currBuyPrice)
+        .processStatus(processStatus)
+        .expiredDate(expiredDate)
+        .buyUnitId(buyUnitId)
+        .profit(profit)
+        .currSellPriceRecomentation(currSellPriceRecomentation)
+        .averagePrice(averagePrice)
+        .minimumPoint(minimumPoint)
+        .lastUpdate(lastUpdate)
+        .requiredSerialNumber(requiredSerialNumber)
+        .locationId(locationId)
+        .description(description)
+        .itemCostUsd(itemCostUsd)
+        .sellingPrice(sellingPrice)
+        .itemType(itemType)
+        .lastDiscount(lastDiscount)
+        .consigmentType(consigmentType)
+        .gondolaCode(gondolaCode)
+        .lastCostCargo(lastCostCargo)
+        .updateDate(updateDate)
+        .editMaterial(editMaterial)
+        .viewInShoppingChart(viewInShoppingChart)
+        .pointSalesPerson(pointSalesPerson)
+        .materialDescription(materialDescription)
+        .kadarId(kadarId)
+        .kepemilikanId(kepemilikanId)
+        .materialMain(materialMain)
+        .materialImage(materialImage)
+        .salesRule(salesRule)
+        .returnRule(returnRule)
+        .cogsPrice(cogsPrice)
+        .colorId(colorId)
+        .sizeId(sizeId)
         .id(id)
         .build();
     }
@@ -87,19 +142,19 @@ public class PosMaterialForm implements RecordAdapter<PosMaterial> {
         .name(name)
         .merkId(merkId)
         .categoryId(categoryId)
-        .subcategoryId(subcategoryId)
+        .subCategoryId(subCategoryId)
         .defaultStockUnitId(defaultStockUnitId)
         .defaultPrice(defaultPrice)
         .defaultPriceCurrencyId(defaultPriceCurrencyId)
         .supplierId(supplierId)
         .defaultCost(defaultCost)
-        .defaultSuplierType(defaultSuplierType)
-        .priceType1(priceType1)
-        .priceType2(priceType2)
-        .priceType3(priceType3)
+        .defaultSupplierType(defaultSupplierType)
+        .priceType_01(priceType_01)
+        .priceType_02(priceType_02)
+        .priceType_03(priceType_03)
         .defaultCostCurrencyId(defaultCostCurrencyId)
         .materialType(materialType)
-        .lastvat(lastvat)
+        .lastVat(lastVat)
         .currBuyPrice(currBuyPrice)
         .processStatus(processStatus)
         .expiredDate(expiredDate)
@@ -108,27 +163,27 @@ public class PosMaterialForm implements RecordAdapter<PosMaterial> {
         .currSellPriceRecomentation(currSellPriceRecomentation)
         .averagePrice(averagePrice)
         .minimumPoint(minimumPoint)
-        .lastUPdate(lastUPdate)
+        .lastUpdate(lastUpdate)
         .requiredSerialNumber(requiredSerialNumber)
         .locationId(locationId)
         .description(description)
         .itemCostUsd(itemCostUsd)
         .sellingPrice(sellingPrice)
-        .itemtype(itemtype)
+        .itemType(itemType)
         .lastDiscount(lastDiscount)
         .consigmentType(consigmentType)
         .gondolaCode(gondolaCode)
         .lastCostCargo(lastCostCargo)
         .updateDate(updateDate)
         .editMaterial(editMaterial)
-        .viewInShopingChart(viewInShopingChart)
+        .viewInShoppingChart(viewInShoppingChart)
         .pointSalesPerson(pointSalesPerson)
         .materialDescription(materialDescription)
         .kadarId(kadarId)
         .kepemilikanId(kepemilikanId)
         .materialMain(materialMain)
         .materialImage(materialImage)
-        .selesRule(selesRule)
+        .salesRule(salesRule)
         .returnRule(returnRule)
         .cogsPrice(cogsPrice)
         .colorId(colorId)

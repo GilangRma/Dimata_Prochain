@@ -5,11 +5,11 @@ import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.core.search.JoinQuery;
 import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
-import com.dimata.demo.app.prochain_app.forms.PosDiscountMappingForm;
-import com.dimata.demo.app.prochain_app.forms.relation.PosDiscountMappingRelation;
-import com.dimata.demo.app.prochain_app.models.table.PosDiscountMapping;
+import com.dimata.demo.app.prochain_app.forms.PosMaterialDetailForm;
+import com.dimata.demo.app.prochain_app.forms.relation.PosMaterialDetailRelation;
 import com.dimata.demo.app.prochain_app.models.table.PosMaterial;
-import com.dimata.demo.app.prochain_app.services.crude.PosDiscountMappingCrude;
+import com.dimata.demo.app.prochain_app.models.table.PosMaterialDetail;
+import com.dimata.demo.app.prochain_app.services.crude.PosMaterialDetailCrude;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
@@ -19,72 +19,71 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-public class PosDiscountMappingApi {
+public class PosMaterialDetailApi {
     @Autowired
-    private  PosDiscountMappingCrude posDiscountMappingCrude;
-    @Autowired
+    private  PosMaterialDetailCrude posMaterialDetailCrude;
+    @Autowired 
     private PosMaterialApi posMaterialApi;
     @Autowired
 	private R2dbcEntityTemplate template;
 
-    public Mono<PosDiscountMapping> createPosDiscountMapping(PosDiscountMappingForm form) {
+    public Mono<PosMaterialDetail> createPosMaterialDetail(PosMaterialDetailForm form) {
         return Mono.just(form)
         .flatMap(f -> {
-            PosDiscountMappingCrude.Option option = PosDiscountMappingCrude.initOption(f.convertNewRecord());
+            PosMaterialDetailCrude.Option option = PosMaterialDetailCrude.initOption(f.convertNewRecord());
             return Mono.just(option);
         })
-        .flatMap(posDiscountMappingCrude::create);
+        .flatMap(posMaterialDetailCrude::create);
     }
 
-    public Flux<PosDiscountMapping> getAllPosDiscountMapping(CommonParam param) {
-        var sql = SelectQBuilder.builderWithCommonParam(PosDiscountMapping.TABLE_NAME, param)
+    public Flux<PosMaterialDetail> getAllPosMaterialDetail(CommonParam param) {
+        var sql = SelectQBuilder.builderWithCommonParam(PosMaterialDetail.TABLE_NAME, param)
             .build();
         return template.getDatabaseClient()
             .sql(sql)
-            .map(PosDiscountMapping::fromRow)
+            .map(PosMaterialDetail::fromRow)
             .all();
     }
 
-    public Mono<PosDiscountMapping> getPosDiscountMapping(Long id) {
-        var sql = SelectQBuilder.emptyBuilder(PosDiscountMapping.TABLE_NAME)
-            .addWhere(WhereQuery.when(PosDiscountMapping.ID_COL).is(id))
+    public Mono<PosMaterialDetail> getPosMaterialDetail(Long id) {
+        var sql = SelectQBuilder.emptyBuilder(PosMaterialDetail.TABLE_NAME)
+            .addWhere(WhereQuery.when(PosMaterialDetail.ID_COL).is(id))
             .build();
         System.out.println(sql);
         return template.getDatabaseClient()
             .sql(sql)
-            .map(PosDiscountMapping::fromRow)
+            .map(PosMaterialDetail::fromRow)
             .one();
     }
 
-    public Mono<PosDiscountMapping> updatePosDiscountMapping(Long id, PosDiscountMappingForm form) {
+    public Mono<PosMaterialDetail> updatePosMaterialDetail(Long id, PosMaterialDetailForm form) {
         return Mono.zip(Mono.just(id), Mono.just(form))
             .map(z -> {
                 z.getT2().setId(z.getT1());
                 return z.getT2();
             })
             .flatMap(d -> {
-                PosDiscountMappingCrude.Option option = PosDiscountMappingCrude.initOption(d.convertNewRecord());
+                PosMaterialDetailCrude.Option option = PosMaterialDetailCrude.initOption(d.convertNewRecord());
                 return Mono.just(option);
             })
-            .flatMap(posDiscountMappingCrude::updateRecord);
+            .flatMap(posMaterialDetailCrude::updateRecord);
     }
-
 //relation
-public Mono<PosDiscountMapping> checkAvailableData(PosDiscountMappingRelation form){
-    var sql = SelectQBuilder.emptyBuilder(PosDiscountMapping.TABLE_NAME)
+public Mono<PosMaterialDetail> checkAvailableData(PosMaterialDetailRelation form){
+    var sql = SelectQBuilder.emptyBuilder(PosMaterialDetail.TABLE_NAME)
     .addJoin(JoinQuery.doLeftJoin(
         PosMaterial.TABLE_NAME
         )
-        .on(WhereQuery.when((PosDiscountMapping.TABLE_NAME + "." + PosDiscountMapping.MATERIAL_ID_COL))
+        .on(WhereQuery.when((PosMaterialDetail.TABLE_NAME + "." + PosMaterialDetail.MATERIAL_ID_COL))
         .is( PosMaterial.TABLE_NAME + "." + PosMaterial.ID_COL)))
         
-    .addWhere(WhereQuery.when(PosDiscountMapping.TABLE_NAME + "." + PosDiscountMapping.MATERIAL_ID_COL).is(form.getMaterialId()))
+    .addWhere(WhereQuery.when(PosMaterialDetail.TABLE_NAME + "." + PosMaterialDetail.MATERIAL_ID_COL).is(form.getMaterialId()))
     .build();
 
     System.out.println(sql);
     return template.getDatabaseClient()
     .sql(sql)
-    .map(PosDiscountMapping::fromRow)
+    .map(PosMaterialDetail::fromRow)
     .one()
     .switchIfEmpty(Mono.error(new DataNotFoundException("id material anda salah")));
 }
