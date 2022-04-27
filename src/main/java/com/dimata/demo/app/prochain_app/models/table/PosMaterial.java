@@ -15,7 +15,6 @@ import com.dimata.demo.app.prochain_app.enums.MaterialEnum;
 import com.dimata.demo.app.prochain_app.enums.ProccesStatusEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.springframework.data.annotation.Id;
