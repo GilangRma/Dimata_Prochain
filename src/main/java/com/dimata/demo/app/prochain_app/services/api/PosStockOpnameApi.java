@@ -64,5 +64,14 @@ public class PosStockOpnameApi {
             .flatMap(posStockOpnameCrude::updateRecord);
     }  
 
-    
+    public Flux<PosStockOpname> getAllLocation(Long locationId) {
+        var sql = SelectQBuilder.emptyBuilder(PosStockOpname.TABLE_NAME)
+            .addWhere(WhereQuery.when(PosStockOpname.LOCATION_ID_COL).is(locationId))
+            .build();
+            System.out.println(sql);
+        return template.getDatabaseClient()
+            .sql(sql)
+            .map(PosStockOpname::fromRow)
+            .all();
+    }
 }
