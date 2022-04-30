@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
 import com.dimata.demo.app.prochain_app.core.util.jackson.TimeDeserialize;
+import com.dimata.demo.app.prochain_app.enums.OpnameItemTypeEnum;
 import com.dimata.demo.app.prochain_app.models.table.PosStockOpname;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -26,7 +27,7 @@ public class PosStockOpnameForm implements RecordAdapter<PosStockOpname>{
     private int stockOpnameStatus;
     private String remark;
     private Long etalaseId;
-    private int opnameItemType;
+    private OpnameItemTypeEnum opnameItemType;
     private int codeCounter;
     private Long materialTypeId;
     @Override

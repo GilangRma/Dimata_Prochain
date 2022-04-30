@@ -8,6 +8,7 @@ import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
 import com.dimata.demo.app.prochain_app.core.util.jackson.TimeSerialize;
+import com.dimata.demo.app.prochain_app.enums.OpnameItemTypeEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -62,7 +63,7 @@ public class PosStockOpname implements UpdateAvailable<PosStockOpname>, Persista
         private int stockOpnameStatus;
         private String remark;
         private Long etalaseId;
-        private int opnameItemType;
+        private OpnameItemTypeEnum opnameItemType;
         private int codeCounter;
         private Long materialTypeId;
 
@@ -86,7 +87,7 @@ public class PosStockOpname implements UpdateAvailable<PosStockOpname>, Persista
                 .stockOpnameStatus(changeItOrNot(newRecord.getStockOpnameStatus(), oldRecord.getStockOpnameStatus()))
                 .remark(changeItOrNot(newRecord.getRemark(), oldRecord.getRemark()))
                 .etalaseId(changeItOrNot(newRecord.getEtalaseId(), oldRecord.getEtalaseId()))
-                .opnameItemType(changeItOrNot(newRecord.getOpnameItemType(), oldRecord.getOpnameItemType()))
+                .opnameItemType(changeItOrNot(newRecord.getOpnameType(), oldRecord.getOpnameType()))
                 .codeCounter(changeItOrNot(newRecord.getCodeCounter(), oldRecord.getCodeCounter()))
                 .materialTypeId(changeItOrNot(newRecord.getMaterialTypeId(), oldRecord.getMaterialTypeId()));
                 
@@ -109,7 +110,7 @@ public class PosStockOpname implements UpdateAvailable<PosStockOpname>, Persista
             result.setStockOpnameStatus(stockOpnameStatus);
             result.setRemark(remark);
             result.setEtalaseId(etalaseId);
-            result.setOpnameItemType(opnameItemType);
+            result.setOpnameType(opnameItemType);
             result.setCodeCounter(codeCounter);
             result.setMaterialTypeId(materialTypeId);
             return result;
@@ -130,13 +131,26 @@ public class PosStockOpname implements UpdateAvailable<PosStockOpname>, Persista
     private int stockOpnameStatus;
     private String remark;
     private Long etalaseId;
-    private int opnameItemType;
+    private Integer opnameItemType;
     private int codeCounter;
     private Long materialTypeId;
 
     @Transient
     @JsonIgnore
     private Long insertId;
+
+    public void setOpnameType(OpnameItemTypeEnum opnameType) {
+        if (opnameType != null) {
+            this.opnameItemType = opnameType.getCode();
+        }
+    }
+
+    public OpnameItemTypeEnum getOpnameType() {
+        if (opnameItemType != null) {
+            return OpnameItemTypeEnum.getOpnameType(this.opnameItemType);
+        }
+        return null;
+    }
     
     public static PosStockOpname  fromRow(Row row) {
         var result = new PosStockOpname();
@@ -152,7 +166,7 @@ public class PosStockOpname implements UpdateAvailable<PosStockOpname>, Persista
         result.setRemark(ManipulateUtil.parseRow(row, REMARK_COL, String.class));
         result.setEtalaseId(ManipulateUtil.parseRow(row, ETALASE_ID_COL, Long.class));
 
-        result.setOpnameItemType(ManipulateUtil.parseRow(row, OPNAME_ITEM_TYPE_COL, Integer.class));
+        result.setOpnameType(OpnameItemTypeEnum.getOpnameType(ManipulateUtil.parseRow(row, OPNAME_ITEM_TYPE_COL, Integer.class)));
         result.setCodeCounter(ManipulateUtil.parseRow(row, CODE_COUNTER_COL, Integer.class));
         result.setMaterialTypeId(ManipulateUtil.parseRow(row, MATERIAL_TYPE_ID_COL, Long.class));
         return result;
