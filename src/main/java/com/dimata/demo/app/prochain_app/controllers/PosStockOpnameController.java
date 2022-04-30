@@ -50,7 +50,7 @@ public class PosStockOpnameController {
         return posStockOpnameApi.updatePosStockOpname(STOCK_OPNAME_ID, form);
     }
     
-    @GetMapping(path = BASE_URL + "/pos_stock_opname/{LOCATION_ID}")
+    @GetMapping(path = BASE_URL + "/locationId/{LOCATION_ID}")
     public Flux<PosStockOpname> maintainerGetAllLocationId(@PathVariable("LOCATION_ID")Long LOCATION_ID) {
        
         return posStockOpnameApi.getAllLocation(LOCATION_ID);

@@ -57,6 +57,10 @@ public class PosPurchaseOrderController {
         return posPurchaseOrderApi.checkAvailableData(form)
             .flatMap(f -> posPurchaseOrderApi.getDataLocation(f.getId()));
     }
-
+    @GetMapping(path = BASE_URL + "/pos_purchase_locationId/{LOCATION_ID}")
+    public Flux<PosPurchaseOrder> maintainerGetAllLocationId(@PathVariable("LOCATION_ID")Long LOCATION_ID) {
+       
+        return posPurchaseOrderApi.getAllLocation(LOCATION_ID);
+    }
     
 }

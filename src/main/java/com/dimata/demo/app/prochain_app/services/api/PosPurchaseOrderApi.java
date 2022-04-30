@@ -92,5 +92,14 @@ public class PosPurchaseOrderApi {
     public Mono<Location> getDataLocation(Long id) {
         return locationApi.getDataByLocation(id);    
 }
-    
+public Flux<PosPurchaseOrder> getAllLocation(Long locationId) {
+    var sql = SelectQBuilder.emptyBuilder(PosPurchaseOrder.TABLE_NAME)
+        .addWhere(WhereQuery.when(PosPurchaseOrder.LOCATION_ID_COL).is(locationId))
+        .build();
+        System.out.println(sql);
+    return template.getDatabaseClient()
+        .sql(sql)
+        .map(PosPurchaseOrder::fromRow)
+        .all();
+}
 }
