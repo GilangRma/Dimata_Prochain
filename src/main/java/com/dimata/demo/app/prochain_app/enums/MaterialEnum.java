@@ -3,10 +3,10 @@ package com.dimata.demo.app.prochain_app.enums;
 import lombok.Getter;
 
 public enum MaterialEnum {
-    GENERAL(0),
-    EMAS(1),
-    BERLIAN(2),
-    EMASLANTAKAN(3);
+    GENERAL(-1),
+    EMAS(0),
+    BERLIAN(1),
+    EMASLANTAKAN(2);
 
     @Getter
     private final int code;

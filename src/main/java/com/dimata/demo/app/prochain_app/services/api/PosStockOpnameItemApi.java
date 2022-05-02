@@ -5,8 +5,10 @@ import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.core.search.JoinQuery;
 import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
+import com.dimata.demo.app.prochain_app.forms.MaterialAndstockForm;
 import com.dimata.demo.app.prochain_app.forms.PosStockOpnameItemForm;
 import com.dimata.demo.app.prochain_app.forms.relation.PosStockOpnameItemRelation;
+import com.dimata.demo.app.prochain_app.forms.relation.StockOpnameItemRelation;
 import com.dimata.demo.app.prochain_app.models.table.PosMaterial;
 import com.dimata.demo.app.prochain_app.models.table.PosStockOpnameItem;
 import com.dimata.demo.app.prochain_app.services.crude.PosStockOpnameItemCrude;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.stereotype.Service;
 
+import lombok.var;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -26,7 +29,8 @@ public class PosStockOpnameItemApi {
     private PosMaterialApi posMaterialApi;
     @Autowired
 	private R2dbcEntityTemplate template;
-
+    @Autowired
+    private PosStockOpnameApi posStockOpnameApi;
     public Mono<PosStockOpnameItem> createPosStockOpnameItem(PosStockOpnameItemForm form) {
         return Mono.just(form)
         .flatMap(f -> {
@@ -87,10 +91,45 @@ public Mono<PosStockOpnameItem> checkAvailableData(PosStockOpnameItemRelation fo
     .one()
     .switchIfEmpty(Mono.error(new DataNotFoundException("id material anda salah")));
 }
-public Mono<PosMaterial> getDataByMaterial(Long id) {
-    return posMaterialApi.getDataByMaterial(id);
-}
-
+    public Mono<PosMaterial> getDataByMaterial(Long id) {
+        return posMaterialApi.getDataByMaterial(id);
+    }
+//relation new
+    public Mono<StockOpnameItemRelation> createMaterialAndStock (MaterialAndstockForm form){
+        return Mono.just(form)
+        .flatMap(f -> {
+            var material = posMaterialApi.createPosMaterial(f.getMaterial())
+            .flatMap(d -> {
+                StockOpnameItemRelation data = new StockOpnameItemRelation();
+                data.setMaterial(d);
+                return Mono.just(data);
+            });
+            return Mono.zip(Mono.just(f), material);
+        })
+        .flatMap(z -> {
+            return posStockOpnameApi.createPosStockOpname(z.getT1().getOpname())
+                .flatMap(f -> {
+                    z.getT2().setStockOpname(f);
+                    return Mono.zip(Mono.just(z.getT1()), Mono.just(z.getT2()));
+                });
+            // var opname = posStockOpnameApi.createPosStockOpname(z.get)
+            // .map(z -> {
+            //     z.getT2().setOpname(f);
+            //     return z.getT2();
+            // });
+            // return Mono.zip(Mono.just(z.getT1()), opname);
+        })
+        .flatMap(z -> {
+            PosStockOpnameItemForm postData = new PosStockOpnameItemForm();
+            postData.setMaterialId(z.getT1().getMaterial().getId());
+            postData.setStockOpnameId(z.getT2().getStockOpname().getId());
+            return createPosStockOpnameItem(postData)
+            .flatMap(f ->{
+                z.getT2().setRelation(f);
+                return Mono.just(z.getT2());
+            });
+        });
+    }
 
 }
 

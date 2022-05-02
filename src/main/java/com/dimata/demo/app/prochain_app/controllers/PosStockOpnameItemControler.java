@@ -1,8 +1,10 @@
 package com.dimata.demo.app.prochain_app.controllers;
 
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
+import com.dimata.demo.app.prochain_app.forms.MaterialAndstockForm;
 import com.dimata.demo.app.prochain_app.forms.PosStockOpnameItemForm;
 import com.dimata.demo.app.prochain_app.forms.relation.PosStockOpnameItemRelation;
+import com.dimata.demo.app.prochain_app.forms.relation.StockOpnameItemRelation;
 import com.dimata.demo.app.prochain_app.models.table.PosMaterial;
 import com.dimata.demo.app.prochain_app.models.table.PosStockOpnameItem;
 import com.dimata.demo.app.prochain_app.services.api.PosStockOpnameItemApi;
@@ -51,5 +53,9 @@ public class PosStockOpnameItemControler {
     public Mono<PosMaterial> maintainerMaterialId(@RequestBody PosStockOpnameItemRelation form) {
         return posStockOpnameItemApi.checkAvailableData(form)
             .flatMap(f -> posStockOpnameItemApi.getDataByMaterial(f.getId()));
+    }
+    @PostMapping(path = BASE_URL + "/pos_relation_opname", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<StockOpnameItemRelation> maintainerPosRelation(@RequestBody MaterialAndstockForm form) {
+        return posStockOpnameItemApi.createMaterialAndStock(form);
     }
 }

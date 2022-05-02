@@ -63,12 +63,12 @@ public class PosMaterialStockCodeApi {
             .map(PosMaterialStockCode::fromRow)
             .all();
     }
-
+//relation
     public Mono<PosMaterialAndStockRelation> createMaterialAndStock (PosMaterialAndStockForm form) {
         return Mono.just(form)
             //TODO: Aktifkan jika sudah buat service untuk CRUD pada table Location
-            // .filterWhen(f -> locationApi.checkDataExist(f.getLocationId()))
-            // .switchIfEmpty(Mono.error(new FormatException("Id lokasi tidak ditemukan")))
+            .filterWhen(f -> locationApi.checkDataExist(f.getLocationId()))
+            .switchIfEmpty(Mono.error(new FormatException("Id lokasi tidak ditemukan")))
             .flatMap(f -> {
                 var material = posMaterialApi.createPosMaterial(f.getMaterial())
                     .flatMap(d -> {
@@ -102,7 +102,7 @@ public class PosMaterialStockCodeApi {
                     });
             });
     }
-
+//relation
     public Flux<PosMaterialAndStockRelation> getMaterialAndStockByLocation(Long locationId) {
         return Flux.just(locationId)
             .flatMap(f -> getAllPosMaterialStockCodeByLocation(f))
