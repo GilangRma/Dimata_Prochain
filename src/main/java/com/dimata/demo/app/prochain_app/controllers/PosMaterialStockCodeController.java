@@ -29,7 +29,7 @@ public class PosMaterialStockCodeController {
         return posMaterialStockCodeApi.createMaterialAndStock(form);
     }
 
-    @GetMapping(path = BASE_URL + "/pos_relation_material_stock/{locationId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = BASE_URL + "/pos_relation_material_stock/{locationId}")
     public Flux<PosMaterialAndStockRelation> maintainerGetPosRelation(@PathVariable("locationId") Long id) {
         return posMaterialStockCodeApi.getMaterialAndStockByLocation(id);
     }
