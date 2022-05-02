@@ -42,4 +42,9 @@ public class PosMaterialDbhandler extends DbHandlerBase <PosMaterial, Long>{
     protected R2dbcRepository<PosMaterial, Long> getRepository(){
         return repo;
     }
+
+    public Mono<Integer> checkIfDataIsAvailable(Long id) {
+        return Mono.just(id)
+            .flatMap(f -> repo.countById(f));
+    }
 }

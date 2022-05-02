@@ -62,7 +62,11 @@ public class LocationApi {
                 return Mono.just(option);
             })
             .flatMap(locationCrude::updateRecord);
-    }    
+    } 
+    
+    public Mono<Boolean> checkDataExist(Long id) {
+        return locationCrude.checkIfLocationAvailable(id);
+    }
     //relation
     public  Mono<Location> getDataByLocation(Long id) {
         var sql = SelectQBuilder.emptyBuilder(Location.TABLE_NAME)

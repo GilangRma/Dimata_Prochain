@@ -1,8 +1,8 @@
 package com.dimata.demo.app.prochain_app.services.dbHandler;
 
 import com.dimata.demo.app.prochain_app.core.api.DbHandlerBase;
-import com.dimata.demo.app.prochain_app.models.table.Location;
-import com.dimata.demo.app.prochain_app.services.repo.LocationRepo;
+import com.dimata.demo.app.prochain_app.models.table.PosMaterialStockCode;
+import com.dimata.demo.app.prochain_app.services.repo.PosMaterialStockCodeRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
@@ -14,18 +14,18 @@ import reactor.core.publisher.Mono;
 
 @Component
 @EqualsAndHashCode(callSuper = true)
-public class LocationDbHandler extends DbHandlerBase<Location, Long>{
-
+public class PosMaterialStockCodeDbHandler extends DbHandlerBase <PosMaterialStockCode, Long>{
     @Autowired
-    private LocationRepo repo;
+    private PosMaterialStockCodeRepo repo;
 
     @Override
-    protected R2dbcRepository<Location, Long> getRepository() {
+    protected R2dbcRepository<PosMaterialStockCode, Long> getRepository() {
+        // TODO Auto-generated method stub
         return repo;
     }
 
     @Override
-    protected Mono<Location> setGenerateId(Location record) {
+    protected Mono<PosMaterialStockCode> setGenerateId(PosMaterialStockCode record) {
         return Mono.just(record)
             .map(z -> {
                 long id = getGenerateUtil().generateOID();
@@ -35,17 +35,14 @@ public class LocationDbHandler extends DbHandlerBase<Location, Long>{
     }
 
     @Override
-    protected Flux<Location> setGenerateIdBatch(Flux<Location> records) {
+    protected Flux<PosMaterialStockCode> setGenerateIdBatch(Flux<PosMaterialStockCode> records) {
         return records
-            .map(rec -> {
-                long id = getGenerateUtil().generateOID();
-                rec.setInsertId(id);
-                return rec;
-            });
+        .map(rec -> {
+            long id = getGenerateUtil().generateOID();
+            rec.setInsertId(id);
+            return rec;
+        });
     }
-    
-    public Mono<Integer> checkIfDataExist(Long id) {
-        return Mono.just(id)
-            .flatMap(f -> repo.countById(f));
-    }
+
+
 }

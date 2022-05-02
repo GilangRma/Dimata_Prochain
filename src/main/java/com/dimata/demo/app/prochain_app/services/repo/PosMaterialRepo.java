@@ -8,4 +8,5 @@ import reactor.core.publisher.Mono;
 
 public interface PosMaterialRepo extends R2dbcRepository <PosMaterial, Long> {
     Mono<PosMaterial> findById(long id);
+    Mono<Integer> countById(long id);
 }

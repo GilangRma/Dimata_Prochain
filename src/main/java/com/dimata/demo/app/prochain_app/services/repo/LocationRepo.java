@@ -8,4 +8,5 @@ import reactor.core.publisher.Mono;
 
 public interface LocationRepo extends R2dbcRepository <Location, Long>{
     Mono<Location> findById(long id);
+    Mono<Integer> countById(long id);
 }

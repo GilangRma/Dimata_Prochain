@@ -1,34 +1,33 @@
 package com.dimata.demo.app.prochain_app.services.crude;
 
-import com.dimata.demo.app.prochain_app.models.table.Location;
-import com.dimata.demo.app.prochain_app.services.dbHandler.LocationDbHandler;
+import com.dimata.demo.app.prochain_app.models.table.PosMaterialStockCode;
+import com.dimata.demo.app.prochain_app.services.dbHandler.PosMaterialStockCodeDbHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import lombok.AccessLevel;
 
 @Component
-public class LocationCrude {
-
+public class PosMaterialStockCodeCrude {
     @Autowired
-    private LocationDbHandler locationDbHandler;
+    private PosMaterialStockCodeDbHandler posMaterialStockCodeDbHandler;
 
-    public static Option initOption(Location record) {
+    public static Option initOption(PosMaterialStockCode record) {
         return new Option(record);
     }
 
-    public Mono<Location> create(Option option) {
+    public Mono<PosMaterialStockCode > create(Option option) {
         return Mono.just(option)
             .flatMap(this::createRecord)
             .map(o -> o.getRecord());
     }
 
-    public Flux<Location> createInBatch(Flux<Option> option) {
+    public Flux<PosMaterialStockCode> createInBatch(Flux<Option> option) {
 		return option
 			.flatMap(this::create);
 	}
@@ -36,30 +35,23 @@ public class LocationCrude {
     private Mono<Option> createRecord(Option option) {
 		return Mono.just(option)
 			.flatMap(o -> {
-				Mono<Location> savedRecord = locationDbHandler.create(o.getRecord());
+				Mono<PosMaterialStockCode > savedRecord = posMaterialStockCodeDbHandler.create(o.getRecord());
 				
 				return Mono.zip(savedRecord, Mono.just(o))
 					.map(z -> z.getT2().setIdRecord(z.getT1().getId()));
 			});
 	}
 
-    public Mono<Boolean> checkIfLocationAvailable(Long id) {
-        return Mono.just(id)
-            .flatMap(z -> locationDbHandler.checkIfDataExist(z))
-            .map(c -> c > 0)
-            .switchIfEmpty(Mono.just(false));
-    }
-
-    public Mono<Location> updateRecord(Option option) {
-        return locationDbHandler.update(option.getRecord(), option.getRecord().getId());
+    public Mono<PosMaterialStockCode > updateRecord(Option option) {
+        return posMaterialStockCodeDbHandler.update(option.getRecord(), option.getRecord().getId());
     }
 
     @Data
     @Setter(AccessLevel.NONE)
     public static class Option {
-        private final Location record;
+        private final PosMaterialStockCode record;
         
-        public Option(Location record) {
+        public Option(PosMaterialStockCode record) {
             this.record = record;
         }
 
@@ -68,5 +60,4 @@ public class LocationCrude {
             return this;
         }
     }
-    
 }
