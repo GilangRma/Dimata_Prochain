@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
 import com.dimata.demo.app.prochain_app.core.util.jackson.TimeDeserialize;
+import com.dimata.demo.app.prochain_app.enums.ContactTypeEnum;
 import com.dimata.demo.app.prochain_app.enums.PaymentTypeEnum;
 import com.dimata.demo.app.prochain_app.models.table.ContactList;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -17,7 +18,7 @@ public class ContactListForm implements RecordAdapter<ContactList> {
 
         private Long id;
         private String contactCode;
-        private int contactType;
+        private ContactTypeEnum contactType;
         private String cin;
         private int cinCounter;
         private LocalDateTime regDate1;

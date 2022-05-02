@@ -9,6 +9,7 @@ import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
 import com.dimata.demo.app.prochain_app.core.util.jackson.TimeSerialize;
+import com.dimata.demo.app.prochain_app.enums.ContactTypeEnum;
 import com.dimata.demo.app.prochain_app.enums.PaymentTypeEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -139,7 +140,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
 
         private Long id;
         private String contactCode;
-        private int contactType;
+        private ContactTypeEnum contactType;
         private String cin;
         private int cinCounter;
         private LocalDateTime regDate1;
@@ -464,7 +465,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
     @Column(ID_COL)
     private Long id;
         private String contactCode;
-        private int contactType;
+        private Integer contactType;
         private String cin;
         private int cinCounter;
         private LocalDateTime regDate1;
@@ -567,6 +568,20 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
         @JsonIgnore
         private Long insertId;
 
+        public void setContactType(ContactTypeEnum contactType) {
+            if (contactType != null) {
+                this.contactType = contactType.getCode();
+            }
+        }
+    
+        public ContactTypeEnum getContactType() {
+            if (contactType != null) {
+                return ContactTypeEnum.getContactType(this.contactType);
+            }
+            return null;
+        }
+
+
         public void setPayment(PaymentTypeEnum termOfPayment) {
             if (termOfPayment != null) {
                 this.termOfPayment = termOfPayment.getCode();
@@ -585,7 +600,7 @@ public class ContactList implements UpdateAvailable<ContactList>, Persistable <L
             var result = new ContactList();
             result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
             result.setContactCode(ManipulateUtil.parseRow(row, CONTACT_CODE_COL, String.class));
-            result.setContactType(ManipulateUtil.parseRow(row, CONTACT_TYPE_COL, Integer.class));
+            result.setContactType(ContactTypeEnum.getContactType(ManipulateUtil.parseRow(row, CONTACT_TYPE_COL, Integer.class)));
             result.setCin(ManipulateUtil.parseRow(row, CIN_COL, String.class));
             result.setCinCounter(ManipulateUtil.parseRow(row, CIN_COUNTER_COL,Integer.class));
             result.setRegDate1(ManipulateUtil.parseRow(row, REG_DATE1_COL, LocalDateTime.class));
