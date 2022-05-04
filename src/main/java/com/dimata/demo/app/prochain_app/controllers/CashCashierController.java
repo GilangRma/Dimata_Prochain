@@ -42,14 +42,14 @@ public class CashCashierController {
     }
 
     @GetMapping(path = BASE_URL + "/cash_cashier/{CASH_CASHIER_ID}")
-    public Mono<CashCashier> maintainerGetCashCashier(@PathVariable("CASH_CASHIER_ID") Long CASH_CASHIER_ID) {
+    public Mono<CashCashier> maintainerGetCashCashier(@PathVariable("CASH_CASHIER_ID") Long cashCashierId) {
        
-        return cashCashierApi.getCashCashier(CASH_CASHIER_ID);
+        return cashCashierApi.getCashCashier(cashCashierId);
     }
 
     @PutMapping(path = BASE_URL + "/cash_cashier/{CASH_CASHIER_ID}")
-    public Mono<CashCashier> maintainerUpdateCashCashier(@PathVariable("CASH_CASHIER_ID") long CASH_CASHIER_ID, @RequestBody CashCashierForm form) {
-        return cashCashierApi.updateCashCashier(CASH_CASHIER_ID, form);
+    public Mono<CashCashier> maintainerUpdateCashCashier(@PathVariable("CASH_CASHIER_ID") long cashCashierId, @RequestBody CashCashierForm form) {
+        return cashCashierApi.updateCashCashier(cashCashierId, form);
     }
 
     @PostMapping(path = BASE_URL + "/cash_cashier/cash_master_id")

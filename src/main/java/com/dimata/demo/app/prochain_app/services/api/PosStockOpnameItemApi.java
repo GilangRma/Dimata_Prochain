@@ -131,6 +131,7 @@ public Mono<PosStockOpnameItem> checkAvailableData(PosStockOpnameItemRelation fo
         .flatMap(z -> {
             PosStockOpnameItemForm postData = new PosStockOpnameItemForm();
             postData.setMaterialId(z.getT1().getMaterial().getId());
+            postData.setLocationId(z.getT1().getLocationId());
             postData.setStockOpnameId(z.getT2().getStockOpname().getId());
             return createPosStockOpnameItem(postData)
             .flatMap(f ->{
@@ -143,7 +144,7 @@ public Mono<PosStockOpnameItem> checkAvailableData(PosStockOpnameItemRelation fo
     public Flux<PosStockOpnameItem> getAllPosStockOpnameItemByLocation(Long id) {
         var sql = SelectQBuilder.builder(PosStockOpnameItem.TABLE_NAME,id)
             .addColumn(CollumnQuery.add(PosStockOpnameItem.TABLE_NAME + ". " + "*"))
-            .addWhere(WhereQuery.when(PosStockOpname.LOCATION_ID).is(id))
+            .addWhere(WhereQuery.when(PosStockOpnameItem.LOCATION_ID).is(id))
             .build();
         return template.getDatabaseClient()
             .sql(sql)

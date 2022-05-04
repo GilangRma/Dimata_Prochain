@@ -8,4 +8,5 @@ import lombok.NoArgsConstructor;
 public class MaterialAndstockForm {
     private PosMaterialForm material;
     private PosStockOpnameForm opname;
+    private Long locationId;
 }
