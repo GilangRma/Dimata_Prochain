@@ -1,6 +1,8 @@
 package com.dimata.demo.app.prochain_app.services.api;
 
 import com.dimata.demo.app.prochain_app.core.exception.DataNotFoundException;
+import com.dimata.demo.app.prochain_app.core.exception.FormatException;
+import com.dimata.demo.app.prochain_app.core.search.CollumnQuery;
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.core.search.JoinQuery;
 import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
@@ -9,11 +11,14 @@ import com.dimata.demo.app.prochain_app.forms.MaterialAndstockForm;
 import com.dimata.demo.app.prochain_app.forms.PosStockOpnameItemForm;
 import com.dimata.demo.app.prochain_app.forms.relation.PosStockOpnameItemRelation;
 import com.dimata.demo.app.prochain_app.forms.relation.StockOpnameItemRelation;
+import com.dimata.demo.app.prochain_app.models.table.Location;
 import com.dimata.demo.app.prochain_app.models.table.PosMaterial;
+import com.dimata.demo.app.prochain_app.models.table.PosStockOpname;
 import com.dimata.demo.app.prochain_app.models.table.PosStockOpnameItem;
 import com.dimata.demo.app.prochain_app.services.crude.PosStockOpnameItemCrude;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.amqp.RabbitProperties.Template;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +32,8 @@ public class PosStockOpnameItemApi {
     private PosStockOpnameItemCrude posStockOpnameItemCrude;
     @Autowired
     private PosMaterialApi posMaterialApi;
+    @Autowired
+    private LocationApi locationApi;
     @Autowired
 	private R2dbcEntityTemplate template;
     @Autowired
@@ -97,6 +104,8 @@ public Mono<PosStockOpnameItem> checkAvailableData(PosStockOpnameItemRelation fo
 //relation new
     public Mono<StockOpnameItemRelation> createMaterialAndStock (MaterialAndstockForm form){
         return Mono.just(form)
+        .filterWhen(f -> locationApi.checkDataExist(f.getLocationId()))
+        .switchIfEmpty(Mono.error(new FormatException("Id lokasi tidak ditemukan")))
         .flatMap(f -> {
             var material = posMaterialApi.createPosMaterial(f.getMaterial())
             .flatMap(d -> {
@@ -129,6 +138,39 @@ public Mono<PosStockOpnameItem> checkAvailableData(PosStockOpnameItemRelation fo
                 return Mono.just(z.getT2());
             });
         });
+    }
+
+    public Flux<PosStockOpnameItem> getAllPosStockOpnameItemByLocation(Long id) {
+        var sql = SelectQBuilder.builder(PosStockOpnameItem.TABLE_NAME,id)
+            .addColumn(CollumnQuery.add(PosStockOpnameItem.TABLE_NAME + ". " + "*"))
+            .addWhere(WhereQuery.when(PosStockOpname.LOCATION_ID).is(id))
+            .build();
+        return template.getDatabaseClient()
+            .sql(sql)
+            .map(PosStockOpnameItem::fromRow)
+            .all();
+    }  
+
+    public Flux<StockOpnameItemRelation> getMaterialAndOpnameByLocation(Long locatioId) {
+        return Flux.just(locatioId)
+        .flatMap(this::getAllPosStockOpnameItemByLocation)
+        .flatMap(f -> {
+            System.out.println(f.toString());
+            StockOpnameItemRelation data = new StockOpnameItemRelation();
+            var material = posMaterialApi.getPosMaterial(f.getMaterialId());
+            var opnameType = posStockOpnameApi.getPosStockOpname(f.getStockOpnameId());
+            return Mono.zip(Mono.just(f), material, opnameType)
+                .map(z -> {
+                    data.setMaterial(z.getT2());
+                    data.setStockOpname(z.getT3());
+                    data.setRelation(z.getT1());
+                    return data;
+                });
+        });
+    }
+
+    public Mono<Location> getDataLocation(Long id) {
+        return locationApi.getDataByLocation(id);
     }
 
 }
