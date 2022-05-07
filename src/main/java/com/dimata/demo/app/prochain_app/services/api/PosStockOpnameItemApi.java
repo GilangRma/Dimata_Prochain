@@ -18,7 +18,6 @@ import com.dimata.demo.app.prochain_app.models.table.PosStockOpnameItem;
 import com.dimata.demo.app.prochain_app.services.crude.PosStockOpnameItemCrude;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.amqp.RabbitProperties.Template;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.stereotype.Service;
 
@@ -130,7 +129,7 @@ public Mono<PosStockOpnameItem> checkAvailableData(PosStockOpnameItemRelation fo
         })
         .flatMap(z -> {
             PosStockOpnameItemForm postData = new PosStockOpnameItemForm();
-            postData.setMaterialId(z.getT1().getMaterial().getId());
+            postData.setMaterialId(z.getT2().getMaterial().getId());
             // postData.setLocationId(z.getT1().getLocationId());
             postData.setStockOpnameId(z.getT2().getStockOpname().getId());
             return createPosStockOpnameItem(postData)
@@ -140,35 +139,17 @@ public Mono<PosStockOpnameItem> checkAvailableData(PosStockOpnameItemRelation fo
             });
         });
     }
-
-    public Flux<PosStockOpnameItem> getAllPosStockOpnameItemByLocation(Long id) {
+    
+    public Flux<PosStockOpnameItem> getAllPosStockOpnameItemByPosStockOpnameId(Long id) {
         var sql = SelectQBuilder.builder(PosStockOpnameItem.TABLE_NAME,id)
-            .addColumn(CollumnQuery.add(PosStockOpnameItem.TABLE_NAME + ". " + "*"))
-            // .addWhere(WhereQuery.when(PosStockOpnameItem.LOCATION_ID).is(id))
+            .addWhere(WhereQuery.when(PosStockOpnameItem.STOC_OPNAME_ID_COL).is(id))
             .build();
+            System.out.println(sql);
         return template.getDatabaseClient()
             .sql(sql)
             .map(PosStockOpnameItem::fromRow)
             .all();
-    }  
-
-    public Flux<StockOpnameItemRelation> getMaterialAndOpnameByLocation(Long locatioId) {
-        return Flux.just(locatioId)
-        .flatMap(this::getAllPosStockOpnameItemByLocation)
-        .flatMap(f -> {
-            System.out.println(f.toString());
-            StockOpnameItemRelation data = new StockOpnameItemRelation();
-            var material = posMaterialApi.getPosMaterial(f.getMaterialId());
-            var opnameType = posStockOpnameApi.getPosStockOpname(f.getStockOpnameId());
-            return Mono.zip(Mono.just(f), material, opnameType)
-                .map(z -> {
-                    data.setMaterial(z.getT2());
-                    data.setStockOpname(z.getT3());
-                    data.setRelation(z.getT1());
-                    return data;
-                });
-        });
-    }
+}
 
     public Mono<Location> getDataLocation(Long id) {
         return locationApi.getDataByLocation(id);

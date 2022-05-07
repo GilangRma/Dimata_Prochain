@@ -30,7 +30,7 @@ import lombok.experimental.Accessors;
 public class PosStockOpnameItem implements UpdateAvailable<PosStockOpnameItem>, Persistable<Long>{
     public static final String TABLE_NAME = "pos_stock_opname_item ";
     public static final String ID_COL = "STOCK_OPNAME_ITEM_ID";
-    public static final String STOC_OPNAME_ID_COL = "STOC_OPNAME_ID";
+    public static final String STOC_OPNAME_ID_COL = "STOCK_OPNAME_ID";
     public static final String MATERIAL_ID_COL = "MATERIAL_ID";
     public static final String UNIT_ID_COL ="UNIT_ID";
     public static final String QTY_OPNAME_COL = "QTY_OPNAME";

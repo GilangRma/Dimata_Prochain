@@ -2,8 +2,10 @@ package com.dimata.demo.app.prochain_app.controllers;
 
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.forms.PosStockOpnameForm;
+import com.dimata.demo.app.prochain_app.forms.relation.PosStockOpnameRelation;
 import com.dimata.demo.app.prochain_app.models.table.PosStockOpname;
 import com.dimata.demo.app.prochain_app.services.api.PosStockOpnameApi;
+import com.dimata.demo.app.prochain_app.services.api.PosStockOpnameItemApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,6 +26,8 @@ public class PosStockOpnameController {
 
     @Autowired
     private PosStockOpnameApi posStockOpnameApi;
+    @Autowired
+    private PosStockOpnameItemApi posStockOpnameItemApi;
 
     private static final String BASE_URL = "/maintainer/v1";
 
@@ -54,5 +58,21 @@ public class PosStockOpnameController {
     public Flux<PosStockOpname> maintainerGetAllLocationId(@PathVariable("LOCATION_ID")Long LOCATION_ID) {
        
         return posStockOpnameApi.getAllLocation(LOCATION_ID);
+    }
+
+    @GetMapping(path = BASE_URL + "/pos_relation_opname/{locationId}")
+    public Flux<PosStockOpnameRelation> maintainerGetPosRelation(@PathVariable("locationId") Long id) {
+        return posStockOpnameApi.getMaterialAndOpnameByLocation(id)
+            .flatMap(f -> {
+                return posStockOpnameItemApi.getAllPosStockOpnameItemByPosStockOpnameId(f.getId()).collectList()
+                    .flatMap(k -> {
+                        PosStockOpnameRelation relation = new PosStockOpnameRelation();
+                        relation.setOpname(f);
+                        if (k.isEmpty()) {
+                            relation.setItems(k);
+                        }
+                        return Mono.just(relation);
+                    });
+            });
     }
 }

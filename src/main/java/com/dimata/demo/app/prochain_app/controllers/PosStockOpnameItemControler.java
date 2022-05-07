@@ -59,8 +59,8 @@ public class PosStockOpnameItemControler {
         return posStockOpnameItemApi.createMaterialAndStock(form);
     }
 
-    @GetMapping(path = BASE_URL + "/pos_relation_opname/{locationId}")
-    public Flux<StockOpnameItemRelation> maintainerGetPosRelation(@PathVariable("locationId") Long id) {
-        return posStockOpnameItemApi.getMaterialAndOpnameByLocation(id);
-    }
+    // @GetMapping(path = BASE_URL + "/pos_relation_opname/{locationId}")
+    // public Flux<StockOpnameItemRelation> maintainerGetPosRelation(@PathVariable("locationId") Long id) {
+    //     return posStockOpnameItemApi.getMaterialAndOpnameByLocation(id);
+    // }
 }
