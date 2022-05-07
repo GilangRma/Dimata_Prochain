@@ -2,7 +2,7 @@ package com.dimata.demo.app.prochain_app.models.table;
 
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
 
-
+import java.util.Objects;
 
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
@@ -29,7 +29,7 @@ import lombok.experimental.Accessors;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PosStockOpnameItem implements UpdateAvailable<PosStockOpnameItem>, Persistable<Long>{
     public static final String TABLE_NAME = "pos_stock_opname_item ";
-    public static final String ID_COL = "STOCK_OPNAME_ITEM_ID";
+    public static final String ID_COL = "STOC_OPNAME_ITEM_ID";
     public static final String STOC_OPNAME_ID_COL = "STOCK_OPNAME_ID";
     public static final String MATERIAL_ID_COL = "MATERIAL_ID";
     public static final String UNIT_ID_COL ="UNIT_ID";
@@ -55,17 +55,24 @@ public class PosStockOpnameItem implements UpdateAvailable<PosStockOpnameItem>, 
         private double qtySystem;
         private double cost;
         private double price;
-        private String stockOpnameCounter;
+        private Integer stockOpnameCounter;
 
 
 
         @Setter(AccessLevel.PRIVATE)
         private boolean newRecord = false;
 
-        public static Builder createNewRecord() {
-            return new Builder().newRecord(true);
-                
-                
+        public static Builder createNewRecord(Long stockOpnameId, Long materialId, Long unitId, double qtyOpname,double  qtySold, double qtySystem, double cost , double price, Integer stockOpnameCounter ) {
+            return new Builder().newRecord(true)
+                .stockOpnameId(Objects.requireNonNull(stockOpnameId, "stockOpnameId diperlukan"))
+                .materialId(Objects.requireNonNull(materialId, "materialId diperlukan"))
+                .unitId(Objects.requireNonNull(unitId, "unitId diperlukan"))
+                .qtyOpname(Objects.requireNonNull(qtyOpname, "qtyOpname diperlukan"))
+                .qtySold(Objects.requireNonNull(qtySold, "qtySold diperlukan"))
+                .qtySystem(Objects.requireNonNull(qtySystem, "qtySystem diperlukan"))
+                .cost(Objects.requireNonNull(cost, "cost diperlukan"))
+                .price(Objects.requireNonNull(price, "price diperlukan"))
+                .stockOpnameCounter(Objects.requireNonNull(stockOpnameCounter, "stockOpnameCounter diperlukan"));
                 
         }
 
@@ -114,7 +121,7 @@ public class PosStockOpnameItem implements UpdateAvailable<PosStockOpnameItem>, 
     private double qtySystem;
     private double cost;
     private double price;
-    private String stockOpnameCounter;
+    private Integer stockOpnameCounter;
     @Transient
     @JsonIgnore
     private Long insertId;
@@ -132,7 +139,7 @@ public class PosStockOpnameItem implements UpdateAvailable<PosStockOpnameItem>, 
         result.setPrice(ManipulateUtil.parseRow(row, PRICE_COL, Double.class));
         result.setQtySold(ManipulateUtil.parseRow(row, QTY_SOLD_COL, Double.class));
         result.setQtySystem(ManipulateUtil.parseRow(row, QTY_SYSTEM_COL, Double.class));
-        result.setStockOpnameCounter(ManipulateUtil.parseRow(row, STOCK_OPNAME_COUNTER_COL, String.class));
+        result.setStockOpnameCounter(ManipulateUtil.parseRow(row, STOCK_OPNAME_COUNTER_COL, Integer.class));
         return result;
     }
 

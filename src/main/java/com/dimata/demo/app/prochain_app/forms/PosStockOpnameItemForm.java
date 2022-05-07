@@ -18,20 +18,11 @@ public class PosStockOpnameItemForm implements RecordAdapter<PosStockOpnameItem>
         private double qtySystem;
         private double cost;
         private double price;
-        private String stockOpnameCounter;
+        private Integer stockOpnameCounter;
 
         @Override
     public PosStockOpnameItem convertNewRecord() {
-        return PosStockOpnameItem.Builder.createNewRecord()
-        .stockOpnameId(stockOpnameId)
-        .materialId(materialId)
-        .unitId(unitId)
-        .qtyOpname(qtyOpname)
-        .qtySold(qtySold)
-        .qtySystem(qtySystem)
-        .cost(cost)
-        .price(price)
-        .stockOpnameCounter(stockOpnameCounter)
+        return PosStockOpnameItem.Builder.createNewRecord( stockOpnameId,  materialId,  unitId,  qtyOpname,  qtySold,  qtySystem,  cost ,  price,  stockOpnameCounter )
         .id(id)
         .build();
 

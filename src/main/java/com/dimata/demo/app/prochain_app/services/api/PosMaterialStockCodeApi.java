@@ -7,7 +7,6 @@ import com.dimata.demo.app.prochain_app.core.search.CollumnQuery;
 import com.dimata.demo.app.prochain_app.core.search.CommonParam;
 import com.dimata.demo.app.prochain_app.core.search.SelectQBuilder;
 import com.dimata.demo.app.prochain_app.core.search.WhereQuery;
-import com.dimata.demo.app.prochain_app.forms.MaterialStockParam;
 import com.dimata.demo.app.prochain_app.forms.PosMaterialAndStockForm;
 import com.dimata.demo.app.prochain_app.forms.PosMaterialStockCodeForm;
 import com.dimata.demo.app.prochain_app.forms.relation.PosMaterialAndStockRelation;
