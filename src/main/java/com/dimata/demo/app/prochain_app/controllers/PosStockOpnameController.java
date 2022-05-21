@@ -37,7 +37,7 @@ public class PosStockOpnameController {
         return posStockOpnameApi.createPosStockOpname(form);
     }
 
-    @GetMapping(path = BASE_URL + "/pos_stock_opname")
+    @GetMapping(path = BASE_URL + "/pos_stock_opname/list")
     public Flux<PosStockOpname> maintainerGetAllPosStockOpname(CommonParam param) {
        
         return posStockOpnameApi.getAllPosStockOpname(param);
