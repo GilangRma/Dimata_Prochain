@@ -4,9 +4,10 @@ import lombok.Getter;
 
 public enum OpnameItemTypeEnum {
 
-    EMAS(0),
-    BERLIAN(1),
-    EMAS_LANTAKAN(-1);
+    Final(0),
+    Posted(1),
+    Draft(2),
+    Closed(-1);
 
     @Getter
     private final int code;
@@ -14,11 +15,13 @@ public enum OpnameItemTypeEnum {
     public static OpnameItemTypeEnum getOpnameType(Integer code){
         switch (code) {
             case 0:
-                return EMAS;
+                return Final;
             case 1:
-                return BERLIAN;
+                return Posted;
+            case 2:
+                return Draft;
             default:
-                return EMAS_LANTAKAN;
+                return Closed;
         }
     }
 
@@ -27,19 +30,21 @@ public enum OpnameItemTypeEnum {
     }
 
     public String parseOpname(OpnameItemTypeEnum opnameType){
-        if (opnameType == OpnameItemTypeEnum.EMAS) {
-            return "EMAS";
+        if (opnameType == OpnameItemTypeEnum.Final) {
+            return "Final";
         }
-        return "BERLIAN";
+        return "Posted";
     }
 
     public String parseStatus(int code) {
-        if (getOpnameType(code) == OpnameItemTypeEnum.EMAS) {
-            return "EMAS";
-        } else if (getOpnameType(code) == OpnameItemTypeEnum.BERLIAN) {
-            return "BERLIAN";
+        if (getOpnameType(code) == OpnameItemTypeEnum.Final) {
+            return "Final";
+        } else if (getOpnameType(code) == OpnameItemTypeEnum.Posted) {
+            return "Posted";
+        } else if (getOpnameType(code)== OpnameItemTypeEnum.Draft) {
+            return "Draft";
         }
-        return "EMAS_LANTAKAN";
+        return "Closed";
     }
     
 }
