@@ -24,7 +24,7 @@ public class FormatUtil {
   }
 
   public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
-  public static final String FORMAT_OF_DATE = "dd-MM-yyyy";
+  public static final String FORMAT_OF_DATE = "dd/MM/yyyy";
   public static final String FORMAT_OF_DATE_FOR_SQL_QUERY = "yyyy-MM-dd";
   public static final String DATE_FORMAT_FOR_SQL_QUERY = "yyyy-MM-ddTHH:MM:ss";
   public static final String TIME_FORMAT = "HH:mm:ss";
