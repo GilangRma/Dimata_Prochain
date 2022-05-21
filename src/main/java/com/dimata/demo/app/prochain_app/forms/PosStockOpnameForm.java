@@ -1,8 +1,11 @@
 package com.dimata.demo.app.prochain_app.forms;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import com.dimata.demo.app.prochain_app.core.api.RecordAdapter;
+import com.dimata.demo.app.prochain_app.core.util.jackson.DateDeserialize;
+import com.dimata.demo.app.prochain_app.core.util.jackson.LocalTimeDeserialize;
 import com.dimata.demo.app.prochain_app.core.util.jackson.TimeDeserialize;
 import com.dimata.demo.app.prochain_app.enums.OpnameItemTypeEnum;
 import com.dimata.demo.app.prochain_app.models.table.PosStockOpname;
@@ -16,9 +19,10 @@ import lombok.NoArgsConstructor;
 public class PosStockOpnameForm implements RecordAdapter<PosStockOpname>{
 
     private Long id;
-    @JsonDeserialize(converter = TimeDeserialize.class)
-    private LocalDateTime stockOpnameDate;
-    private String stockOpnameTime;
+    @JsonDeserialize(converter = DateDeserialize.class)
+    private LocalDate stockOpnameDate;
+    @JsonDeserialize(converter = LocalTimeDeserialize.class)
+    private LocalTime stockOpnameTime;
     private String stockOpnameNumber;
     private Long locationId;
     private Long supplierId;

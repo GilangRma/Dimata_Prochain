@@ -3,6 +3,7 @@ package com.dimata.demo.app.prochain_app.core.util;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoUnit;
@@ -26,6 +27,7 @@ public class FormatUtil {
   public static final String FORMAT_OF_DATE = "dd-MM-yyyy";
   public static final String FORMAT_OF_DATE_FOR_SQL_QUERY = "yyyy-MM-dd";
   public static final String DATE_FORMAT_FOR_SQL_QUERY = "yyyy-MM-ddTHH:MM:ss";
+  public static final String TIME_FORMAT = "HH:mm:ss";
 
   public static LocalDateTime convertToLocalDate(String date, String dateFormat) {
     try {
@@ -45,6 +47,15 @@ public class FormatUtil {
     }
   }
 
+  public static LocalTime convertTimeToLocalTime(String time, String timeFormat) {
+    try {
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timeFormat).withResolverStyle(ResolverStyle.SMART);
+      return LocalTime.parse(time, formatter);
+    } catch (Exception e) {
+      throw new FormatException("Format waktu harus " + timeFormat + ". Contoh : 12:10:00");
+    }
+  }
+
   public static LocalDateTime convertToLocalDate(String date) {
     return convertToLocalDate(date, DATE_FORMAT);
   }
@@ -55,6 +66,10 @@ public class FormatUtil {
 
   public static String convertDateToString(LocalDate date) {
     return convertDateToString(date, FORMAT_OF_DATE);
+  }
+
+  public static String convertTimeToString(LocalTime time) {
+    return convertTimeToString(time, TIME_FORMAT);
   }
 
   public static String changeIDCountryCodeTo(String phoneNumber, String change) {
@@ -77,6 +92,15 @@ public class FormatUtil {
     }
     var formatter = DateTimeFormatter.ofPattern(format);
     return formatter.format(date);
+  }
+
+  public static String convertTimeToString(LocalTime time, String format) {
+    Objects.requireNonNull(time, "Time can't be null");
+    if (format == null || format.isBlank()) {
+      throw new IllegalArgumentException("format time can't be null or blank");
+    }
+    var formatter = DateTimeFormatter.ofPattern(format);
+    return formatter.format(time);
   }
 
   public static Date plusDateTime(Date startTime, long duration, ChronoUnit unit) {

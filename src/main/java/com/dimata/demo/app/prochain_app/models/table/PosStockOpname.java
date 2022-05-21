@@ -2,11 +2,14 @@ package com.dimata.demo.app.prochain_app.models.table;
 
 import static com.dimata.demo.app.prochain_app.core.util.ManipulateUtil.changeItOrNot;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import com.dimata.demo.app.prochain_app.core.api.UpdateAvailable;
 import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
+import com.dimata.demo.app.prochain_app.core.util.jackson.DateSerialize;
+import com.dimata.demo.app.prochain_app.core.util.jackson.LocalTimeSerialize;
 import com.dimata.demo.app.prochain_app.core.util.jackson.TimeSerialize;
 import com.dimata.demo.app.prochain_app.enums.OpnameItemTypeEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -53,8 +56,8 @@ public class PosStockOpname implements UpdateAvailable<PosStockOpname>, Persista
     public static class Builder {
 
         private Long id;
-        private LocalDateTime stockOpnameDate;
-        private String stockOpnameTime;
+        private LocalDate stockOpnameDate;
+        private LocalTime stockOpnameTime;
         private String stockOpnameNumber;
         private Long locationId;
         private Long supplierId;
@@ -120,9 +123,10 @@ public class PosStockOpname implements UpdateAvailable<PosStockOpname>, Persista
     @Id
     @Column(ID_COL)
     private Long id;
-    @JsonSerialize(converter = TimeSerialize.class)
-    private LocalDateTime stockOpnameDate;
-    private String stockOpnameTime;
+    @JsonSerialize(converter = DateSerialize.class)
+    private LocalDate stockOpnameDate;
+    @JsonSerialize(converter = LocalTimeSerialize.class)
+    private LocalTime stockOpnameTime;
     private String stockOpnameNumber;
     private Long locationId;
     private Long supplierId;
@@ -155,10 +159,10 @@ public class PosStockOpname implements UpdateAvailable<PosStockOpname>, Persista
     public static PosStockOpname  fromRow(Row row) {
         var result = new PosStockOpname();
         result.setId(ManipulateUtil.parseRow(row, ID_COL, Long.class));
-        result.setStockOpnameDate(ManipulateUtil.parseRow(row, STOCK_OPNAME_DATE_COL, LocalDateTime.class));
+        result.setStockOpnameDate(ManipulateUtil.parseRow(row, STOCK_OPNAME_DATE_COL, LocalDate.class));
         result.setStockOpnameNumber(ManipulateUtil.parseRow(row, STOCK_OPNAME_NUMBER_COL, String.class));
         result.setLocationId(ManipulateUtil.parseRow(row, LOCATION_ID_COL, Long.class));
-        result.setStockOpnameTime(ManipulateUtil.parseRow(row, STOCK_OPNAME_TIME_COL, String.class));
+        result.setStockOpnameTime(ManipulateUtil.parseRow(row, STOCK_OPNAME_TIME_COL, LocalTime.class));
         result.setSupplierId(ManipulateUtil.parseRow(row, SUPPLIER_ID_COL, Long.class));
         result.setCategoryId(ManipulateUtil.parseRow(row, CATEGORY_ID_COL, Long.class));
         result.setSubCategoryId(ManipulateUtil.parseRow(row, SUB_CATEGORY_ID_COL, Long.class));
