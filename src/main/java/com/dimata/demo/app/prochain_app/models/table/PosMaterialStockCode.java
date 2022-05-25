@@ -55,9 +55,9 @@ public class PosMaterialStockCode implements UpdateAvailable <PosMaterialStockCo
         public static Builder createNewRecord(Long materialId, Long locationId, Long stockCode, Integer stockStatus) {
             return new Builder().newRecord(true)
                 .materialId(Objects.requireNonNull(materialId, "materialId diperlukan"))
-                .locationId(Objects.requireNonNull(locationId, "materialId diperlukan"))
-                .stockCode(Objects.requireNonNull(stockCode, "materialId diperlukan"))
-                .stockStatus(Objects.requireNonNull(stockStatus, "materialId diperlukan"));
+                .locationId(Objects.requireNonNull(locationId, "locationId diperlukan"))
+                .stockCode(Objects.requireNonNull(stockCode, "stockCode diperlukan"))
+                .stockStatus(Objects.requireNonNull(stockStatus, "stockStatus diperlukan"));
         }
 
         public static Builder emptyBuilder() {

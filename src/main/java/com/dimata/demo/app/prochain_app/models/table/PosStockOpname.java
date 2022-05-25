@@ -10,7 +10,6 @@ import com.dimata.demo.app.prochain_app.core.util.GenerateUtil;
 import com.dimata.demo.app.prochain_app.core.util.ManipulateUtil;
 import com.dimata.demo.app.prochain_app.core.util.jackson.DateSerialize;
 import com.dimata.demo.app.prochain_app.core.util.jackson.LocalTimeSerialize;
-import com.dimata.demo.app.prochain_app.core.util.jackson.TimeSerialize;
 import com.dimata.demo.app.prochain_app.enums.OpnameItemTypeEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
